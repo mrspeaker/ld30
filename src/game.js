@@ -27,9 +27,15 @@
 
         },
 
-        load: function () {
+        reset: function () {
 
             this.setScreen(new MainScreen());
+
+        },
+
+        load: function () {
+
+            this.reset();
 
         }
 
