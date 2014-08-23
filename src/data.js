@@ -10,6 +10,13 @@
 			"test2"
 		],
 
+		physics: {
+			thrust: 0.1,
+			friction: 0.99,
+			rot_thrust: 0.1,
+			rot_friction: 0.97
+		},
+
 		debug: {
 			gimmePlanet: true
 		}

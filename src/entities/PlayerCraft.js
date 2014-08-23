@@ -8,12 +8,17 @@
 
         vr: 0,
         thrust: 0,
+        friction: data.physics.friction,
+
         vx: 0,
         vy: 0,
 
-        friction: 0.99,
-
         rotation: 0,
+        rthrust: 0,
+        rfriction: data.physics.rot_friction,
+
+        rvx: 0,
+        rvy: 0,
 
         crashed: false,
 
@@ -43,26 +48,31 @@
         
         tick: function (gravity) {
 
+            var phys = data.physics;
+
             if (Ω.input.isDown("left")) {
-                this.vr = -1;
+                this.rthrust = -phys.rot_thrust;
             }
             if (Ω.input.isDown("right")) {
-                this.vr = 1;
+                this.rthrust = phys.rot_thrust;
             }
             if (Ω.input.released("left") || Ω.input.released("right")) {
-                this.vr = 0;
+                this.rthrust = 0;
             }
 
             if (this.player.fuel > 0 && Ω.input.isDown("up")) {
-                this.thrust = 0.1;
+                this.thrust = phys.thrust;
             }
             if (Ω.input.isDown("down")) {
                 this.thrust = 0;
+                // TODO: braking!
             }
             if (Ω.input.released("up") || Ω.input.released("down")) {
                 this.thrust = 0;
             }
             
+            this.vr += this.rthrust;
+            this.vr *= phys.rot_friction;
             this.rotation += this.vr;
 
             var angle = (this.rotation - 90) * Math.PI / 180;
@@ -72,8 +82,9 @@
             this.vx += ax;
             this.vy += ay + gravity;
 
-            this.vx *= this.friction;
-            this.vy *= this.friction;
+            var friction = phys.friction;
+            this.vx *= friction;
+            this.vy *= friction;
 
             this.x += this.vx;
             this.y += this.vy;
