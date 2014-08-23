@@ -24,7 +24,7 @@
 		},
 
 		debug: {
-			gimmePlanet: true
+			gimmePlanet: false
 		}
 	};
 

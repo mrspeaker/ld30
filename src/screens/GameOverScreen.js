@@ -15,7 +15,7 @@
             		Ω.input.pressed("down") || 
             		Ω.input.pressed("left") || 
             		Ω.input.pressed("right")) {
-            			game.setScreen(new MainScreen());
+            			game.setScreen(new IntroScreen());
             	}
             }
         },
