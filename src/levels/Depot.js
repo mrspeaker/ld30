@@ -8,6 +8,9 @@
 			this.frame = 0;
 			this.id = id;
 			this.screen = screen;
+			this.player = screen.player;
+
+			screen.player.fuel = screen.player.fuel_max;
 		},
 		tick: function () {
 			if (this.frame++ > 150) {

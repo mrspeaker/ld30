@@ -20,6 +20,7 @@
         init: function (x, y, screen) {
             this._super(x, y);
             this.screen = screen;
+            this.player = screen.player;
 
             this.points_init = [
                 [0, 0],
@@ -50,7 +51,7 @@
                 this.vr = 0;
             }
 
-            if (Ω.input.isDown("up")) {
+            if (this.player.fuel > 0 && Ω.input.isDown("up")) {
                 this.thrust = 0.1;
             }
             if (Ω.input.isDown("down")) {
