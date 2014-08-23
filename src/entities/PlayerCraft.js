@@ -11,6 +11,8 @@
         vx: 0,
         vy: 0,
 
+        friction: 0.99,
+
         rotation: 0,
 
         crashed: false,
@@ -27,6 +29,13 @@
             ];
             this.rotation_point = [this.w * 0.5, this.h * 0.5]; // center
             this.points = [];
+        },
+
+        halt: function () {
+            this.vx = 0;
+            this.vy = 0;
+            this.thrust = 0;
+            this.vr = 0;
         },
         
         tick: function (gravity) {
@@ -51,7 +60,6 @@
                 this.thrust = 0;
             }
             
-
             this.rotation += this.vr;
 
             var angle = (this.rotation - 90) * Math.PI / 180;
@@ -60,6 +68,9 @@
 
             this.vx += ax;
             this.vy += ay + gravity;
+
+            this.vx *= this.friction;
+            this.vy *= this.friction;
 
             this.x += this.vx;
             this.y += this.vy;

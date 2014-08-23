@@ -33,6 +33,7 @@
                 break;
             case "fly":
                 this.level = this.levels.asteroids;
+                this.level.depart();
                 break;
             case "depot":
                 this.level = new Levels.Depot(id, this)

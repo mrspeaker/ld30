@@ -14,14 +14,10 @@
 		},
 		tick: function () {
 
-			if (Math.random() < 0.001) {
-				this.screen.goto("fly", 1);
-				return;
-			}
 			this.scale += Math.sin(Date.now() / 1000) * 0.003;
 	
 			if (this.player_craft.crashed) {
-                game.reset();
+                this.screen.goto("fly");
                 return;
             }
 
@@ -42,7 +38,6 @@
 			);
 
 			c.fillStyle = "#800";
-
 			c.fillRect(Ω.env.w / 2 - 100, Ω.env.h - 100, 200, 10);
 
 			c.beginPath();
