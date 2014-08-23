@@ -29,7 +29,7 @@
 
         reset: function () {
 
-            this.setScreen(new MainScreen());
+            this.setScreen(new IntroScreen());
 
         },
 

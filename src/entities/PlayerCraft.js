@@ -174,12 +174,14 @@
             c.restore();
 
             //Show bounding box - useful to see how the rotated hitpoints work.
+            /*
             c.fillStyle = "rgba(255, 255, 255, 1)";
             this.points.forEach(function (p) {
                 c.fillRect(p[0], p[1], 1, 1);
             });
             c.fillStyle = "#fff";
             c.fillRect(this.rotation_point[0] + this.x - 1, this.rotation_point[1] + this.y -1, 3, 3);
+            */
 
         }
 

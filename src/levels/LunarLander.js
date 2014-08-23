@@ -76,6 +76,9 @@
 				if (this.state.first()) {
 					this.player_craft.halt();
 					this.player_craft.rotation = 0;
+					// TODO: "judge" landing
+					this.player.guber_rank += Math.random() * 10 | 0;
+					this.player.cash += (Math.random() * 3000 | 0) + 900;
 				}
 				if (this.state.count > 100) {
 					this.screen.goto("fly");
@@ -84,9 +87,15 @@
 			case "CRASHED":
 				if (this.state.first()) {
 					this.player_craft.crashed = true;
+					this.player.guber_rank = Math.max(0, this.player.guber_rank - 20);
+					this.player.cash -= 10000;
 				}
 				if (this.state.count > 100) {
 					this.screen.goto("fly");
+					if (this.player.cash < 0) {
+						this.player.cash = 0;
+						game.setScreen(new GameOverScreen());
+					}
 				}
 				break;
 			}
@@ -197,7 +206,10 @@
 
 			c.restore();
 
+			gfx.ctx.font = "12pt monospace";			
 			this.renderHUD(gfx);
+			gfx.ctx.font = "16pt monospace";
+			
 		},
 
 		renderHUD: function (gfx) {
@@ -206,24 +218,28 @@
 				player = this.player_craft;
 
 			c.fillStyle = "#fff";
-			c.fillText("FUEL: " + (this.player.fuel | 0), 30, 30);
-			c.fillText("VEL:" + (player.vtotal * 80).toFixed(1), 30, 50);
-
+			c.fillText("GüBER RANK : " + this.player.guber_rank, 20, 30);
+			c.fillText("CASH FUNDS : " + "¥" + this.player.cash, 20, 50);
+			
 			if (this.state.isIn("BORN", "INTRO")) {
 				c.fillText("READY", gfx.w / 2 - 40, gfx. h / 2 - 100)
 			}
 
-			if (this.stats && this.state.is("FALLING")) {
+			if (this.stats && this.state.isIn("FALLING", "LANDED")) {
+				c.fillText("FUEL       : " + (this.player.fuel | 0), 20, 70);
+				c.fillText("VELOCITY   : " + (player.vtotal * 80).toFixed(1), 20, 90);
+				c.fillText("ROTATION   : " + (player.rotation).toFixed(1), 20, 110);
+
 				var vel = ((this.stats.vel || Ω.utils.toggle(100, 2)) ? "70%, 30%" : "90%, 50%"),
 					rot = ((this.stats.rot || Ω.utils.toggle(100, 2)) ? "70%, 30%" : "90%, 50%");
 				c.fillStyle = "hsl(0, " + vel + ")";
 				c.beginPath();
-				c.arc(30, 100, 10, 0, Math.PI * 2, false);
+				c.arc(130, 84, 7, 0, Math.PI * 2, false);
 				c.fill();
 
 				c.fillStyle = "hsl(120, " + rot + ")";
 				c.beginPath();
-				c.arc(30, 140, 10, 0, Math.PI * 2, false);
+				c.arc(130, 104, 7, 0, Math.PI * 2, false);
 				c.fill();
 			}
 

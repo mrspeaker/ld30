@@ -23,6 +23,8 @@ Here we goes again!
 
 - If you're broke, game over.
 
+- Güber rank will rank you in the universe. Start "unranked"... build up - easier to get better, more dangerous fares with good rank.
+
 ## Style
 
 Dystopian future: Connected Worlds, in a disconnected era.
@@ -38,16 +40,18 @@ Go wacky on this one: rainbow thrusters, sparkly particles, wacky song?
 
 * Fly around [DONE]
 	* breaking
-	* smooth turning
+	* smooth turning [DONE]
 * Generate levels
-* Minimap
+	* No overlaps
+* Minimap [DONE]
 * Generate fares
 	* From easy to difficult
 * Fare display / selecting
 	* Abort fare
 	* Point arrow to target
-* Detect approach to planet
-	* Make sure not going too fast
+* Detect approach to planet [DONE]
+	* Make sure not going too fast [DONE]
+	* Ensure nice take off pos
 * Bad guys
 * Bad guy firing
 * You firing
@@ -55,18 +59,19 @@ Go wacky on this one: rainbow thrusters, sparkly particles, wacky song?
 
 ### Lunar Lander Areas
 
-* Get ready screen
-* Rotational acceleration
+* Get ready screen [DONE]
+* Rotational acceleration [DONE]
 * Landing physics [DONE]
 * Crashing [DONE]
 * Generating/drawing landscape [DONE]
 	* +- cash rewards for harder landing areas
 	* Add layers to canvas drawer
-* Generating pads
+* Generating pads [DONE]
 * Level design
-* Detecting successful landing
+* Detecting successful landing [DONE]
 * Fare leaving animation
 * Flying pickups?
+* "Judge" landing - give uber points
 
 ### Depot Area
 

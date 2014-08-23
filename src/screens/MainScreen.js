@@ -4,7 +4,6 @@
 
     var MainScreen = Ω.Screen.extend({
 
-        isGravity: true,
         level: null,
 
         init: function () {
@@ -20,9 +19,6 @@
 
         tick: function () {
 
-            if (Ω.input.pressed("space")) {
-                this.isGravity = !this.isGravity;
-            }
             this.level.tick();
         },
 

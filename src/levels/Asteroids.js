@@ -56,7 +56,7 @@
 				this.state.set("READY");
 				break;
 			case "INTRO":
-				if (this.state.count > 100) {
+				if (this.state.count > 150) {
 					this.doneIntro = true;
 					this.state.set("READY");
 				}
@@ -140,12 +140,15 @@
 			var c = gfx.ctx;
 
 			this.renderWorld(gfx);
+
+			gfx.ctx.font = "12pt monospace";
 			this.renderHUD(gfx);
 
+			gfx.ctx.font = "16pt monospace";
 			if (this.state.is("INTRO")) {
 				c.fillStyle = "#fff";
 
-				c.fillText("Do your job, ConWorld cabbie", 50, 300);
+				c.fillText("Arrow keys == move. Fly close to planets to land.", 90, gfx.h / 2);
 			}
 			if (this.state.is("APPROACHING")) {
 				c.fillStyle = "#fff";
@@ -219,8 +222,11 @@
 				player = this.player_craft;
 
 			c.fillStyle = "#fff";
-			c.fillText("FUEL: " + (this.player.fuel | 0), 30, 30);
-			c.fillText("VEL:" + (player.vtotal * 80).toFixed(1), 30, 50);
+			c.fillText("GüBER RANK : " + this.player.guber_rank, 20, 30);
+			c.fillText("CASH FUNDS : " + "¥" + this.player.cash, 20, 50);
+			c.fillText("FUEL       : " + (this.player.fuel | 0), 20, 70);
+			//c.fillText("VEL        : " + (player.vtotal * 80).toFixed(1), 20, 70);
+			c.fillText("DAMAGE     : " + (this.player.damage | 0) + "%", 20, 90);
 
 			var mmw = 200,
 				mmh = 160,
@@ -229,7 +235,7 @@
 				mmxr = 0.09,
 				mmyr = 0.09;
 
-			c.fillStyle = "rgba(63, 63, 63, 0.7)";
+			c.fillStyle = "rgba(63, 63, 63, 0.3)";
 			c.fillRect(mmx, mmy, mmw, mmh);
 
 			c.fillStyle = "#fff";
