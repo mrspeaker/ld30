@@ -69,6 +69,17 @@
 			case "FLYING":
 				this.tick_flying();
 				break;
+			case "APPROACHING":
+				if (this.state.count > 50) {
+					var planet = this.state.data;
+					this.state.set("FLYING");
+					this.screen.goto(planet.isDepot ? "depot" : "land", planet);
+				}
+				// Slow it down;
+				this.player.vx *= 0.96;
+				this.player.vy *= 0.96;
+				this.player_craft.tick(0);
+				break;
 			case "CRASHED":
 				if (this.state.count > 100) {
 					game.reset();
@@ -87,8 +98,9 @@
 					this.state.set("CRASHED");
 					return;
 				}
-				if (dist < 50 + p.size && Math.abs(player.vx) < 2 && Math.abs(player.vy) < 2) {
-					this.screen.goto(p.isDepot ? "depot" : "land", p);
+				// If close, and not going too fast... LAND!
+				if (dist < 50 + p.size && player.vtotal < 2) {
+					this.state.set("APPROACHING", p);
 					return;
 				}	
 			}
@@ -112,8 +124,8 @@
 			player.halt();
 			player.rotation += 180;
 			var angle = (player.rotation - 90) * Math.PI / 180;
-            player.x += Math.cos(angle) * 50;
-            player.y += Math.sin(angle) * 50;
+            player.x += Math.cos(angle) * 80;
+            player.y += Math.sin(angle) * 80;
 		},
 
 		render: function (gfx) {
@@ -126,6 +138,12 @@
 				c.fillStyle = "#fff";
 
 				c.fillText("Do your job, ConWorld cabbie", 50, 300);
+			}
+			if (this.state.is("APPROACHING")) {
+				c.fillStyle = "#fff";
+
+				c.fillText("Landing on planet" + this.state.data.id, gfx.w / 2 - 100, 200);
+
 			}
 		},
 
