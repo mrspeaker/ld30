@@ -23,7 +23,6 @@ Here we goes again!
 
 - If you're broke, game over.
 
-
 ## Style
 
 Dystopian future: Connected Worlds, in a disconnected era.
@@ -44,13 +43,14 @@ You are Han-Solo type character, just trying to make a buck.
 	* From easy to difficult
 * Fare display / selecting
 	* Abort fare
+	* Point arrow to target
 * Detect approach to planet
 * Detect approach to depot
 
 * Bad guys
 * Bad guy firing
 * You firing
-* Sheileds
+* Shields
 
 ### Lunar Lander Areas
 
@@ -58,7 +58,10 @@ You are Han-Solo type character, just trying to make a buck.
 * Crashing
 * Landing on pad
 * Generating/drawing landscape
+	* +- cash rewards for harder landing areas
+	* Add layers to canvas drawer
 * Detecting successful landing
+* Fare leaving animation
 
 ### Depot Area
 

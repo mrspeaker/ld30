@@ -5,7 +5,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="viewport" content="user-scalable=0, initial-scale=1.0" />
 
-		<title>Ω500 Game</title>
+		<title>Connected World Cabs</title>
 		<link rel="stylesheet" href="res/main.css">
 	</head>
 	<body>
@@ -51,9 +51,17 @@
 		<!-- Game files -->
         <script src="src/game.js"></script>
         <script src="src/entities/Player.js"></script>
+        <script src="src/entities/PlayerCraft.js"></script>
+        <script src="src/screens/IntroScreen.js"></script>
+        <script src="src/screens/GameOverScreen.js"></script>
+        <script src="src/levels/Asteroids.js"></script>
+        <script src="src/levels/Depot.js"></script>
+        <script src="src/levels/LunarLander.js"></script>
         <script src="src/screens/MainScreen.js"></script>
+        <script src="src/screens/PauseDialog.js"></script>
+        <script src="src/screens/DepotDialog.js"></script>
         <script>
-            var game = new OmegaGame(640, 480);
+            var game = new ConnectedWorldsGame(800, 500);
         </script>
 	</body>
 </html>
