@@ -62,6 +62,7 @@ You are Han-Solo type character, just trying to make a buck.
 	* Add layers to canvas drawer
 * Detecting successful landing
 * Fare leaving animation
+* Flying pickups?
 
 ### Depot Area
 

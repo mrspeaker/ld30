@@ -25,6 +25,10 @@
 					i > 8);
 				this.planets.push(p);
 			}
+			if (data.debug.gimmePlanet) {
+				this.planets[1].x = this.player_craft.x;
+				this.planets[1].y = this.player_craft.y - 200;
+			}
 
 			this.stars = [];
 			for (i = 0; i < this.numstars; i++) {
@@ -83,9 +87,8 @@
 			    -player.y + ((gfx.h / 2) / scale)
 			);
 
-			c.fillStyle = "#800";
-
-			c.fillRect(Ω.env.w / 2 - 100, Ω.env.h - 100, 200, 10);
+			c.fillStyle = data.collision;
+			c.fillRect(Ω.env.w / 2 - 100, Ω.env.h - 100, 150, 40);
 
 			c.fillStyle = "#999";
 			this.stars.forEach(function (s) {

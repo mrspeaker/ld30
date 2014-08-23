@@ -101,7 +101,7 @@
                             ((p[1] - self.y) * scale) + (gfx.h / 2), 
                             1, 
                             1);
-                    if (imgd.data[0] === 136) {
+                    if (imgd.data[0] === data.collisionRed) {
                         self.crashed = true;
                     }
                 });

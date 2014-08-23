@@ -3,10 +3,16 @@
 
 	var data = {
 		collision: "#800",
+		collisionRed: 136,
+		
 		surfaces: [
-			"a",
-			"b"
-		]
+			"test",
+			"test2"
+		],
+
+		debug: {
+			gimmePlanet: false
+		}
 	};
 
 	window.data = data;

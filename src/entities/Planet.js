@@ -11,7 +11,7 @@
 			this.id = id;
 			this.visits = 0;
 			this.isDepot = isDepot || false;
-			this.surface = Surfaces[data.surfaces[id % data.surfaces.length]];
+			this.surface = data.surfaces[id % data.surfaces.length];
 
 			this.col = "hsl(" + Ω.utils.rand(360) + ", 40%, 50%)";
 		},
