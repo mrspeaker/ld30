@@ -60,8 +60,8 @@
                  "type":"ground",
                  "visible":true,
                  "width":0,
-                 "x":128,
-                 "y":288
+                 "x":64,
+                 "y":224
                 }, 
                 {
                  "height":0,
@@ -119,8 +119,8 @@
                  "type":"ground",
                  "visible":true,
                  "width":0,
-                 "x":800,
-                 "y":576
+                 "x":480,
+                 "y":608
                 }, 
                 {
                  "height":0,
@@ -128,11 +128,11 @@
                  "polyline":[
                         {
                          "x":0,
-                         "y":0
+                         "y":64
                         }, 
                         {
-                         "x":32,
-                         "y":-32
+                         "x":-64,
+                         "y":-64
                         }, 
                         {
                          "x":64,
@@ -175,16 +175,16 @@
                          "y":96
                         }, 
                         {
-                         "x":-128,
+                         "x":-192,
+                         "y":32
+                        }, 
+                        {
+                         "x":-64,
                          "y":32
                         }, 
                         {
                          "x":0,
-                         "y":32
-                        }, 
-                        {
-                         "x":0,
-                         "y":0
+                         "y":64
                         }],
                  "properties":
                     {
@@ -194,7 +194,7 @@
                  "type":"ground",
                  "visible":true,
                  "width":0,
-                 "x":640,
+                 "x":704,
                  "y":160
                 }, 
                 {
@@ -334,6 +334,60 @@
          "type":"objectgroup",
          "visible":true,
          "width":30,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "height":24,
+         "name":"pads",
+         "objects":[
+                {
+                 "height":32,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "rotation":0,
+                 "type":"pad",
+                 "visible":true,
+                 "width":128,
+                 "x":512,
+                 "y":160
+                }, 
+                {
+                 "height":32,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "rotation":0,
+                 "type":"pad",
+                 "visible":true,
+                 "width":128,
+                 "x":832,
+                 "y":448
+                }, 
+                {
+                 "height":32,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "rotation":0,
+                 "type":"pad",
+                 "visible":true,
+                 "width":64,
+                 "x":64,
+                 "y":192
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "width":80,
          "x":0,
          "y":0
         }],

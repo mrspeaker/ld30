@@ -2,7 +2,7 @@
 
     "use strict";
 
-    var ConnectedWorldsGame = Ω.Game.extend({
+    var ConWorldsCabGame = Ω.Game.extend({
 
         canvas: "#board",
 
@@ -41,6 +41,6 @@
 
     });
 
-    window.ConnectedWorldsGame = ConnectedWorldsGame;
+    window.ConWorldsCabGame = ConWorldsCabGame;
 
 }(Ω));

@@ -336,6 +336,88 @@
          "width":30,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "height":24,
+         "name":"pads",
+         "objects":[
+                {
+                 "height":32,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "rotation":0,
+                 "type":"pad",
+                 "visible":true,
+                 "width":128,
+                 "x":512,
+                 "y":160
+                }, 
+                {
+                 "height":32,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "rotation":0,
+                 "type":"pad",
+                 "visible":true,
+                 "width":128,
+                 "x":1152,
+                 "y":416
+                }, 
+                {
+                 "height":32,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "rotation":0,
+                 "type":"pad",
+                 "visible":true,
+                 "width":64,
+                 "x":128,
+                 "y":256
+                }, 
+                {
+                 "height":32,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "rotation":0,
+                 "type":"pad",
+                 "visible":true,
+                 "width":64,
+                 "x":768,
+                 "y":192
+                }, 
+                {
+                 "height":0,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":128,
+                 "y":832
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "width":80,
+         "x":0,
+         "y":0
         }],
  "orientation":"orthogonal",
  "properties":

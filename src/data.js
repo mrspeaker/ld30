@@ -2,8 +2,8 @@
 	"use strict";
 
 	var data = {
-		collision: "#800",
-		collisionRed: 136,
+		collision: "rgb(126, 75, 15)",
+		collisionRgb: [126, 75, 15],
 		
 		surfaces: [
 			"test",
@@ -11,7 +11,7 @@
 		],
 
 		debug: {
-			gimmePlanet: false
+			gimmePlanet: true
 		}
 	};
 

@@ -36,7 +36,8 @@
 		parse: function (level) {
 
 			this.surface = level.layer("surface").type("ground");
-
+			this.pads = level.layer("pads").type("pad");
+			console.log(this.pads);
 		},
 
 		tick: function () {
@@ -92,6 +93,11 @@
 				c.fill();
 			});
 
+			c.fillStyle = "hsl(200, 70%, 60%)";
+			this.pads.forEach(function (pad) {
+				c.fillRect(pad.x, pad.y - 5, pad.width, 5);
+			});
+
 			player.checkGroundCol(gfx);
 			player.render(gfx);
 
@@ -109,6 +115,8 @@
 			c.fillText(
 				(this.player_craft.x | 0) + ":" + 
 				(this.player_craft.y | 0), 30, 60);
+
+			c.fillText("p:" + this.player_craft.pixels[2].slice(0, 3).join("-"), 30, 90);
 
 		}
 	});

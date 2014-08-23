@@ -17,6 +17,8 @@
 
         crashed: false,
 
+        brpoint: null,
+
         init: function (x, y, screen) {
             this._super(x, y);
             this.screen = screen;
@@ -96,16 +98,18 @@
                 self = this,
                 scale = this.screen.scale,
                 pixels = this.points.map(function (p) {
-                    var imgd = ctx.getImageData(
+                    var colRgb = data.collisionRgb,
+                        pix = ctx.getImageData(
                             ((p[0] - self.x) * scale) + (gfx.w / 2), 
                             ((p[1] - self.y) * scale) + (gfx.h / 2), 
                             1, 
-                            1);
-                    if (imgd.data[0] === data.collisionRed) {
+                            1).data;
+                    if (pix[0] === colRgb[0] && pix[1] === colRgb[1] && pix[2] === colRgb[2]) {
                         self.crashed = true;
                     }
+                    return [pix[0], pix[1], pix[2], pix[3]]
                 });
-
+            this.pixels = pixels;
         },
 
         render: function (gfx) {

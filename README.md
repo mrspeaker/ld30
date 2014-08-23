@@ -29,12 +29,14 @@ Dystopian future: Connected Worlds, in a disconnected era.
 
 You are Han-Solo type character, just trying to make a buck. 
 
+Go wacky on this one: rainbow thrusters, sparkly particles, wacky song?
+
 
 ## TODOs
 
 ### Asteroids Area
 
-* Fly around
+* Fly around [DONE]
 	* breaking
 	* smooth turning
 * Generate levels
@@ -46,7 +48,6 @@ You are Han-Solo type character, just trying to make a buck.
 	* Point arrow to target
 * Detect approach to planet
 	* Make sure not going too fast
-
 * Bad guys
 * Bad guy firing
 * You firing
@@ -54,12 +55,14 @@ You are Han-Solo type character, just trying to make a buck.
 
 ### Lunar Lander Areas
 
-* Landing physics
-* Crashing
-* Landing on pad
-* Generating/drawing landscape
+* Rotational acceleration
+* Landing physics [DONE]
+* Crashing [DONE]
+* Generating/drawing landscape [DONE]
 	* +- cash rewards for harder landing areas
 	* Add layers to canvas drawer
+* Generating pads
+* Level design
 * Detecting successful landing
 * Fare leaving animation
 * Flying pickups?
@@ -74,10 +77,10 @@ You are Han-Solo type character, just trying to make a buck.
 * Intro screen
 * Pause screen
 * Area screens
-	* Asteroids
+	* Asteroids [DONE]
 		* Popup depot screen: give instructions
-	* Lunar Lander
-	* Depot
+	* Lunar Lander [DONE]
+	* Depot [DONE]
 * Game over screen
 
 ### Tunes
