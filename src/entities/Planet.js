@@ -21,7 +21,6 @@
 
 		},
 		render: function (gfx) {
-
 			var c = gfx.ctx;
 
 			c.fillStyle = this.col;
@@ -30,7 +29,8 @@
 			c.fill();
 			c.fillStyle = this.darker;
 			c.beginPath();
-			c.arc(this.x + 3, this.y + 3, this.size - 5, 0, Math.PI * 2, false);
+			var off = this.size * 0.1 | 0;
+			c.arc(this.x + off, this.y + off, this.size - (off * 2), 0, Math.PI * 2, false);
 			c.fill();
 
 

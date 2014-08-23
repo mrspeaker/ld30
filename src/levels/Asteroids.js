@@ -248,14 +248,18 @@
 					return;
 				}
 
-				if (p.isDepot && Ω.utils.toggle(300, 2)) {
-					return;
+				if (p.isDepot) {
+					c.beginPath()
+					c.arc(dx + mmx + mmw / 2 + 3, dy + mmy + mmh / 2 + 3, 4, 0, Math.PI * 2, false)
+					c.strokeStyle = p.col;
+					c.stroke();
+				} else {
+					c.fillStyle = p.col;
+					c.fillRect(
+						dx + mmx + mmw / 2, 
+						dy + mmy + mmh / 2, 
+						5, 5);
 				}
-				c.fillStyle = p.col;
-				c.fillRect(
-					dx + mmx + mmw / 2, 
-					dy + mmy + mmh / 2, 
-					5, 5);
 			});
 
 

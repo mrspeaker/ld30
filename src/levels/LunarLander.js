@@ -9,6 +9,7 @@
 		loaded: false,
 
 		state: null,
+		landed_y: null,
 
 		init: function (planet, screen) {
 
@@ -70,6 +71,9 @@
 				}
 				break;
 			case "FALLING":
+				if (this.landed_y && this.landed_y !== this.player_craft.y) {
+					this.landed_y = null;
+				}
 				this.tick_falling();
 				break;
 			case "LANDED":
@@ -79,9 +83,11 @@
 					// TODO: "judge" landing
 					this.player.guber_rank += Math.random() * 10 | 0;
 					this.player.cash += (Math.random() * 3000 | 0) + 900;
+					this.landed_y = this.player_craft.y;
 				}
 				if (this.state.count > 100) {
-					this.screen.goto("fly");
+					//this.screen.goto("fly");
+					this.state.set("FALLING");
 				}
 				break;
 			case "CRASHED":
@@ -123,7 +129,7 @@
 				vel: player.vtotal <= data.landing.max_velocity
 			}
 
-			this.player_craft.tick(data.physics.gravity);
+			this.player_craft.tick(this.landed_y === null ? data.physics.gravity : 0);
 			if (this.player_craft.thrust > 0) {
 				this.player.fuel -= this.player_craft.thrust;
 				if (this.player.fuel < 0) {
@@ -135,6 +141,10 @@
 		},
 
 		checkLanding: function (pad, player) {
+			if (pad.alreadyLanded) {
+				return;
+			}
+
 			var landed = true;
 			if (player.x < pad.x) {
 				landed = false;
@@ -154,6 +164,7 @@
 			}
 			if (landed) {
 				this.state.set("LANDED");
+				pad.alreadyLanded = true;
 			} else {
 				this.state.set("CRASHED");
 			}
@@ -187,8 +198,8 @@
 				c.fill();
 			});
 
-			c.fillStyle = "hsl(200, 70%, 60%)";
 			this.pads.forEach(function (pad) {
+				c.fillStyle = pad.alreadyLanded ? "hsl(200, 70%, 30%)" : "hsl(200, 70%, 60%)";
 				c.fillRect(pad.x, pad.y, pad.width, pad.height);
 			});
 
