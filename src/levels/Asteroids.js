@@ -5,7 +5,6 @@
 	var Asteroids = Ω.Class.extend({
 
 		scale: 0.8,
-		isGravity: false,
 		planets: null,
 
 		numstars: 500,
@@ -55,7 +54,7 @@
                 return;
             }
 
-            this.player_craft.tick(this.isGravity ? 0.05 : 0);
+            this.player_craft.tick(0);
             if (this.player_craft.thrust > 0) {
             	this.player.fuel -= this.player_craft.thrust;
             	if (this.player.fuel < 0) {
@@ -135,6 +134,9 @@
 					return;
 				}
 
+				if (p.isDepot && Ω.utils.toggle(300, 2)) {
+					return;
+				}
 				c.fillStyle = p.col;
 				c.fillRect(
 					dx + mmx + mmw / 2, 

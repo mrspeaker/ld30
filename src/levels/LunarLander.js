@@ -5,11 +5,15 @@
 	var LunarLander = Ω.Class.extend({
 
 		scale: 1,
-		isGravity: true,
 
 		loaded: false,
 
+		state: null,
+
 		init: function (planet, screen) {
+
+			this.state = new Ω.utils.State("BORN");
+
 			this.planet = planet;
 			this.screen = screen;
 			this.player = screen.player;
@@ -35,8 +39,19 @@
 
 		parse: function (level) {
 
+			var self = this;
+			
 			this.surface = level.layer("surface").type("ground");
-			this.pads = level.layer("pads").type("pad");
+			this.pads = level.layer("pads").type("pad").map(function (pad) {
+				pad.height = 10;
+				pad.y -= pad.height;
+				pad.w = pad.width;
+				pad.h = pad.height;
+				pad.hit = function (player) {
+					self.checkLanding(this, player);
+				}
+				return pad;
+			});
 
 		},
 
@@ -44,25 +59,85 @@
 
 			if (!this.loaded) return;
 
+			this.state.tick();
+			switch(this.state.get()) {
+			case "BORN":
+				this.state.set("INTRO");
+				break;
+			case "INTRO":
+				if (this.state.count > 100) {
+					this.state.set("FALLING");
+				}
+				break;
+			case "FALLING":
+				this.tick_falling();
+				break;
+			case "LANDED":
+				if (this.state.first()) {
+					this.player_craft.halt();
+				}
+				if (this.state.count > 100) {
+					this.screen.goto("fly");
+				}
+				break;
+			case "CRASHED":
+				if (this.state.first()) {
+					this.player_craft.crashed = true;
+				}
+				if (this.state.count > 100) {
+					this.screen.goto("fly");
+				}
+				break;
+			}
+		},
+
+		tick_falling: function () {
 			this.scale += Math.sin(Date.now() / 1000) * 0.003;
-	
+
 			if (this.player_craft.crashed) {
-                this.screen.goto("fly");
-                return;
-            }
+				this.state.set("CRASHED");
+				return;
+			}
+			
+			if (this.player_craft.y < -25) {
+			    this.screen.goto("fly");
+			    return;
+			}
 
-            if (this.player_craft.y < -25) {
-                this.screen.goto("fly");
-                return;
-            }
+			this.player_craft.tick(data.physics.gravity);
+			if (this.player_craft.thrust > 0) {
+				this.player.fuel -= this.player_craft.thrust;
+				if (this.player.fuel < 0) {
+					//
+				}
+			}
 
-            this.player_craft.tick(this.isGravity ? 0.05 : 0);
-            if (this.player_craft.thrust > 0) {
-            	this.player.fuel -= this.player_craft.thrust;
-            	if (this.player.fuel < 0) {
-            		//
-            	}
-            }
+			Ω.Physics.checkCollision(this.player_craft, this.pads);
+		},
+
+		checkLanding: function (pad, player) {
+			var landed = true;
+			if (player.x < pad.x) {
+				landed = false;
+				console.log("nope", player.x, pad.x)
+			}
+			if (player.x + player.w > pad.x + pad.w) {
+				landed = false;
+				console.log("n2", player.x + player.w, pad.x + pad.w)
+			}
+			if (Math.abs(player.rotation) > 3) {
+				console.log("norot", player.rotation.toFixed(2));
+				landed = false;
+			}
+			if (Math.abs(player.vy) > 3) {
+				console.log("no vy!", player.vy.toFixed(2));
+				landed = false;
+			}
+			if (landed) {
+				this.state.set("LANDED");
+			} else {
+				this.state.set("CRASHED");
+			}
 		},
 
 		render: function (gfx) {
@@ -95,11 +170,20 @@
 
 			c.fillStyle = "hsl(200, 70%, 60%)";
 			this.pads.forEach(function (pad) {
-				c.fillRect(pad.x, pad.y - 5, pad.width, 5);
+				c.fillRect(pad.x, pad.y, pad.width, pad.height);
 			});
 
-			player.checkGroundCol(gfx);
-			player.render(gfx);
+			if (this.state.isIn("INTRO", "FALLING")) {
+				player.checkGroundCol(gfx);
+				player.render(gfx);
+			}
+			if (this.state.is("LANDED") && Ω.utils.toggle(200, 2)) {
+				player.render(gfx);
+			}
+			if (this.state.is("CRASHED")) {
+				c.fillStyle = "hsl(" + (Math.random() * 100 | 0) + ",70%, 50%)";
+				c.fillRect(player.x + Ω.utils.rand(-10, 20), player.y + Ω.utils.rand(-10, 20), 20, 20);
+			}
 
 			c.restore();
 
@@ -116,7 +200,9 @@
 				(this.player_craft.x | 0) + ":" + 
 				(this.player_craft.y | 0), 30, 60);
 
-			c.fillText("p:" + this.player_craft.pixels[2].slice(0, 3).join("-"), 30, 90);
+			if (this.state.isIn("BORN", "INTRO")) {
+				c.fillText("READY", gfx.w / 2 - 40, gfx. h / 2 - 100)
+			}
 
 		}
 	});

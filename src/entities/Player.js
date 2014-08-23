@@ -4,6 +4,7 @@
 
 	var Player = Ω.Class.extend({
 		cash: 0,
+		uber_ranking: 0,
 		fares: 0,
 		fuel: null,
 		fuel_max: 499,
