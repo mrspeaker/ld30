@@ -57,6 +57,8 @@
 
 			c.fillRect(0, 230, 400, 10);
 
+			c.fillRect(-100, 700, 2000, 10);
+
 			player.checkGroundCol(gfx);
 			player.render(gfx);
 

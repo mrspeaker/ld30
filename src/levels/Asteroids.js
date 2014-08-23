@@ -65,14 +65,13 @@
 			player.halt();
 			player.rotation += 180;
 			var angle = (player.rotation - 90) * Math.PI / 180;
-            player.x += Math.cos(angle) * 30;
-            player.y += Math.sin(angle) * 30;
+            player.x += Math.cos(angle) * 50;
+            player.y += Math.sin(angle) * 50;
 		},
 
 		render: function (gfx) {
 			var c = gfx.ctx;
 
-			c.font = "16pt monospace";
 			c.save();
 
 			var scale = this.scale,

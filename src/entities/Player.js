@@ -5,9 +5,12 @@
 	var Player = Ω.Class.extend({
 		cash: 0,
 		fares: 0,
-		fuel: 500,
-		fuel_max: 9999,
-		damage: 0
+		fuel: null,
+		fuel_max: 499,
+		damage: 0,
+		init: function () {
+			this.fuel = this.fuel_max
+		}
 	});
 
 	window.Player = Player;

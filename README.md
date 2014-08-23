@@ -45,7 +45,7 @@ You are Han-Solo type character, just trying to make a buck.
 	* Abort fare
 	* Point arrow to target
 * Detect approach to planet
-* Detect approach to depot
+	* Make sure not going too fast
 
 * Bad guys
 * Bad guy firing

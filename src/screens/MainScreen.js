@@ -44,6 +44,7 @@
         render: function (gfx) {
 
             this.clear(gfx, "hsl(195, 40%, 10%)");
+            gfx.ctx.font = "16pt monospace";
 
             this.level.render(gfx);
 
