@@ -13,7 +13,9 @@
 			this.isDepot = isDepot || false;
 			this.surface = data.surfaces[id % data.surfaces.length];
 
-			this.col = "hsl(" + Ω.utils.rand(360) + ", 40%, 50%)";
+			var col = Ω.utils.rand(360);
+			this.col = "hsl(" + col + ", 40%, 50%)";
+			this.darker = "hsl(" + col + ", 40%, 35%)"
 		},
 		tick: function () {
 
@@ -26,8 +28,13 @@
 			c.beginPath();
 			c.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
 			c.fill();
+			c.fillStyle = this.darker;
+			c.beginPath();
+			c.arc(this.x + 3, this.y + 3, this.size - 5, 0, Math.PI * 2, false);
+			c.fill();
 
-			c.fillStyle = "#fff";
+
+			c.fillStyle = "#777";
 			if (this.isDepot) {
 				c.fillText("DEPOT", this.x - 50 + (this.size / 2), this.y + this.size + 18);
 			} else {

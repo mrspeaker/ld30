@@ -18,12 +18,13 @@
         rthrust: 0,
         rfriction: data.physics.rot_friction,
 
-        rvx: 0,
-        rvy: 0,
+        rvtotal: 0,
 
         crashed: false,
 
         brpoint: null,
+
+        controlsEnabled: true,
 
         init: function (x, y, screen) {
             this._super(x, y);
@@ -45,38 +46,49 @@
             this.vy = 0;
             this.thrust = 0;
             this.vr = 0;
-            this.rvx = 0;
-            this.rvy = 0;
             this.rthrust = 0;
+        },
+
+        disableControls: function () {
+            this.controlsEnabled = false;
+        },
+        enableControls: function () {
+            this.controlsEnabled = true;
         },
         
         tick: function (gravity) {
 
             var phys = data.physics;
 
-            if (Ω.input.isDown("left")) {
-                this.rthrust = -phys.rot_thrust;
-            }
-            if (Ω.input.isDown("right")) {
-                this.rthrust = phys.rot_thrust;
-            }
-            if (Ω.input.released("left") || Ω.input.released("right")) {
-                this.rthrust = 0;
+            if (this.controlsEnabled) {
+
+                if (Ω.input.isDown("left")) {
+                    this.rthrust = -phys.rot_thrust;
+                }
+                if (Ω.input.isDown("right")) {
+                    this.rthrust = phys.rot_thrust;
+                }
+                
+                if (this.player.fuel > 0 && Ω.input.isDown("up")) {
+                    this.thrust = phys.thrust;
+                }
+                if (Ω.input.isDown("down")) {
+                    this.thrust = 0;
+                    // TODO: braking!
+                }
             }
 
-            if (this.player.fuel > 0 && Ω.input.isDown("up")) {
-                this.thrust = phys.thrust;
-            }
-            if (Ω.input.isDown("down")) {
-                this.thrust = 0;
-                // TODO: braking!
+            if (Ω.input.released("left") || Ω.input.released("right")) {
+                this.rthrust = 0;
             }
             if (Ω.input.released("up") || Ω.input.released("down")) {
                 this.thrust = 0;
             }
+
             
             this.vr += this.rthrust;
             this.vr *= phys.rot_friction;
+            //this.vtotal = Ω.math.dist([this.vx, this.vy], [0, 0]); // Calc total velocity
             this.rotation += this.vr;
 
             var angle = (this.rotation - 90) * Math.PI / 180;
@@ -137,12 +149,27 @@
             c.rotate(this.rotation * Math.PI / 180);
             c.translate(-this.rotation_point[0], -this.rotation_point[1]);
 
+            c.strokeStyle = "#999";
+            c.beginPath();
+            c.arc(this.w / 2 + 0, 5, this.w / 2 - 3, 0, Math.PI, true);
+            c.stroke();
+
             c.fillRect(0, 0, this.w, this.h);
 
-            if (this.thrust > 0 || Math.abs(this.vy) > 2 || Math.abs(this.vx) > 2) {
-                c.fillStyle = "hsl(70, 90%, 50%)";
+            
+            c.fillStyle = "hsl(70, 90%, 50%)";
+            if (this.thrust > 0 || this.vtotal > 2) {
                 c.fillRect(4, this.h, this.w - 8, 4);
             }
+            if (this.thrust > 0) {
+                c.fillRect(8, this.h + 4, this.w - 16, 2);
+            //    c.fillRect(11, this.h + 8, this.w - 22, 4);
+            }
+            if (this.rthrust > 0) 
+                c.fillRect(-1, this.h - 7, 3, 11);
+            if (this.rthrust < 0)
+                c.fillRect(this.w - 1, this.h - 7, 3, 11);
+            //
 
             c.restore();
 

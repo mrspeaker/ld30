@@ -70,15 +70,22 @@
 				this.tick_flying();
 				break;
 			case "APPROACHING":
+				var player = this.player_craft;
+				if (this.state.first()) {
+					player.disableControls();
+				}
 				if (this.state.count > 50) {
 					var planet = this.state.data;
 					this.state.set("FLYING");
 					this.screen.goto(planet.isDepot ? "depot" : "land", planet);
 				}
 				// Slow it down;
-				this.player.vx *= 0.96;
-				this.player.vy *= 0.96;
-				this.player_craft.tick(0);
+				player.vx *= 0.96;
+				player.vy *= 0.96;
+				player.rvx *= 0.96;
+				player.rvy *= 0.96;
+				player.thrust = 0;
+				player.tick(0);
 				break;
 			case "CRASHED":
 				if (this.state.count > 100) {
@@ -123,6 +130,7 @@
 			var player = this.player_craft;
 			player.halt();
 			player.rotation += 180;
+			player.enableControls();
 			var angle = (player.rotation - 90) * Math.PI / 180;
             player.x += Math.cos(angle) * 80;
             player.y += Math.sin(angle) * 80;
