@@ -58,17 +58,19 @@
 				}
 				return pad;
 			});
-			var spawn = level.layer("spawns").name("player");
-			if (spawn) {
-				this.player_craft.x = spawn.x;
-				this.player_craft.y = spawn.y;
+			var spawns = level.layer("spawns");
+			if (spawns) {
+				var spawn = spawns.name("player");
+				if (spawn) {
+					this.player_craft.x = spawn.x;
+					this.player_craft.y = spawn.y;
+				}
 			}
 
-			console.log(level);
 			for (var i = 0; i < this.numstars; i++) {
 				this.stars.push([
 					Ω.utils.rand(0, level.w * level.tileW),
-					Ω.utils.rand(0, level.h * level.tileH)
+					Ω.utils.rand(-300, level.h * level.tileH)
 				]);
 			}
 
@@ -166,11 +168,9 @@
 			var landed = true;
 			if (player.x < pad.x) {
 				landed = false;
-				console.log("nope", player.x, pad.x)
 			}
 			if (player.x + player.w > pad.x + pad.w) {
 				landed = false;
-				console.log("n2", player.x + player.w, pad.x + pad.w)
 			}
 			if (!this.stats.rot) {
 				console.log("norot", player.rotation.toFixed(2));

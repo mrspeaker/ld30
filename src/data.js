@@ -6,9 +6,9 @@
 		collisionRgb: [126, 75, 15],
 		
 		surfaces: [
-			"simple"/*,
+			"simple",
 			"test",
-			"test2"*/
+			"test2"
 		],
 
 		physics: {

@@ -183,8 +183,8 @@
 					return e.x + w > left && e.x - w < right && e.y + w > top && e.y - w < bottom;
 				}
 
-			c.fillStyle = data.collision;
-			c.fillRect(Ω.env.w / 2 - 100, Ω.env.h - 100, 150, 40);
+			//c.fillStyle = data.collision;
+			//c.fillRect(Ω.env.w / 2 - 100, Ω.env.h - 100, 150, 40);
 
 			c.fillStyle = "#999";
 			this.stars.forEach(function (s) {			
@@ -208,7 +208,7 @@
 				c.fillStyle = "hsl(" + (Math.random() * 100 | 0) + ",70%,50%)";
 				c.fillRect(player.x + Ω.utils.rand(-10, 20), player.y + Ω.utils.rand(-10, 20), 20, 20);
 			} else {
-				player.checkGroundCol(gfx);
+				//player.checkGroundCol(gfx);
 				player.render(gfx);
 			}
 

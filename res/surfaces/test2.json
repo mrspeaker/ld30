@@ -418,6 +418,32 @@
          "width":80,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "height":24,
+         "name":"spawns",
+         "objects":[
+                {
+                 "height":32,
+                 "name":"player",
+                 "properties":
+                    {
+
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":992,
+                 "y":32
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "width":80,
+         "x":0,
+         "y":0
         }],
  "orientation":"orthogonal",
  "properties":
