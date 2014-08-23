@@ -10,7 +10,13 @@
 		numstars: 500,
 		stars: null,
 
+		doneIntro: false,
+		state: null,
+
 		init: function (screen) {
+
+			this.state = new Ω.utils.State("BORN");
+
 			this.screen = screen;
 			this.player = screen.player;
 			this.player_craft = new PlayerCraft(Ω.env.w * 0.5, Ω.env.h * 0.2, this);
@@ -40,27 +46,65 @@
 
 		tick: function () {
 
+			this.state.tick();
+			switch(this.state.get()) {
+			case "BORN":
+				if (this.state.first()) {
+					this.state.set("INTRO");
+					break;
+				}
+				this.state.set("READY");
+				break;
+			case "INTRO":
+				if (this.state.count > 100) {
+					this.doneIntro = true;
+					this.state.set("READY");
+				}
+				break;
+			case "READY":
+				if (this.state.count > 20) {
+					this.state.set("FLYING");
+				}
+				break;
+			case "FLYING":
+				this.tick_flying();
+				break;
+			case "CRASHED":
+				if (this.state.count > 100) {
+					game.reset();
+				}
+				break;
+			}
+
+		},
+
+		tick_flying: function () {
+			var player = this.player_craft;
 			for (var i = 0; i < this.planets.length; i++) {
 				var p = this.planets[i];
-				var dist = Ω.math.dist(this.player_craft, p);
-				if (dist < 50 + p.size) {
+				var dist = Ω.math.dist(player, p);
+				if (dist < 30) {
+					this.state.set("CRASHED");
+					return;
+				}
+				if (dist < 50 + p.size && Math.abs(player.vx) < 2 && Math.abs(player.vy) < 2) {
 					this.screen.goto(p.isDepot ? "depot" : "land", p);
 					return;
 				}	
 			}
 
 			if (this.player_craft.crashed) {
-                game.reset();
-                return;
-            }
+			    game.reset();
+			    return;
+			}
 
-            this.player_craft.tick(0);
-            if (this.player_craft.thrust > 0) {
-            	this.player.fuel -= this.player_craft.thrust;
-            	if (this.player.fuel < 0) {
-            		//
-            	}
-            }
+			this.player_craft.tick(0);
+			if (this.player_craft.thrust > 0) {
+				this.player.fuel -= this.player_craft.thrust;
+				if (this.player.fuel < 0) {
+					//
+				}
+			}
 		},
 
 		depart: function () {
@@ -75,35 +119,72 @@
 		render: function (gfx) {
 			var c = gfx.ctx;
 
+			this.renderWorld(gfx);
+			this.renderHUD(gfx);
+
+			if (this.state.is("INTRO")) {
+				c.fillStyle = "#fff";
+
+				c.fillText("Do your job, ConWorld cabbie", 50, 300);
+			}
+		},
+
+		renderWorld: function (gfx) {
+
+			var c = gfx.ctx;
 			c.save();
 
 			var scale = this.scale,
-			    player = this.player_craft;
+			    player = this.player_craft,
+			    midW = ((gfx.w / 2) / scale),
+			    midH = ((gfx.h / 2) / scale);
 
 			c.scale(scale, scale);
 			c.translate(
-			    -player.x + ((gfx.w / 2) / scale),
-			    -player.y + ((gfx.h / 2) / scale)
+			    -player.x + midW,
+			    -player.y + midH
 			);
+
+			var left = player.x - midW,
+				right = player.x + midW,
+				top = player.y - midH,
+				bottom = player.y + midH,
+				inBounds = function (e) {
+					var w = e.size;
+					return e.x + w > left && e.x - w < right && e.y + w > top && e.y - w < bottom;
+				}
 
 			c.fillStyle = data.collision;
 			c.fillRect(Ω.env.w / 2 - 100, Ω.env.h - 100, 150, 40);
 
 			c.fillStyle = "#999";
-			this.stars.forEach(function (s) {
+			this.stars.forEach(function (s) {			
+				if (s[0] < left || s[0] > right) {
+					return;
+				}
+				if (s[1] < top || s[1] > bottom) {
+					return;
+				}
 				c.fillRect(s[0], s[1], 3, 3);
 			});
 
 			this.planets.forEach(function (p) {
-				p.render(gfx);
+				if (inBounds(p)) {
+					p.render(gfx);
+				}
 			});
 
-			player.checkGroundCol(gfx);
-			player.render(gfx);
+
+			if (this.state.is("CRASHED")) {
+				c.fillStyle = "hsl(" + (Math.random() * 100 | 0) + ",70%,50%)";
+				c.fillRect(player.x + Ω.utils.rand(-10, 20), player.y + Ω.utils.rand(-10, 20), 20, 20);
+			} else {
+				player.checkGroundCol(gfx);
+				player.render(gfx);
+			}
 
 			c.restore();
 
-			this.renderHUD(gfx);
 		},
 
 		renderHUD: function (gfx) {
@@ -127,6 +208,8 @@
 			c.fillStyle = "#fff";
 			c.fillRect(mmw / 2 + mmx, mmh / 2 + mmy, 4, 4);
 
+			c.fillText(player.vx.toFixed(1) + ":" + player.vy.toFixed(1), 30, 200)
+
 			this.planets.forEach(function (p) {
 				var dx = (p.x - player.x) * mmxr,
 					dy = (p.y - player.y) * mmyr;
@@ -143,6 +226,8 @@
 					dy + mmy + mmh / 2, 
 					5, 5);
 			});
+
+
 
 		}
 	});

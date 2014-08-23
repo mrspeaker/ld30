@@ -18,6 +18,11 @@
 			gravity: 0.05
 		},
 
+		landing: {
+			max_rot: 6.0,
+			max_velocity: 1.4
+		},
+
 		debug: {
 			gimmePlanet: true
 		}

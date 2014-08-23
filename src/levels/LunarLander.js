@@ -75,6 +75,7 @@
 			case "LANDED":
 				if (this.state.first()) {
 					this.player_craft.halt();
+					this.player_craft.rotation = 0;
 				}
 				if (this.state.count > 100) {
 					this.screen.goto("fly");
@@ -92,16 +93,27 @@
 		},
 
 		tick_falling: function () {
-			this.scale += Math.sin(Date.now() / 1000) * 0.003;
+			var player = this.player_craft,
+				vel = Math.sqrt(player.vx * player.vx + player.vy * player.vy);
 
-			if (this.player_craft.crashed) {
+			this.vel = vel;
+
+			this.scale = 0.5 + (Math.max(0, 2 - vel / 2) / 2);//Math.sin(Date.now() / 1000) * 0.003;
+
+			if (player.crashed) {
 				this.state.set("CRASHED");
 				return;
 			}
 			
-			if (this.player_craft.y < -25) {
+			// TODO: only enforce on edges of screen or much higher
+			if (player.y < -25) {
 			    this.screen.goto("fly");
 			    return;
+			}
+
+			this.stats = {
+				rot: Math.abs(player.rotation) <= data.landing.max_rot,
+				vel: Math.abs(player.vy) <= data.landing.max_velocity
 			}
 
 			this.player_craft.tick(data.physics.gravity);
@@ -125,11 +137,11 @@
 				landed = false;
 				console.log("n2", player.x + player.w, pad.x + pad.w)
 			}
-			if (Math.abs(player.rotation) > 3) {
+			if (!this.stats.rot) {
 				console.log("norot", player.rotation.toFixed(2));
 				landed = false;
 			}
-			if (Math.abs(player.vy) > 3) {
+			if (!this.stats.vel) {
 				console.log("no vy!", player.vy.toFixed(2));
 				landed = false;
 			}
@@ -202,6 +214,23 @@
 
 			if (this.state.isIn("BORN", "INTRO")) {
 				c.fillText("READY", gfx.w / 2 - 40, gfx. h / 2 - 100)
+			}
+
+			if (this.vel)
+			c.fillText("vel" + ":" + this.vel.toFixed(2), 30, 120)
+
+			if (this.stats && this.state.is("FALLING")) {
+				var vel = ((this.stats.vel || Ω.utils.toggle(100, 2)) ? "50" : "90"),
+					rot = ((this.stats.rot || Ω.utils.toggle(100, 2)) ? "50" : "90");
+				c.fillStyle = "hsl(0, " + vel + "%, 50%)";
+				c.beginPath();
+				c.arc(30, 100, 10, 0, Math.PI * 2, false);
+				c.fill();
+
+				c.fillStyle = "hsl(120, " + rot + "%, 50%)";
+				c.beginPath();
+				c.arc(30, 140, 10, 0, Math.PI * 2, false);
+				c.fill();
 			}
 
 		}

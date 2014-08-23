@@ -44,6 +44,9 @@
             this.vy = 0;
             this.thrust = 0;
             this.vr = 0;
+            this.rvx = 0;
+            this.rvy = 0;
+            this.rthrust = 0;
         },
         
         tick: function (gravity) {
@@ -104,7 +107,6 @@
         },
 
         checkGroundCol: function (gfx) {
-
             var ctx = gfx.ctx,
                 self = this,
                 scale = this.screen.scale,
