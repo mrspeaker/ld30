@@ -56,7 +56,7 @@
 				this.state.set("READY");
 				break;
 			case "INTRO":
-				if (this.state.count > 150) {
+				if (this.state.count > 50) {
 					this.doneIntro = true;
 					this.state.set("READY");
 				}
@@ -148,7 +148,7 @@
 			if (this.state.is("INTRO")) {
 				c.fillStyle = "#fff";
 
-				c.fillText("Arrow keys == move. Fly close to planets to land.", 90, gfx.h / 2);
+				c.fillText("Ready...", gfx.w / 2 - 40, gfx.h / 2);
 			}
 			if (this.state.is("APPROACHING")) {
 				c.fillStyle = "#fff";

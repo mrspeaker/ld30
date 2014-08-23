@@ -11,6 +11,9 @@
 		state: null,
 		landed_y: null,
 
+		stars: null,
+		numstars: 200,
+
 		init: function (planet, screen) {
 
 			this.state = new Ω.utils.State("BORN");
@@ -21,6 +24,8 @@
 			this.player_craft = new PlayerCraft(Ω.env.w * 0.5, Ω.env.h * 0.2, this);
 
 			this.planet.visits++;
+
+			this.stars = [];
 			
 			this.loaded = false;
 
@@ -53,6 +58,19 @@
 				}
 				return pad;
 			});
+			var spawn = level.layer("spawns").name("player");
+			if (spawn) {
+				this.player_craft.x = spawn.x;
+				this.player_craft.y = spawn.y;
+			}
+
+			console.log(level);
+			for (var i = 0; i < this.numstars; i++) {
+				this.stars.push([
+					Ω.utils.rand(0, level.w * level.tileW),
+					Ω.utils.rand(0, level.h * level.tileH)
+				]);
+			}
 
 		},
 
@@ -185,6 +203,17 @@
 			    -player.x + ((gfx.w / 2) / scale),
 			    -player.y + ((gfx.h / 2) / scale)
 			);
+
+			c.fillStyle = "#999";
+			this.stars.forEach(function (s) {			
+				/*if (s[0] < left || s[0] > right) {
+					return;
+				}
+				if (s[1] < top || s[1] > bottom) {
+					return;
+				}*/
+				c.fillRect(s[0], s[1], 3, 3);
+			});
 
 			c.fillStyle = data.collision;
 			this.surface.forEach(function (ground) {
