@@ -12,6 +12,7 @@
 
         vx: 0,
         vy: 0,
+        vtotal: 0,
 
         rotation: 0,
         rthrust: 0,
@@ -88,6 +89,7 @@
             var friction = phys.friction;
             this.vx *= friction;
             this.vy *= friction;
+            this.vtotal = Ω.math.dist([this.vx, this.vy], [0, 0]); // Calc total velocity
 
             this.x += this.vx;
             this.y += this.vy;

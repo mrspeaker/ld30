@@ -83,7 +83,7 @@
 			for (var i = 0; i < this.planets.length; i++) {
 				var p = this.planets[i];
 				var dist = Ω.math.dist(player, p);
-				if (dist < 30) {
+				if (dist < 50) {
 					this.state.set("CRASHED");
 					return;
 				}
@@ -194,6 +194,7 @@
 
 			c.fillStyle = "#fff";
 			c.fillText("FUEL: " + (this.player.fuel | 0), 30, 30);
+			c.fillText("VEL:" + (player.vtotal * 80).toFixed(1), 30, 50);
 
 			var mmw = 200,
 				mmh = 160,
@@ -207,8 +208,6 @@
 
 			c.fillStyle = "#fff";
 			c.fillRect(mmw / 2 + mmx, mmh / 2 + mmy, 4, 4);
-
-			c.fillText(player.vx.toFixed(1) + ":" + player.vy.toFixed(1), 30, 200)
 
 			this.planets.forEach(function (p) {
 				var dx = (p.x - player.x) * mmxr,

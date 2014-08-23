@@ -93,12 +93,10 @@
 		},
 
 		tick_falling: function () {
-			var player = this.player_craft,
-				vel = Math.sqrt(player.vx * player.vx + player.vy * player.vy);
+			var player = this.player_craft;
+				//vel = Math.sqrt(player.vx * player.vx + player.vy * player.vy);
 
-			this.vel = vel;
-
-			this.scale = 0.5 + (Math.max(0, 2 - vel / 2) / 2);//Math.sin(Date.now() / 1000) * 0.003;
+			this.scale = 0.7 + (Math.max(0, 2 - player.vtotal / 2) / 6);//Math.sin(Date.now() / 1000) * 0.003;
 
 			if (player.crashed) {
 				this.state.set("CRASHED");
@@ -113,7 +111,7 @@
 
 			this.stats = {
 				rot: Math.abs(player.rotation) <= data.landing.max_rot,
-				vel: Math.abs(player.vy) <= data.landing.max_velocity
+				vel: player.vtotal <= data.landing.max_velocity
 			}
 
 			this.player_craft.tick(data.physics.gravity);
@@ -204,30 +202,26 @@
 
 		renderHUD: function (gfx) {
 
-			var c = gfx.ctx;
+			var c = gfx.ctx,
+				player = this.player_craft;
 
 			c.fillStyle = "#fff";
 			c.fillText("FUEL: " + (this.player.fuel | 0), 30, 30);
-			c.fillText(
-				(this.player_craft.x | 0) + ":" + 
-				(this.player_craft.y | 0), 30, 60);
+			c.fillText("VEL:" + (player.vtotal * 80).toFixed(1), 30, 50);
 
 			if (this.state.isIn("BORN", "INTRO")) {
 				c.fillText("READY", gfx.w / 2 - 40, gfx. h / 2 - 100)
 			}
 
-			if (this.vel)
-			c.fillText("vel" + ":" + this.vel.toFixed(2), 30, 120)
-
 			if (this.stats && this.state.is("FALLING")) {
-				var vel = ((this.stats.vel || Ω.utils.toggle(100, 2)) ? "50" : "90"),
-					rot = ((this.stats.rot || Ω.utils.toggle(100, 2)) ? "50" : "90");
-				c.fillStyle = "hsl(0, " + vel + "%, 50%)";
+				var vel = ((this.stats.vel || Ω.utils.toggle(100, 2)) ? "70%, 30%" : "90%, 50%"),
+					rot = ((this.stats.rot || Ω.utils.toggle(100, 2)) ? "70%, 30%" : "90%, 50%");
+				c.fillStyle = "hsl(0, " + vel + ")";
 				c.beginPath();
 				c.arc(30, 100, 10, 0, Math.PI * 2, false);
 				c.fill();
 
-				c.fillStyle = "hsl(120, " + rot + "%, 50%)";
+				c.fillStyle = "hsl(120, " + rot + ")";
 				c.beginPath();
 				c.arc(30, 140, 10, 0, Math.PI * 2, false);
 				c.fill();
