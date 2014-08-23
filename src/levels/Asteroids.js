@@ -41,7 +41,7 @@
 				var p = this.planets[i];
 				var dist = Ω.math.dist(this.player_craft, p);
 				if (dist < 50 + p.size) {
-					this.screen.goto(p.isDepot ? "depot" : "land", p.id);
+					this.screen.goto(p.isDepot ? "depot" : "land", p);
 					return;
 				}	
 			}

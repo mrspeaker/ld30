@@ -7,17 +7,25 @@
 		scale: 1,
 		isGravity: true,
 
-		init: function (id, screen) {
-			this.id = id;
+		init: function (planet, screen) {
+			this.planet = planet;
 			this.screen = screen;
 			this.player = screen.player;
 			this.player_craft = new PlayerCraft(Ω.env.w * 0.5, Ω.env.h * 0.2, this);
+
+			this.planet.visits++;
 		},
+
 		tick: function () {
 
 			this.scale += Math.sin(Date.now() / 1000) * 0.003;
 	
 			if (this.player_craft.crashed) {
+                this.screen.goto("fly");
+                return;
+            }
+
+            if (this.player_craft.y < -25) {
                 this.screen.goto("fly");
                 return;
             }
@@ -44,20 +52,7 @@
 			    -player.y + ((gfx.h / 2) / scale)
 			);
 
-			c.fillStyle = "#800";
-			c.fillRect(Ω.env.w / 2 - 100, Ω.env.h - 100, 200, 10);
-
-			c.beginPath();
-			c.moveTo(0, 10);
-			c.lineTo(50, 150);
-			c.lineTo(150, 250);
-			c.lineTo(0, 250);
-			c.closePath();
-			c.fill();
-
-			c.fillRect(0, 230, 400, 10);
-
-			c.fillRect(-100, 700, 2000, 10);
+			this.planet.surface(gfx);
 
 			player.checkGroundCol(gfx);
 			player.render(gfx);
@@ -73,6 +68,7 @@
 
 			c.fillStyle = "#fff";
 			c.fillText("FUEL: " + (this.player.fuel | 0), 30, 30);
+			c.fillText(this.player_craft.y, 30, 60);
 
 		}
 	});

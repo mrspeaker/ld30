@@ -9,7 +9,9 @@
 			this.y = y;
 			this.size = size;
 			this.id = id;
+			this.visits = 0;
 			this.isDepot = isDepot || false;
+			this.surface = Surfaces[data.surfaces[id % data.surfaces.length]];
 
 			this.col = "hsl(" + Ω.utils.rand(360) + ", 40%, 50%)";
 		},
@@ -31,6 +33,7 @@
 			} else {
 				c.fillText("planet " + this.id, this.x - 55 + (this.size / 2), this.y + this.size + 18);
 			}
+			c.fillText(this.visits, this.x + (this.size / 2), this.y + (this.size / 2));
 		}
 	});
 

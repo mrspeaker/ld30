@@ -26,17 +26,17 @@
             this.level.tick();
         },
 
-        goto: function (level, id) {
+        goto: function (level, planet) {
             switch(level) {
             case "land":
-                this.level = new Levels.LunarLander(id, this);
+                this.level = new Levels.LunarLander(planet, this);
                 break;
             case "fly":
                 this.level = this.levels.asteroids;
                 this.level.depart();
                 break;
             case "depot":
-                this.level = new Levels.Depot(id, this)
+                this.level = new Levels.Depot(planet, this)
                 break;
             }
         },
