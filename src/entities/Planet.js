@@ -24,6 +24,13 @@
 			c.beginPath();
 			c.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
 			c.fill();
+
+			c.fillStyle = "#fff";
+			if (this.isDepot) {
+				c.fillText("DEPOT", this.x - 50 + (this.size / 2), this.y + this.size + 18);
+			} else {
+				c.fillText("planet " + this.id, this.x - 55 + (this.size / 2), this.y + this.size + 18);
+			}
 		}
 	});
 

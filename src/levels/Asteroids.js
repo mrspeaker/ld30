@@ -4,7 +4,7 @@
 
 	var Asteroids = Ω.Class.extend({
 
-		scale: 0.5,
+		scale: 0.8,
 		isGravity: false,
 		planets: null,
 
@@ -84,6 +84,7 @@
 				c.fillRect(s[0], s[1], 3, 3);
 			});
 
+			c.font = "16pt monospace";
 			this.planets.forEach(function (p) {
 				p.render(gfx);
 			});

@@ -119,6 +119,11 @@
 
             c.fillRect(0, 0, this.w, this.h);
 
+            if (this.thrust > 0 || Math.abs(this.vy) > 2 || Math.abs(this.vx) > 2) {
+                c.fillStyle = "hsl(70, 90%, 50%)";
+                c.fillRect(4, this.h, this.w - 8, 4);
+            }
+
             c.restore();
 
             //Show bounding box - useful to see how the rotated hitpoints work.
