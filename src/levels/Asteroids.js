@@ -236,7 +236,11 @@
 				mmyr = 0.09;
 
 			c.fillStyle = "rgba(63, 63, 63, 0.3)";
-			c.fillRect(mmx, mmy, mmw, mmh);
+			//c.fillRect(mmx, mmy, mmw, mmh);
+			c.beginPath();
+			c.arc(mmx + (mmw / 2), mmy + (mmh / 2) - 20, mmw / 2, 0, Math.PI * 2, false);
+			c.closePath();
+			c.fill()
 
 			c.fillStyle = "#fff";
 			c.fillRect(mmw / 2 + mmx, mmh / 2 + mmy, 4, 4);

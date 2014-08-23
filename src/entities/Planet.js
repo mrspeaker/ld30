@@ -40,7 +40,7 @@
 			} else {
 				c.fillText("planet " + this.id, this.x - 55 + (this.size / 2), this.y + this.size + 18);
 			}
-			c.fillText(this.visits, this.x + (this.size / 2), this.y + (this.size / 2));
+			
 		}
 	});
 
