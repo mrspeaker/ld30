@@ -109,10 +109,38 @@
 
 		renderHUD: function (gfx) {
 
-			var c = gfx.ctx;
+			var c = gfx.ctx,
+				player = this.player_craft;
 
 			c.fillStyle = "#fff";
 			c.fillText("FUEL: " + (this.player.fuel | 0), 30, 30);
+
+			var mmw = 200,
+				mmh = 160,
+				mmx = gfx.w - mmw - 20,
+				mmy = gfx.h - mmh - 20,
+				mmxr = 0.09,
+				mmyr = 0.09;
+
+			c.fillStyle = "rgba(63, 63, 63, 0.7)";
+			c.fillRect(mmx, mmy, mmw, mmh);
+
+			c.fillStyle = "#fff";
+			c.fillRect(mmw / 2 + mmx, mmh / 2 + mmy, 4, 4);
+
+			this.planets.forEach(function (p) {
+				var dx = (p.x - player.x) * mmxr,
+					dy = (p.y - player.y) * mmyr;
+				if (Math.abs(dx) > 100 || Math.abs(dy) > 80) {
+					return;
+				}
+
+				c.fillStyle = p.col;
+				c.fillRect(
+					dx + mmx + mmw / 2, 
+					dy + mmy + mmh / 2, 
+					5, 5);
+			});
 
 		}
 	});

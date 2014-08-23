@@ -37,7 +37,7 @@
 
 			this.surface = level.layer("surface").type("ground");
 			this.pads = level.layer("pads").type("pad");
-			console.log(this.pads);
+
 		},
 
 		tick: function () {

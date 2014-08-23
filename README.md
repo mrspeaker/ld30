@@ -55,6 +55,7 @@ Go wacky on this one: rainbow thrusters, sparkly particles, wacky song?
 
 ### Lunar Lander Areas
 
+* Get ready screen
 * Rotational acceleration
 * Landing physics [DONE]
 * Crashing [DONE]
