@@ -122,11 +122,14 @@
 						if (fare.pickedUp) {
 							if (fare.dest === this.planet) {
 								// DONE THE FARE!
-								this.player.guber_cred += Math.random() * 10 | 0;
-								//this.player.cash += (Math.random() * 3000 | 0) + 900;
-								this.screen.doneFare();
 								this.audio.collect.play();
-								this.screen.setMessage("Earned " + rated + " GüBer cred");
+								//this.player.cash += (Math.random() * 3000 | 0) + 900;
+								fare.credEarned = rated * fare.difficulty * 1000 | 0;
+								this.player.guber_cred += fare.credEarned;
+
+								game.setDialog(new EarnedDialog(rated, fare, this.player));
+								this.screen.doneFare();
+								this.screen.setMessage("Earned " + fare.credEarned + " GüBer cred");
 							}
 						} else {
 							if (fare.src === this.planet) {

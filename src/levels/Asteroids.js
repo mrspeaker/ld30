@@ -325,14 +325,15 @@
 
 			this.screen.fares.forEach(function (fare, i) {
 				c.font = "8pt monospace";
-				c.fillStyle = fare.selected ? "#411" : "#333";
+				c.fillStyle = fare.selected ? "hsl(10, 50%, 25%)" : "#333";
 				c.fillRect(xoff, i * 40 + yoff + 5, 180, 35);
 
 				c.fillStyle = "#999";
 				c.fillText((i + 1), xoff + 2, i * 40 + yoff + 20);
 				c.font = "30pt monospace";
-				for (var j = 0; j < fare.difficulty | 0; j++) {
-					c.fillText("☠", xoff + 20 + j * 20, i * 40 + yoff + 35);
+				var stars = Math.max(1, fare.difficulty * 5 | 0);
+				for (var j = 0; j < stars; j++) {
+					c.fillText("☠", xoff + 20 + j * 28, i * 40 + yoff + 35);
 				}
 
 				c.fillStyle = fare.src.col;

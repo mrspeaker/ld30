@@ -132,17 +132,15 @@
 
         pickedUpFare: function (fare) {
            fare.pickedUp = true;
-           this.setMessage("Drop off at:" + fare.dest.name);
+           this.setMessage("Drop off at: " + fare.dest.name);
         },
 
         addHour: function () {
 
-            var doIt = Math.random() < 0.3;
-
             if (this.hour++ % 2 == 0) {
-                (this.initFares || doIt) && this.addFare();
+                (this.initFares || Math.random() < 0.6) && this.addFare();
             } else {
-                (!this.initFares && doIt) && this.removeFare();
+                (!this.initFares && Math.random() < 0.4) && this.removeFare();
             }
 
         },
@@ -163,13 +161,20 @@
             // - difficulty of src pad
             // - difficulty of dest pad
 
+            var ok = false;
+            while(!ok) {
             var src = planets[Ω.utils.rand(planets.length - 2)],
                 dst = planets[Ω.utils.rand(planets.length - 2)],
                 src_pad = Ω.utils.rand(src.surface.pads),
                 dst_pad = Ω.utils.rand(dst.surface.pads),
                 diff_src = src.surface.hard[src_pad],
                 diff_dest = dst.surface.hard[dst_pad],
-                tot_diff = ((diff_src + diff_dest) / 20) * 5;
+                tot_diff = ((diff_src + diff_dest) / 20);
+
+                if (src !== dst) {
+                    ok = true;
+                }
+            }
 
 
             this.fares.push({
