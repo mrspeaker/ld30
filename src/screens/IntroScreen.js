@@ -26,7 +26,7 @@
             this.clear(gfx, "hsl(195, 40%, 10%)");
             gfx.ctx.font = "48pt monospace";
 
-            gfx.ctx.fillStyle = "rgb(191, 188, 21)";
+            gfx.ctx.fillStyle = data.colors.theYellow;
 
             gfx.ctx.fillText("GüBEr Taxis", gfx.w / 2 - 260, gfx.h * 0.4);
 			gfx.ctx.font = "16pt monospace";

@@ -43,7 +43,7 @@
 			c.fillText("World-wide GüBer ranking ", xOff, yOff + 100);
 
 			xOff += 190;
-			c.fillStyle = "hsl(70, 90%, 50%)";
+			c.fillStyle = data.colors.theYellow;
 
 			c.fillText(this.fare.credEarned, xOff, yOff + 60);
 			c.fillText(this.player.ranking[1], xOff - 100, yOff + 140);

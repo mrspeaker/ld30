@@ -328,10 +328,10 @@
 		renderHUD: function (gfx) {
 
 			var c = gfx.ctx,
-				player = this.player_craft;
-			var xoff = 20,
-				yoff = 50;
-
+				player = this.player_craft,
+				xoff = 20,
+				yoff = 60,
+				w = 196;
 
 			var mmw = 200,
 				mmh = 160,
@@ -341,22 +341,34 @@
 				mmyr = 0.09;
 
 			c.fillStyle = "rgba(63, 63, 63, 0.3)";
-			c.beginPath();
-			c.arc(mmx + (mmw / 2), mmy + (mmh / 2), 60, 0, Math.PI * 2, false);
-			c.closePath();
-			c.fill();
+			if(this.state.isIn("FALLING", "LANDED")) {
+				c.beginPath();
+				c.arc(mmx + (mmw / 2), mmy + (mmh / 2), 60, 0, Math.PI * 2, false);
+				c.closePath();
+				c.fill();
+			}
+
+			// Dispatch background
+			c.fillRect(xoff - 8, yoff - 16, w, 20);
+
+			c.strokeStyle = "#666";
+			c.strokeRect(xoff - 8, yoff - 16, w, 20);
+			c.fillStyle = "#999"
+			c.fillText("- DISPATCH -", xoff + 40, yoff - 1);
+
+			var ranking = this.screen.getRanking();
 
 			c.fillStyle = "#fff";
-			c.fillText("GüBER CRED : " + this.player.guber_cred, 20, 30);
+			c.fillText("GüBer cred: " + this.player.guber_cred + " (" + ranking[1] + ")", xoff - 6, yoff - 33);
 			
 			if (this.state.isIn("BORN", "INTRO")) {
 				// c.fillText("READY", gfx.w / 2 - 40, gfx. h / 2 - 100)
 			}
 
-			c.fillText("- DISPATCH -", xoff, yoff);
+			
 			if (this.screen.message) {
 				if (this.screen.message_blink-- <= 0 || Ω.utils.toggle(300, 2)) {
-					c.fillText(this.screen.message, xoff, yoff + 30);
+					c.fillText(this.screen.message, xoff - 6, yoff + 30);
 				}
 				if (this.screen.message_blink === 0 && this.screen.message_last) {
 					this.screen.message = this.screen.message_last;

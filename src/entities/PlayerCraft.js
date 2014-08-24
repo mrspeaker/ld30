@@ -173,7 +173,8 @@
             c.fillRect(0, 0, this.w, this.h);
 
             
-            c.fillStyle = "hsl(70, 90%, 50%)";
+            c.fillStyle = data.colors.theYellow;
+            // "hsl(70, 90%, 50%)";
             if (this.thrust > 0 || this.vtotal > 2) {
                 c.fillRect(4, this.h, this.w - 8, 4);
             }

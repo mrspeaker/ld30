@@ -5,6 +5,12 @@
 		collision: "rgb(126, 75, 15)",
 		collisionRgb: [126, 75, 15],
 
+		colors: {
+			theYellow: "rgb(191, 188, 21)",
+			_intro: "rgb(191, 188, 21)",
+			_thrust: "hsl(70, 90%, 50%)"
+		},
+
 		framesPerHour: 50,
 
 		cash: {
