@@ -101,15 +101,16 @@
 			for (var i = 0; i < this.planets.length; i++) {
 				var p = this.planets[i];
 				var dist = Ω.math.dist(player, p);
-				if (dist < 50) {
-					this.state.set("CRASHED");
-					return;
-				}
+				
 				// If close, and not going too fast... LAND!
-				if (dist < 50 + p.size && player.vtotal < 2) {
-					this.state.set("APPROACHING", p);
-					return;
-				}	
+				if (dist < 50 + p.size) {
+					if (player.vtotal < 2) {
+						this.state.set("APPROACHING", p);
+						return;
+					}	
+						
+					//return;
+				}
 			}
 
 			if (this.player_craft.crashed) {

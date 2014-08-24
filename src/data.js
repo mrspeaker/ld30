@@ -44,6 +44,25 @@
 
 		debug: {
 			gimmePlanet: true
+		},
+
+		names: {
+			planets: [
+				"Yuengling",
+				"Tusker",
+				"Sweetwater",
+				"Dogfish",
+				"Redhook",
+				"Einbecker",
+				"Radeberger",
+				"Affligem",
+				"Ambrel",
+				"Bacchus",
+				"Belgo",
+				"Cerisette",
+				"Grimbergen",
+				"Watermolen"
+			]
 		}
 	};
 

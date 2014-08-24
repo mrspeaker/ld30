@@ -27,7 +27,7 @@
 
             gfx.ctx.fillStyle = "rgb(191, 188, 21)";
 
-            gfx.ctx.fillText("Con-World Cabs", gfx.w / 2 - 260, gfx.h * 0.4);
+            gfx.ctx.fillText("GüBEr Taxis", gfx.w / 2 - 260, gfx.h * 0.4);
 			gfx.ctx.font = "16pt monospace";
             gfx.ctx.fillText("Connecting worlds,", gfx.w / 2 - 230, gfx.h * 0.7);
             gfx.ctx.fillText("in these disconnected times.", gfx.w / 2 - 130, gfx.h * 0.78);

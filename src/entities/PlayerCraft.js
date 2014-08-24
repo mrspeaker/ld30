@@ -90,7 +90,6 @@
             
             this.vr += this.rthrust;
             this.vr *= phys.rot_friction * breakFriction;
-            //this.vtotal = Ω.math.dist([this.vx, this.vy], [0, 0]); // Calc total velocity
             this.rotation += this.vr;
 
             var angle = (this.rotation - 90) * Math.PI / 180;
