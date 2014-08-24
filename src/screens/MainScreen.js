@@ -10,6 +10,7 @@
         frame: data.framesPerHour - 100,
 
         fares: null,
+        fare: null,
 
         init: function () {
 
@@ -28,36 +29,48 @@
             if (this.frame % 1000 == 0) {
                 this.addHour();
             }
-            var pressedIdx = -1;
-            if (Ω.input.pressed("one")) {
-                pressedIdx = 0;
-            }
-            if (Ω.input.pressed("two")) {
-                pressedIdx = 1;
-            }
-            if (Ω.input.pressed("three")) {
-                pressedIdx = 2;
-            }
-            if (Ω.input.pressed("four")) {
-                pressedIdx = 3;
-            }
-            if (pressedIdx > -1) {
-                if (this.fares[pressedIdx]) {
-                    var fare = this.fares[pressedIdx];
-                    if (fare === this.selected) {
-                        fare.selected = false
-                        this.selected = null;
-                    } else {
-                        fare.selected = true;
-                        if (this.selected) {
-                            this.selected.selected = false;
+
+            // Move this to Asteroids.
+            if (this.level === this.levels.asteroids) {
+                var pressedIdx = -1;
+                if (Ω.input.pressed("one")) {
+                    pressedIdx = 0;
+                }
+                if (Ω.input.pressed("two")) {
+                    pressedIdx = 1;
+                }
+                if (Ω.input.pressed("three")) {
+                    pressedIdx = 2;
+                }
+                if (Ω.input.pressed("four")) {
+                    pressedIdx = 3;
+                }
+                if (pressedIdx > -1) {
+                    if (this.fares[pressedIdx]) {
+                        var fare = this.fares[pressedIdx];
+                        if (fare === this.fare) {
+                            fare.selected = false
+                            this.fare = null;
+                        } else {
+                            fare.selected = true;
+                            if (this.fare) {
+                                this.fare.selected = false;
+                            }
+                            this.fare = fare;
                         }
-                        this.selected = fare;
                     }
                 }
             }
 
             this.level.tick();
+        },
+
+        doneFare: function (fare) {
+            fare.selected = false;
+            this.fare = null;
+            this.fares = this.fares.filter(function (f) {
+                return f !== fare;
+            });
         },
 
         addHour: function () {
@@ -66,13 +79,22 @@
 
             var planets = this.levels.asteroids.planets;
 
-            if (this.fares.length < 5)
-            this.fares.push({
-                src: planets[Ω.utils.rand(planets.length - 2)],
-                dest: planets[Ω.utils.rand(planets.length - 2)],
-                bid: Ω.utils.rand(1000, 4000),
-                tips: Ω.utils.rand(3000)
-            });
+            if (this.fares.length < 4) {
+                var src = planets[Ω.utils.rand(planets.length - 2)],
+                    dst = planets[Ω.utils.rand(planets.length - 2)],
+                    src_pad = Ω.utils.rand(src.surface.pads),
+                    dst_pad = Ω.utils.rand(dst.surface.pads);
+
+                this.fares.push({
+                    src: src,
+                    src_pad: src_pad,
+                    dest: dst,
+                    dest_pad: dst_pad,
+                    bid: Ω.utils.rand(1000, 4000),
+                    tips: Ω.utils.rand(3000),
+                    pickedUp: false
+                });
+            }
 
         },
 

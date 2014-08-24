@@ -23,6 +23,8 @@
 			this.player = screen.player;
 			this.player_craft = new PlayerCraft(Ω.env.w * 0.5, Ω.env.h * 0.2, this);
 
+			this.fare = screen.fare;
+
 			this.planet.visits++;
 
 			this.stars = [];
@@ -30,7 +32,7 @@
 			this.loaded = false;
 
 			var self = this;
-			new Ω.Tiled("res/surfaces/" + planet.surface + ".json?" + Date.now(), function (level, err) {
+			new Ω.Tiled("res/surfaces/" + planet.surface.name + ".json?" + Date.now(), function (level, err) {
 				if (err) {
 					console.log("Error loading surface:", err);
 					return;
@@ -101,9 +103,25 @@
 					this.player_craft.halt();
 					this.player_craft.rotation = 0;
 					// TODO: "judge" landing
-					this.player.guber_rank += Math.random() * 10 | 0;
-					this.player.cash += (Math.random() * 3000 | 0) + 900;
 					this.landed_y = this.player_craft.y;
+
+					var fare = this.screen.fare;
+					if (fare) {
+						if (fare.pickedUp) {
+							if (fare.dest === this.planet) {
+								// DONE THE FARE!
+								this.player.guber_rank += Math.random() * 10 | 0;
+								this.player.cash += (Math.random() * 3000 | 0) + 900;
+								this.screen.doneFare(fare);
+							}
+						} else {
+							if (fare.src === this.planet) {
+								// Picked up.
+								fare.pickedUp = true;
+							}
+						}
+
+					}
 				}
 				if (this.state.count > 100) {
 					//this.screen.goto("fly");
@@ -192,7 +210,8 @@
 
 			if (!this.loaded) return;
 
-			var c = gfx.ctx;
+			var c = gfx.ctx,
+				self = this;
 			c.save();
 
 			var scale = this.scale,
@@ -227,8 +246,22 @@
 				c.fill();
 			});
 
-			this.pads.forEach(function (pad) {
-				c.fillStyle = pad.alreadyLanded ? "hsl(200, 70%, 30%)" : "hsl(200, 70%, 60%)";
+			this.pads.forEach(function (pad, i) {
+				var fare = self.screen.fare,
+					rightPlanet = false,
+					rightPad = -1;
+				// Are win in teh right planet for dropping off/picking up?
+				if (fare) {
+					if ((fare.src === self.planet && !fare.pickedUp) || (fare.dest === self.planet && fare.pickedUp)) {
+						rightPlanet = true;
+						rightPad = fare.src === self.planet ? fare.src_pad : fare.dest_pad;
+					}
+				}
+				if (rightPlanet && i === rightPad && Ω.utils.toggle(200, 2)) {
+					c.fillStyle = "hsl(200, 70%, 30%)";					
+				} else {
+					c.fillStyle = pad.alreadyLanded ? "hsl(200, 70%, 30%)" : "hsl(200, 70%, 60%)";
+				}
 				c.fillRect(pad.x, pad.y, pad.width, pad.height);
 			});
 

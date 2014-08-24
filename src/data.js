@@ -8,9 +8,9 @@
 		framesPerHour: 1000,
 		
 		surfaces: [
-			"simple",
-			"test",
-			"test2"
+			{ name: "simple", pads: 1 },
+			{ name: "test", pads: 3 },
+			{ name: "test2", pads: 3 }
 		],
 
 		physics: {
@@ -23,7 +23,7 @@
 
 		landing: {
 			max_rot: 6.0,
-			max_velocity: 1.4
+			max_velocity: 1.5
 		},
 
 		debug: {
