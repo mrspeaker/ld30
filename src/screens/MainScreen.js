@@ -21,6 +21,7 @@
                 asteroids: new Levels.Asteroids(this)
             }
             this.level = this.levels.asteroids;
+            data.physics = data.physics_space;
 
         },
 
@@ -101,9 +102,11 @@
         goto: function (level, planet) {
             switch(level) {
             case "land":
+                data.physics = data.physics_planet;
                 this.level = new Levels.LunarLander(planet, this);
                 break;
             case "fly":
+                data.physics = data.physics_space;
                 this.level = this.levels.asteroids;
                 this.level.depart();
                 break;

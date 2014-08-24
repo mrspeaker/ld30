@@ -131,15 +131,11 @@
 			case "CRASHED":
 				if (this.state.first()) {
 					this.player_craft.crashed = true;
-					this.player.guber_rank = Math.max(0, this.player.guber_rank - 20);
-					this.player.cash -= 10000;
+					this.player.guber_rank = Math.max(0, this.player.guber_rank - data.cash.uberRankReduceOnCrash);
+					this.player.cash = Math.max(0, data.cash.cabPrice);
 				}
 				if (this.state.count > 100) {
 					this.screen.goto("fly");
-					if (this.player.cash < 0) {
-						this.player.cash = 0;
-						game.setScreen(new GameOverScreen());
-					}
 				}
 				break;
 			}
@@ -180,6 +176,8 @@
 
 		checkLanding: function (pad, player) {
 			if (pad.alreadyLanded) {
+				player.halt();
+				player.y = pad.y - player.h;
 				return;
 			}
 

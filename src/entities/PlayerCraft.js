@@ -58,7 +58,8 @@
         
         tick: function (gravity) {
 
-            var phys = data.physics;
+            var phys = data.physics,
+                breakFriction = 1;
 
             if (this.controlsEnabled) {
 
@@ -74,6 +75,7 @@
                 }
                 if (Ω.input.isDown("down")) {
                     this.thrust = 0;
+                    breakFriction = phys.braking;
                     // TODO: braking!
                 }
             }
@@ -87,7 +89,7 @@
 
             
             this.vr += this.rthrust;
-            this.vr *= phys.rot_friction;
+            this.vr *= phys.rot_friction * breakFriction;
             //this.vtotal = Ω.math.dist([this.vx, this.vy], [0, 0]); // Calc total velocity
             this.rotation += this.vr;
 
@@ -99,8 +101,8 @@
             this.vy += ay + gravity;
 
             var friction = phys.friction;
-            this.vx *= friction;
-            this.vy *= friction;
+            this.vx *= friction * breakFriction;
+            this.vy *= friction * breakFriction;
             this.vtotal = Ω.math.dist([this.vx, this.vy], [0, 0]); // Calc total velocity
 
             this.x += this.vx;
