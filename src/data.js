@@ -5,7 +5,7 @@
 		collision: "rgb(126, 75, 15)",
 		collisionRgb: [126, 75, 15],
 
-		framesPerHour: 500,
+		framesPerHour: 50,
 
 		cash: {
 			cabPrice: 5000,

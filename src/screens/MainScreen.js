@@ -137,8 +137,13 @@
 
         addHour: function () {
 
-            this.hour++;
-            this.addFare();
+            var doIt = Math.random() < 0.3;
+
+            if (this.hour++ % 2 == 0) {
+                (this.initFares || doIt) && this.addFare();
+            } else {
+                (!this.initFares && doIt) && this.removeFare();
+            }
 
         },
 
@@ -166,8 +171,6 @@
                 diff_dest = dst.surface.hard[dst_pad],
                 tot_diff = ((diff_src + diff_dest) / 20) * 5;
 
-            //console.log(diff_src, diff_dest, tot_diff)
-
 
             this.fares.push({
                 src: src,
@@ -183,6 +186,17 @@
             if (this.initFares && this.fares.length === this.maxFares) {
                 this.initFares = false;
             }
+        },
+
+        removeFare: function () {
+            var fare = this.fares[Ω.utils.rand(this.fares.length)];
+            if (fare === this.fare) {
+                return;
+            }
+            this.fares = this.fares.filter(function (f) {
+                return f !== fare;
+            });
+
         },
 
         goto: function (level, planet) {

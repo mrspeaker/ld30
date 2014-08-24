@@ -334,6 +334,11 @@
 				for (var j = 0; j < fare.difficulty | 0; j++) {
 					c.fillText("☠", xoff + 20 + j * 20, i * 40 + yoff + 35);
 				}
+
+				c.fillStyle = fare.src.col;
+				c.fillRect(xoff - 10, i * 40 + yoff + 5, 4, 34);
+				c.fillStyle = fare.dest.col;
+				c.fillRect(xoff + 186, i * 40 + yoff + 5, 4, 34);
 			});
 
 			yoff += 210;
