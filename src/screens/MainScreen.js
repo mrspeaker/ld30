@@ -7,7 +7,7 @@
         level: null,
 
         hour: 0,
-        frame: data.framesPerHour / 2,
+        frame: data.framesPerHour - 100,
 
         fares: null,
 
@@ -28,12 +28,32 @@
             if (this.frame % 1000 == 0) {
                 this.addHour();
             }
-
+            var pressedIdx = -1;
             if (Ω.input.pressed("one")) {
-                if (this.fares[0]) {
-                    this.selected = null;
-                    this.fares[0].selected = !this.fares[0].selected;
-                    this.selected = this.fares[0];
+                pressedIdx = 0;
+            }
+            if (Ω.input.pressed("two")) {
+                pressedIdx = 1;
+            }
+            if (Ω.input.pressed("three")) {
+                pressedIdx = 2;
+            }
+            if (Ω.input.pressed("four")) {
+                pressedIdx = 3;
+            }
+            if (pressedIdx > -1) {
+                if (this.fares[pressedIdx]) {
+                    var fare = this.fares[pressedIdx];
+                    if (fare === this.selected) {
+                        fare.selected = false
+                        this.selected = null;
+                    } else {
+                        fare.selected = true;
+                        if (this.selected) {
+                            this.selected.selected = false;
+                        }
+                        this.selected = fare;
+                    }
                 }
             }
 
@@ -46,6 +66,7 @@
 
             var planets = this.levels.asteroids.planets;
 
+            if (this.fares.length < 5)
             this.fares.push({
                 src: planets[Ω.utils.rand(planets.length - 2)],
                 dest: planets[Ω.utils.rand(planets.length - 2)],
@@ -71,14 +92,15 @@
         },
 
         render: function (gfx) {
+            var c = gfx.ctx;
 
             this.clear(gfx, "hsl(195, 40%, 10%)");
-            gfx.ctx.font = "16pt monospace";
+            c.font = "16pt monospace";
 
             this.level.render(gfx);
 
-            gfx.ctx.fillStyle = "#fff";
-            gfx.ctx.fillText(this.hour, 30, 200);
+            c.fillStyle = "#fff";
+            c.fillText(this.hour, 30, 200);
 
         }
     });

@@ -281,6 +281,21 @@
 				c.fillStyle = "#333";
 				c.fillText((i + 1) +"> " + fare.src.id + ":" + fare.dest.id + " $" + fare.bid, gfx.w - 200 + 10, i * 40 + 35);
 			});
+
+			var fare = this.screen.selected
+			if (fare) {
+				var src = fare.src;
+				var angle = Ω.math.angleBetween(src, this.player_craft);
+				c.save();
+				c.translate(gfx.w / 2, 80);
+				c.rotate(angle);
+				c.fillStyle = "#fff";
+				c.fillRect(-10, 0, 20, 5);
+				c.fillStyle = "#800";
+				c.fillRect(10, 0, 5, 5);
+				c.translate(-gfx.w / 2, -80)
+				c.restore();
+			}
 		}
 	});
 
