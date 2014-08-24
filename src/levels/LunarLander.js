@@ -54,7 +54,8 @@
 			var self = this;
 			
 			this.surface = level.layer("surface").type("ground");
-			this.pads = level.layer("pads").type("pad").map(function (pad) {
+			this.pads = level.layer("pads").type("pad").map(function (pad, i) {
+				pad.id = i;
 				pad.height = 10;
 				pad.y -= pad.height;
 				pad.w = pad.width;
@@ -118,6 +119,7 @@
 								this.player.cash += (Math.random() * 3000 | 0) + 900;
 								this.screen.doneFare(fare);
 								this.audio.collect.play();
+								this.screen.setMessage("Earned X GüBer cred");
 							}
 						} else {
 							if (fare.src === this.planet) {
@@ -138,7 +140,7 @@
 				if (this.state.first()) {
 					this.player_craft.crashed = true;
 					this.player.guber_cred = Math.max(0, this.player.guber_cred - data.cash.uberRankReduceOnCrash);
-					this.player.cash = Math.max(0, data.cash.cabPrice);
+					this.player.cash = Math.max(0, this.player.cash - data.cash.cabPrice);
 				}
 				if (this.state.count > 100) {
 					this.screen.goto("fly", this.planet);
@@ -268,6 +270,7 @@
 					c.fillStyle = pad.alreadyLanded ? "hsl(200, 70%, 30%)" : "hsl(200, 70%, 60%)";
 				}
 				c.fillRect(pad.x, pad.y, pad.width, pad.height);
+				c.fillText(i + 1, pad.x + pad.width / 2, pad.y + 30)
 			});
 
 			if (this.state.isIn("INTRO", "FALLING")) {
@@ -294,6 +297,9 @@
 
 			var c = gfx.ctx,
 				player = this.player_craft;
+			var xoff = 20,
+				yoff = 50;
+
 
 			c.fillStyle = "#fff";
 			c.fillText("GüBER CRED : " + this.player.guber_cred, 20, 30);
@@ -302,22 +308,35 @@
 				c.fillText("READY", gfx.w / 2 - 40, gfx. h / 2 - 100)
 			}
 
+			c.fillText("- DISPATCH -", xoff, yoff);
+			if (this.screen.message) {
+				if (this.screen.message_blink-- <= 0 || Ω.utils.toggle(300, 2)) {
+					c.fillText(this.screen.message, xoff, yoff + 30);
+				}
+				if (this.screen.message_blink === 0 && this.screen.message_last) {
+					this.screen.message = this.screen.message_last;
+				}
+			}
+
+			yoff += 80;
+
 			if (this.stats && this.state.isIn("FALLING", "LANDED")) {
-				c.fillText("VEL", 20, 50);
-				c.fillText("ROT", 20, 70);
+				c.fillText("VEL", xoff, yoff);
+				c.fillText("ROT", xoff, yoff + 20);
 
 				var vel = ((this.stats.vel || Ω.utils.toggle(100, 2)) ? "70%, 30%" : "90%, 50%"),
 					rot = ((this.stats.rot || Ω.utils.toggle(100, 2)) ? "70%, 30%" : "90%, 50%");
 				c.fillStyle = "hsl(0, " + vel + ")";
 				c.beginPath();
-				c.arc(60, 44, 7, 0, Math.PI * 2, false);
+				c.arc(xoff + 40, yoff - 8, 7, 0, Math.PI * 2, false);
 				c.fill();
 
 				c.fillStyle = "hsl(120, " + rot + ")";
 				c.beginPath();
-				c.arc(60, 64, 7, 0, Math.PI * 2, false);
+				c.arc(xoff + 40, yoff + 14 , 7, 0, Math.PI * 2, false);
 				c.fill();
 			}
+
 
 		}
 	});

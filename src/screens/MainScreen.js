@@ -12,6 +12,11 @@
         fares: null,
         fare: null,
 
+        message: "",
+        message_blink: 0,
+        message_last: "",
+
+        selectMessage: "Select fare [1-4]",
         initFares: true,
 
         init: function () {
@@ -64,19 +69,20 @@
 
                 if (pressedIdx > -1) {
                     if (this.fare && this.fare.pickedUp) {
-                        this.levels.asteroids.setMessage("Fare in progress!", undefined, true);
+                        this.setMessage("Fare in progress!", undefined, true);
                     } else if (this.fares[pressedIdx]) {
                         var fare = this.fares[pressedIdx];
                         if (fare === this.fare) {
                             fare.selected = false
                             this.fare = null;
+                            this.setMessage(this.selectMessage);
                         } else {
                             fare.selected = true;
                             if (this.fare) {
                                 this.fare.selected = false;
                             }
                             this.fare = fare;
-                            this.level.fareSelected();
+                            this.setMessage("Pickup from: " + this.fare.src.name);
                         }
                     }
                 }
@@ -85,18 +91,45 @@
             this.level.tick();
         },
 
+        getStep: function () {
+            var fare = this.fare;
+            if (!fare) {
+                return this.selectMessage;
+            }
+            if (fare.pickedUp) {
+                return "Drop off at " + fare.dest.name;
+            }
+            return "Pickup at " + fare.src.name;
+
+        },
+
+        onRightPlanet: function (planet) {
+
+            var fare = this.fare;
+            if (!fare) return false;
+
+            return (fare.src === planet && !fare.pickedUp) || (fare.dest === planet && fare.pickedUp)
+
+        },
+
+        setMessage: function (message, blinkTime, revertAfterBlink) {
+            this.message_last = revertAfterBlink ? this.message : "";
+            this.message = message;
+            this.message_blink = blinkTime || 200;
+
+        },
+
         doneFare: function (fare) {
             fare.selected = false;
             this.fare = null;
             this.fares = this.fares.filter(function (f) {
                 return f !== fare;
             });
-            this.levels.asteroids.setMessage("Select fare [1-4]"); 
         },
 
         pickedUpFare: function (fare) {
            fare.pickedUp = true;
-           this.levels.asteroids.setMessage("Drop off at:" + fare.dest.name);
+           this.setMessage("Drop off at:" + fare.dest.name);
         },
 
         addHour: function () {
@@ -145,14 +178,26 @@
             case "land":
                 data.physics = data.physics_planet;
                 this.level = new Levels.LunarLander(planet, this);
+                if (!this.onRightPlanet(planet)) {
+                    this.setMessage("No business here.");
+                    break;
+                } else {
+                    var fare = this.fare,
+                        pickedUp = fare.pickedUp,
+                        pad = pickedUp ? fare.dest_pad : fare.src_pad;
+
+                    this.setMessage((pickedUp ? "Drop off on" : "Pick up from") + " Pad " + (pad + 1));
+                }
                 break;
             case "fly":
                 data.physics = data.physics_space;
                 this.level = this.levels.asteroids;
                 this.level.depart(planet);
+                this.setMessage(this.getStep());
                 break;
             case "depot":
                 this.level = new Levels.Depot(planet, this)
+                this.setMessage("Stop wasting time at the depot.");
                 break;
             }
         },

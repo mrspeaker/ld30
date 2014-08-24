@@ -13,10 +13,6 @@
 		doneIntro: false,
 		state: null,
 
-		message: "",
-		message_blink: 0,
-		message_last: "",
-
 		audio: {
 			theme: new Ω.Sound("res/audio/theme", 0.6, 1)
 		},
@@ -67,7 +63,7 @@
 				this.state.set("READY");
 				break;
 			case "INTRO":
-				this.setMessage("Select a fare [1-4]", 10000);
+				this.screen.setMessage("Select a fare [1-4]", 10000);
 				if (this.state.count > 50) {
 					this.doneIntro = true;
 					this.state.set("READY");
@@ -243,17 +239,6 @@
 
 		},
 
-		setMessage: function (message, blinkTime, revertAfterBlink) {
-			this.message_last = revertAfterBlink ? this.message : "";
-			this.message = message;
-			this.message_blink = blinkTime || 200;
-
-		},
-
-		fareSelected: function () {
-			this.setMessage("Pickup from: " + this.screen.fare.src.name);
-		},
-
 		renderHUD: function (gfx) {
 
 			var c = gfx.ctx,
@@ -353,12 +338,12 @@
 			c.fillStyle = "#fff"
 			c.font = "12pt monospace";
 			c.fillText("- DISPATCH -", xoff, yoff);
-			if (this.message) {
-				if (this.message_blink-- <= 0 || Ω.utils.toggle(300, 2)) {
-					c.fillText(this.message, xoff, yoff + 30);
+			if (this.screen.message) {
+				if (this.screen.message_blink-- <= 0 || Ω.utils.toggle(300, 2)) {
+					c.fillText(this.screen.message, xoff, yoff + 30);
 				}
-				if (this.message_blink === 0 && this.message_last) {
-					this.message = this.message_last;
+				if (this.screen.message_blink === 0 && this.screen.message_last) {
+					this.screen.message = this.screen.message_last;
 				}
 			}
 		}
