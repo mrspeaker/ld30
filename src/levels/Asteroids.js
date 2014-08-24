@@ -17,6 +17,12 @@
 		message_blink: 0,
 		message_last: "",
 
+		audio: {
+			theme: new Ω.Sound("res/audio/theme", 0.6, 1)
+		},
+
+		themeStarted: false,
+
 		init: function (screen) {
 
 			this.state = new Ω.utils.State("BORN");
@@ -73,6 +79,14 @@
 				}
 				break;
 			case "FLYING":
+				if (this.state.count < 52) {
+					// Fade in
+					this.audio.theme.audio.volume = this.audio.theme.audio._volume * (this.state.count / 51);
+				}
+				if (this.state.count === 300 && !this.themeStarted) {
+					this.audio.theme.play();
+					this.themeStarted = true;
+				}
 				this.tick_flying();
 				break;
 			case "APPROACHING":
@@ -80,6 +94,8 @@
 				if (this.state.first()) {
 					player.disableControls();
 				}
+				// Fade out
+				this.audio.theme.audio.volume = this.audio.theme.audio._volume * (1 - (this.state.count / 51));
 				if (this.state.count > 50) {
 					var planet = this.state.data;
 					this.state.set("FLYING");

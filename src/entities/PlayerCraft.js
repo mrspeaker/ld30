@@ -26,6 +26,12 @@
 
         controlsEnabled: true,
 
+        audio: {
+            thrust: new Ω.Sound("res/audio/thrust_noise", 0.7),
+            rot_thrust_1: new Ω.Sound("res/audio/thrust_rot_l", 0.7),
+            rot_thrust_2: new Ω.Sound("res/audio/thrust_rot_r", 0.7)
+        },
+
         init: function (x, y, screen) {
             this._super(x, y);
             this.screen = screen;
@@ -65,12 +71,21 @@
 
                 if (Ω.input.isDown("left")) {
                     this.rthrust = -phys.rot_thrust;
+                    if (Ω.input.pressed("left")) {
+                        this.audio.rot_thrust_1.play(true);
+                    }
                 }
                 if (Ω.input.isDown("right")) {
                     this.rthrust = phys.rot_thrust;
+                    if (Ω.input.pressed("right")) {
+                        this.audio.rot_thrust_2.play(true);
+                    }
                 }
                 
                 if (this.player.fuel > 0 && Ω.input.isDown("up")) {
+                    if (Ω.input.pressed("up")) {
+                        this.audio.thrust.play(true);
+                    }
                     this.thrust = phys.thrust;
                 }
                 if (Ω.input.isDown("down")) {

@@ -96,6 +96,14 @@
 
             var planets = this.levels.asteroids.planets;
 
+            // Need to... asses "par" time
+            // - time to get to planet
+            // - time to get to dest
+            // - time to get to pad
+            // dangerousness
+            // - difficulty of src pad
+            // - difficulty of dest pad
+
             if (this.fares.length < this.maxFares) {
                 var src = planets[Ω.utils.rand(planets.length - 2)],
                     dst = planets[Ω.utils.rand(planets.length - 2)],
