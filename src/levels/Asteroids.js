@@ -329,9 +329,11 @@
 				c.fillRect(xoff, i * 40 + yoff + 5, 180, 35);
 
 				c.fillStyle = "#999";
-				c.fillText((i + 1) +")", xoff + 10, i * 40 + yoff + 20);
+				c.fillText((i + 1), xoff + 2, i * 40 + yoff + 20);
 				c.font = "30pt monospace";
-				c.fillText("☠☠☠", xoff + 10, i * 40 + yoff + 35);
+				for (var j = 0; j < fare.difficulty | 0; j++) {
+					c.fillText("☠", xoff + 20 + j * 20, i * 40 + yoff + 35);
+				}
 			});
 
 			yoff += 210;

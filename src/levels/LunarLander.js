@@ -117,7 +117,7 @@
 								// DONE THE FARE!
 								this.player.guber_cred += Math.random() * 10 | 0;
 								this.player.cash += (Math.random() * 3000 | 0) + 900;
-								this.screen.doneFare(fare);
+								this.screen.doneFare();
 								this.audio.collect.play();
 								this.screen.setMessage("Earned X GüBer cred");
 							}
@@ -141,6 +141,7 @@
 					this.player_craft.crashed = true;
 					this.player.guber_cred = Math.max(0, this.player.guber_cred - data.cash.uberRankReduceOnCrash);
 					this.player.cash = Math.max(0, this.player.cash - data.cash.cabPrice);
+					this.screen.doneFare();
 				}
 				if (this.state.count > 100) {
 					this.screen.goto("fly", this.planet);

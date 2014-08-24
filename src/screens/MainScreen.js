@@ -119,8 +119,11 @@
 
         },
 
-        doneFare: function (fare) {
-            fare.selected = false;
+        doneFare: function () {
+            var fare = this.fare;
+            if (fare) {
+                fare.selected = false;
+            }
             this.fare = null;
             this.fares = this.fares.filter(function (f) {
                 return f !== fare;
@@ -141,6 +144,10 @@
 
         addFare: function () {
 
+            if (this.fares.length >= this.maxFares) {
+                return;
+            }
+
             var planets = this.levels.asteroids.planets;
 
             // Need to... asses "par" time
@@ -151,24 +158,29 @@
             // - difficulty of src pad
             // - difficulty of dest pad
 
-            if (this.fares.length < this.maxFares) {
-                var src = planets[Ω.utils.rand(planets.length - 2)],
-                    dst = planets[Ω.utils.rand(planets.length - 2)],
-                    src_pad = Ω.utils.rand(src.surface.pads),
-                    dst_pad = Ω.utils.rand(dst.surface.pads);
+            var src = planets[Ω.utils.rand(planets.length - 2)],
+                dst = planets[Ω.utils.rand(planets.length - 2)],
+                src_pad = Ω.utils.rand(src.surface.pads),
+                dst_pad = Ω.utils.rand(dst.surface.pads),
+                diff_src = src.surface.hard[src_pad],
+                diff_dest = dst.surface.hard[dst_pad],
+                tot_diff = ((diff_src + diff_dest) / 20) * 5;
 
-                this.fares.push({
-                    src: src,
-                    src_pad: src_pad,
-                    dest: dst,
-                    dest_pad: dst_pad,
-                    bid: Ω.utils.rand(1000, 4000),
-                    tips: Ω.utils.rand(3000),
-                    pickedUp: false
-                });
-            }
+            //console.log(diff_src, diff_dest, tot_diff)
 
-            if (this.iniFares && this.fares.length === this.maxFares) {
+
+            this.fares.push({
+                src: src,
+                src_pad: src_pad,
+                dest: dst,
+                dest_pad: dst_pad,
+                bid: Ω.utils.rand(1000, 4000),
+                tips: Ω.utils.rand(3000),
+                pickedUp: false,
+                difficulty: tot_diff
+            });
+
+            if (this.initFares && this.fares.length === this.maxFares) {
                 this.initFares = false;
             }
         },

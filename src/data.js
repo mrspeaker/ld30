@@ -5,7 +5,7 @@
 		collision: "rgb(126, 75, 15)",
 		collisionRgb: [126, 75, 15],
 
-		framesPerHour: 2000,
+		framesPerHour: 500,
 
 		cash: {
 			cabPrice: 5000,
@@ -13,9 +13,9 @@
 		},
 		
 		surfaces: [
-			{ name: "simple", pads: 1 },
-			{ name: "test", pads: 3 },
-			{ name: "test2", pads: 3 }
+			{ name: "simple", pads: 1, hard:[1] },
+			{ name: "test", pads: 3, hard:[4, 6, 2] },
+			{ name: "test2", pads: 4, hard:[2, 4, 5, 2] }
 		],
 
 		physics: {},
