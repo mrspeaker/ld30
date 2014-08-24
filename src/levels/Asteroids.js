@@ -15,6 +15,7 @@
 
 		message: "",
 		message_blink: 0,
+		message_last: "",
 
 		init: function (screen) {
 
@@ -226,9 +227,11 @@
 
 		},
 
-		setMessage: function (message, blinkTime) {
+		setMessage: function (message, blinkTime, revertAfterBlink) {
+			this.message_last = revertAfterBlink ? this.message : "";
 			this.message = message;
 			this.message_blink = blinkTime || 200;
+
 		},
 
 		fareSelected: function () {
@@ -336,6 +339,9 @@
 			if (this.message) {
 				if (this.message_blink-- <= 0 || Ω.utils.toggle(300, 2)) {
 					c.fillText(this.message, xoff, yoff + 30);
+				}
+				if (this.message_blink === 0 && this.message_last) {
+					this.message = this.message_last;
 				}
 			}
 		}

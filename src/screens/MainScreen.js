@@ -48,7 +48,7 @@
                 }
                 if (pressedIdx > -1) {
                     if (this.fare && this.fare.pickedUp) {
-                        this.levels.asteroids.setMessage("FARE IN PROGRESS!")
+                        this.levels.asteroids.setMessage("Fare in progress!", undefined, true);
                     } else if (this.fares[pressedIdx]) {
                         var fare = this.fares[pressedIdx];
                         if (fare === this.fare) {
