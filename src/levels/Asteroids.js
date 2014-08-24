@@ -26,17 +26,52 @@
 			this.screen = screen;
 			this.player = screen.player;
 			this.player_craft = new PlayerCraft(Ω.env.w * 0.5, Ω.env.h * 0.2, this);
-			this.planets = [];
-			for (var i = 0; i < 10; i++) {
-				var p = new Planet(
-					i,
-					data.names.planets[i],
-					Ω.utils.rand(-1500, 2500),
-					Ω.utils.rand(-1500, 2500),
-					Ω.utils.rand(25, 45),
-					i > 8);
-				this.planets.push(p);
+
+			var ok = false,
+				loops = 0;
+			while (!ok) {
+				this.planets = [];
+				for (var i = 0; i < 12; i++) {
+					var p = new Planet(
+						i,
+						data.names.planets[i],
+						Ω.utils.rand(-1500, 2500),
+						Ω.utils.rand(-1500, 2500),
+						Ω.utils.rand(25, 45),
+						i > 8);
+					this.planets.push(p);
+				}
+
+				var all = this.planets.slice(0),
+					err = "",
+					minDist = 9999;
+				all.push(this.player_craft);
+
+				for (var j = 0; j < all.length; j++) {
+					for (i = 0; i < all.length; i++) {
+						var a = all[j],
+							b = all[i];
+						if (a === b) {
+							break;
+						}
+						var dist = Ω.math.dist(a, b);
+						if (!dist) {
+							err += "nop... " + dist + "|";
+						}
+						if (dist < minDist) {
+							minDist = dist;
+						}
+					}
+				}
+
+				loops++
+				if (minDist > 400 || loops > 50) {
+
+					ok = true;
+				}
 			}
+			//console.log(loops);
+
 			if (data.debug.gimmePlanet) {
 				this.planets[1].x = this.player_craft.x;
 				this.planets[1].y = this.player_craft.y - 200;
