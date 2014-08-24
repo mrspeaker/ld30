@@ -4,11 +4,12 @@
 
 	var Planet = Ω.Class.extend({
 		size: 30,
-		init: function (id, x, y, size, isDepot) {
+		init: function (id, name, x, y, size, isDepot) {
 			this.x = x;
 			this.y = y;
 			this.size = size;
 			this.id = id;
+			this.name = name;
 			this.visits = 0;
 			this.isDepot = isDepot || false;
 			this.surface = data.surfaces[id % data.surfaces.length];
@@ -38,7 +39,7 @@
 			if (this.isDepot) {
 				c.fillText("DEPOT", this.x - 50 + (this.size / 2), this.y + this.size + 18);
 			} else {
-				c.fillText("planet " + this.id, this.x - 55 + (this.size / 2), this.y + this.size + 18);
+				c.fillText(this.name, this.x - 55 + (this.size / 2), this.y + this.size + 18);
 			}
 			
 		}

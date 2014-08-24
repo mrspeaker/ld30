@@ -43,7 +43,7 @@
 		},
 
 		debug: {
-			gimmePlanet: true
+			gimmePlanet: false
 		},
 
 		names: {

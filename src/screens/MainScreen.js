@@ -124,9 +124,6 @@
 
             this.level.render(gfx);
 
-            c.fillStyle = "#fff";
-            c.fillText(this.hour, 30, 200);
-
         }
     });
 

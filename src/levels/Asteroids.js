@@ -24,6 +24,7 @@
 			for (var i = 0; i < 10; i++) {
 				var p = new Planet(
 					i,
+					data.names.planets[i],
 					Ω.utils.rand(-1500, 2500),
 					Ω.utils.rand(-1500, 2500),
 					Ω.utils.rand(25, 45),
@@ -157,7 +158,7 @@
 			if (this.state.is("APPROACHING")) {
 				c.fillStyle = "#fff";
 
-				c.fillText("Landing on planet" + this.state.data.id, gfx.w / 2 - 100, 200);
+				c.fillText("Landing on " + this.state.data.name, gfx.w / 2 - 100, 200);
 
 			}
 		},
@@ -276,27 +277,38 @@
 
 		renderFares: function (gfx) {
 			var c = gfx.ctx;
-			c.font = "10pt monospace";
+			c.font = "8pt monospace";
 			this.screen.fares.forEach(function (fare, i) {
 				c.fillStyle = fare.selected ? "#977" : "#999";
 				c.fillRect(gfx.w - 200, i * 40 + 20, 180, 35);
 
 				c.fillStyle = "#333";
-				c.fillText((i + 1) +"> " + fare.src.id + ":" + fare.dest.id + " $" + fare.bid, gfx.w - 200 + 10, i * 40 + 35);
+				c.fillText((i + 1) +"> " + fare.src.name + " to " + fare.dest.name, gfx.w - 200 + 10, i * 40 + 35);
+				c.fillText("   $" + fare.bid, gfx.w - 200 + 10, i * 40 + 45);
 			});
 
 			var fare = this.screen.fare;
 			if (fare) {
 				var planet = fare.pickedUp ? fare.dest : fare.src;
-				var angle = Ω.math.angleBetween(planet, this.player_craft);
+				var angle = Ω.math.angleBetween(planet, this.player_craft),
+					xoff = gfx.w - 100 - 20,
+					yoff = gfx.h - 100 - 20;
 				c.save();
-				c.translate(gfx.w / 2, 80);
+				c.translate(xoff, yoff);
 				c.rotate(angle);
+
 				c.fillStyle = "#fff";
-				c.fillRect(-10, 0, 20, 5);
-				c.fillStyle = "#800";
-				c.fillRect(10, 0, 5, 5);
-				c.translate(-gfx.w / 2, -80)
+				c.beginPath();
+				c.moveTo(-10, -6);
+				c.lineTo(-10, 6);
+				c.lineTo(10, 0);
+				c.closePath();
+				//c.fillRect(-10, 0, 20, 5);
+				c.fill();
+
+				//c.fillStyle = "#800";
+				//c.fillRect(10, 0, 5, 5);
+				c.translate(-xoff, -yoff)
 				c.restore();
 			}
 		}
