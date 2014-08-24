@@ -13,6 +13,9 @@
 		doneIntro: false,
 		state: null,
 
+		message: "",
+		message_blink: 0,
+
 		init: function (screen) {
 
 			this.state = new Ω.utils.State("BORN");
@@ -57,6 +60,7 @@
 				this.state.set("READY");
 				break;
 			case "INTRO":
+				this.setMessage("Select a fare [1-4]", 10000);
 				if (this.state.count > 50) {
 					this.doneIntro = true;
 					this.state.set("READY");
@@ -120,12 +124,13 @@
 			}
 
 			this.player_craft.tick(0);
-			if (this.player_craft.thrust > 0) {
+			// Removed fuel from teh game
+			/*if (this.player_craft.thrust > 0) {
 				this.player.fuel -= this.player_craft.thrust;
 				if (this.player.fuel < 0) {
 					//
 				}
-			}
+			}*/
 		},
 
 		depart: function (planet) {
@@ -221,17 +226,21 @@
 
 		},
 
+		setMessage: function (message, blinkTime) {
+			this.message = message;
+			this.message_blink = blinkTime || 200;
+		},
+
+		fareSelected: function () {
+			this.setMessage("Pickup from: " + this.screen.fare.src.name);
+		},
+
 		renderHUD: function (gfx) {
 
 			var c = gfx.ctx,
-				player = this.player_craft;
-
-			c.fillStyle = "#fff";
-			c.fillText("GüBER RANK : " + this.player.guber_rank, 20, 30);
-			c.fillText("CASH FUNDS : " + "¥" + this.player.cash, 20, 50);
-			c.fillText("FUEL       : " + (this.player.fuel | 0), 20, 70);
-			//c.fillText("VEL        : " + (player.vtotal * 80).toFixed(1), 20, 70);
-			c.fillText("DAMAGE     : " + (this.player.damage | 0) + "%", 20, 90);
+				player = this.player_craft,
+				xoff = gfx.w - 200,
+				yoff = 20;
 
 			var mmw = 200,
 				mmh = 160,
@@ -241,7 +250,6 @@
 				mmyr = 0.09;
 
 			c.fillStyle = "rgba(63, 63, 63, 0.3)";
-			//c.fillRect(mmx, mmy, mmw, mmh);
 			c.beginPath();
 			c.arc(mmx + (mmw / 2), mmy + (mmh / 2) - 20, mmw / 2, 0, Math.PI * 2, false);
 			c.closePath();
@@ -271,22 +279,6 @@
 				}
 			});
 
-
-
-		},
-
-		renderFares: function (gfx) {
-			var c = gfx.ctx;
-			c.font = "8pt monospace";
-			this.screen.fares.forEach(function (fare, i) {
-				c.fillStyle = fare.selected ? "#977" : "#999";
-				c.fillRect(gfx.w - 200, i * 40 + 20, 180, 35);
-
-				c.fillStyle = "#333";
-				c.fillText((i + 1) +"> " + fare.src.name + " to " + fare.dest.name, gfx.w - 200 + 10, i * 40 + 35);
-				c.fillText("   $" + fare.bid, gfx.w - 200 + 10, i * 40 + 45);
-			});
-
 			var fare = this.screen.fare;
 			if (fare) {
 				var planet = fare.pickedUp ? fare.dest : fare.src;
@@ -303,13 +295,48 @@
 				c.lineTo(-10, 6);
 				c.lineTo(10, 0);
 				c.closePath();
-				//c.fillRect(-10, 0, 20, 5);
-				c.fill();
 
-				//c.fillStyle = "#800";
-				//c.fillRect(10, 0, 5, 5);
+				c.fill();
 				c.translate(-xoff, -yoff)
 				c.restore();
+			}
+
+		},
+
+		renderFares: function (gfx) {
+			var c = gfx.ctx,
+				xoff = 20,
+				yoff = 60,
+				w = 196,
+				h = 200;
+
+			c.strokeStyle = "#666";
+			c.strokeRect(xoff - 8, yoff - 16, w, h);
+
+			c.fillStyle = "#fff";
+
+			c.fillText("GüBer cred: [X] " + this.player.guber_cred, xoff, yoff - 30);
+			c.fillText("-AVAILABLE FARES-", xoff +10, yoff);
+
+			this.screen.fares.forEach(function (fare, i) {
+				c.font = "8pt monospace";
+				c.fillStyle = fare.selected ? "#411" : "#333";
+				c.fillRect(xoff, i * 40 + yoff + 5, 180, 35);
+
+				c.fillStyle = "#999";
+				c.fillText((i + 1) +")", xoff + 10, i * 40 + yoff + 20);
+				c.font = "30pt monospace";
+				c.fillText("☠☠☠", xoff + 10, i * 40 + yoff + 35);
+			});
+
+			yoff += 210;
+			c.fillStyle = "#fff"
+			c.font = "12pt monospace";
+			c.fillText("- DISPATCH -", xoff, yoff);
+			if (this.message) {
+				if (this.message_blink-- <= 0 || Ω.utils.toggle(300, 2)) {
+					c.fillText(this.message, xoff, yoff + 30);
+				}
 			}
 		}
 	});

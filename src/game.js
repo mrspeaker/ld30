@@ -5,6 +5,7 @@
     var ConWorldsCabGame = Ω.Game.extend({
 
         canvas: "#board",
+        fps: false,
 
         init: function (w, h) {
 

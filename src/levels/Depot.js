@@ -21,10 +21,10 @@
 		render: function (gfx) {
 			var c = gfx.ctx;
 			c.fillStyle = "#fff";
-			c.fillText("Depot!", 100, 100);
+			c.fillText("Ah, the old depot. Some quiet time.", 100, 100);
 
 			if (Ω.utils.toggle(300, 2)) {
-				c.fillText("Refueling...", 100, 160);
+				c.fillText("\"Hey guys!\"", 100, 160);
 			}
 		}
 	});

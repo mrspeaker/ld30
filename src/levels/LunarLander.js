@@ -110,14 +110,14 @@
 						if (fare.pickedUp) {
 							if (fare.dest === this.planet) {
 								// DONE THE FARE!
-								this.player.guber_rank += Math.random() * 10 | 0;
+								this.player.guber_cred += Math.random() * 10 | 0;
 								this.player.cash += (Math.random() * 3000 | 0) + 900;
 								this.screen.doneFare(fare);
 							}
 						} else {
 							if (fare.src === this.planet) {
-								// Picked up.
-								fare.pickedUp = true;
+								// Picked up.								
+								this.screen.pickedUpFare(fare);
 							}
 						}
 
@@ -131,7 +131,7 @@
 			case "CRASHED":
 				if (this.state.first()) {
 					this.player_craft.crashed = true;
-					this.player.guber_rank = Math.max(0, this.player.guber_rank - data.cash.uberRankReduceOnCrash);
+					this.player.guber_cred = Math.max(0, this.player.guber_cred - data.cash.uberRankReduceOnCrash);
 					this.player.cash = Math.max(0, data.cash.cabPrice);
 				}
 				if (this.state.count > 100) {
@@ -164,12 +164,13 @@
 			}
 
 			this.player_craft.tick(this.landed_y === null ? data.physics.gravity : 0);
-			if (this.player_craft.thrust > 0) {
+			// Removed fuel from the game
+			/*if (this.player_craft.thrust > 0) {
 				this.player.fuel -= this.player_craft.thrust;
 				if (this.player.fuel < 0) {
 					//
 				}
-			}
+			}*/
 
 			Ω.Physics.checkCollision(this.player_craft, this.pads);
 		},
@@ -289,28 +290,26 @@
 				player = this.player_craft;
 
 			c.fillStyle = "#fff";
-			c.fillText("GüBER RANK : " + this.player.guber_rank, 20, 30);
-			c.fillText("CASH FUNDS : " + "¥" + this.player.cash, 20, 50);
+			c.fillText("GüBER CRED : " + this.player.guber_cred, 20, 30);
 			
 			if (this.state.isIn("BORN", "INTRO")) {
 				c.fillText("READY", gfx.w / 2 - 40, gfx. h / 2 - 100)
 			}
 
 			if (this.stats && this.state.isIn("FALLING", "LANDED")) {
-				c.fillText("FUEL       : " + (this.player.fuel | 0), 20, 70);
-				c.fillText("VELOCITY   : " + (player.vtotal * 80).toFixed(1), 20, 90);
-				c.fillText("ROTATION   : " + (player.rotation).toFixed(1), 20, 110);
+				c.fillText("VEL", 20, 50);
+				c.fillText("ROT", 20, 70);
 
 				var vel = ((this.stats.vel || Ω.utils.toggle(100, 2)) ? "70%, 30%" : "90%, 50%"),
 					rot = ((this.stats.rot || Ω.utils.toggle(100, 2)) ? "70%, 30%" : "90%, 50%");
 				c.fillStyle = "hsl(0, " + vel + ")";
 				c.beginPath();
-				c.arc(130, 84, 7, 0, Math.PI * 2, false);
+				c.arc(60, 44, 7, 0, Math.PI * 2, false);
 				c.fill();
 
 				c.fillStyle = "hsl(120, " + rot + ")";
 				c.beginPath();
-				c.arc(130, 104, 7, 0, Math.PI * 2, false);
+				c.arc(60, 64, 7, 0, Math.PI * 2, false);
 				c.fill();
 			}
 

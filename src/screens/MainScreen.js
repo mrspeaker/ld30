@@ -47,7 +47,9 @@
                     pressedIdx = 3;
                 }
                 if (pressedIdx > -1) {
-                    if (this.fares[pressedIdx]) {
+                    if (this.fare && this.fare.pickedUp) {
+                        this.levels.asteroids.setMessage("FARE IN PROGRESS!")
+                    } else if (this.fares[pressedIdx]) {
                         var fare = this.fares[pressedIdx];
                         if (fare === this.fare) {
                             fare.selected = false
@@ -58,6 +60,7 @@
                                 this.fare.selected = false;
                             }
                             this.fare = fare;
+                            this.level.fareSelected();
                         }
                     }
                 }
@@ -72,6 +75,12 @@
             this.fares = this.fares.filter(function (f) {
                 return f !== fare;
             });
+            this.levels.asteroids.setMessage("Select fare [1-4]"); 
+        },
+
+        pickedUpFare: function (fare) {
+           fare.pickedUp = true;
+           this.levels.asteroids.setMessage("Drop off at:" + fare.dest.name);
         },
 
         addHour: function () {
