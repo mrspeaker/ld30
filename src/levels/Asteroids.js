@@ -207,7 +207,7 @@
 			if (this.state.is("INTRO")) {
 				c.fillStyle = "#fff";
 
-				c.fillText("Ready...", gfx.w / 2 - 40, gfx.h / 2);
+				//c.fillText("...", gfx.w / 2 - 40, gfx.h / 2);
 			}
 			if (this.state.is("APPROACHING")) {
 				c.fillStyle = "#fff";
