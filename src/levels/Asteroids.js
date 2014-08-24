@@ -316,8 +316,24 @@
 				}
 			});
 
-			var fare = this.screen.fare;
-			if (fare) {
+			var fare = this.screen.fare,
+				showArrow = fare ? true : false;
+			if (!fare) {
+				if (player.x < -1500 || player.x > 2500 ||
+					player.y < -1500 || player.y > 2500) {
+					showArrow = true;
+
+					// Fake target in center 
+					fare = {
+						pickedUp: false,
+						src: {
+							x: 0,
+							y: 0
+						}
+					}
+				}
+			}
+			if (showArrow) {
 				var planet = fare.pickedUp ? fare.dest : fare.src;
 				var angle = Ω.math.angleBetween(planet, this.player_craft),
 					xoff = mmw / 2 + mmx,
@@ -349,17 +365,21 @@
 				xoff = 20,
 				yoff = 60,
 				w = 196,
-				h = 200;
+				h = 182;
 
 			c.strokeStyle = "#666";
 			c.strokeRect(xoff - 8, yoff - 16, w, h);
+			c.strokeRect(xoff - 8, yoff - 16 + 194, w, 20);
 
-			c.fillStyle = "#fff";
 
 			var ranking = this.screen.getRanking();
 
-			c.fillText("GüBer cred: " + this.player.guber_cred + " (" + ranking[1] + ")", xoff, yoff - 30);
+			c.fillStyle = "#fff";
+			c.fillText("GüBer cred: " + this.player.guber_cred + " (" + ranking[1] + ")", xoff - 6, yoff - 33);
+
+			c.fillStyle = "#999";			
 			c.fillText("-AVAILABLE FARES-", xoff + 8, yoff);
+			c.fillText("-DISPATCH-", xoff + 40, yoff + 193);
 
 			this.screen.fares.forEach(function (fare, i) {
 				c.font = "8pt monospace";
@@ -380,13 +400,13 @@
 				c.fillRect(xoff + 186, i * 40 + yoff + 5, 4, 34);
 			});
 
-			yoff += 210;
+			yoff += 194;
 			c.fillStyle = "#fff"
 			c.font = "12pt monospace";
-			c.fillText("-DISPATCH-", xoff + 40, yoff);
+
 			if (this.screen.message) {
 				if (this.screen.message_blink-- <= 0 || Ω.utils.toggle(300, 2)) {
-					c.fillText(this.screen.message, xoff, yoff + 30);
+					c.fillText(this.screen.message, xoff - 6, yoff + 30);
 				}
 				if (this.screen.message_blink === 0 && this.screen.message_last) {
 					this.screen.message = this.screen.message_last;

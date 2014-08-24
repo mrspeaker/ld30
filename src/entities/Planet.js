@@ -39,7 +39,7 @@
 			if (this.isDepot) {
 				c.fillText("DEPOT", this.x - 50 + (this.size / 2), this.y + this.size + 18);
 			} else {
-				c.fillText(this.name, this.x - 55 + (this.size / 2), this.y + this.size + 18);
+				c.fillText(this.name, (this.x - (this.name.length * 8.5) + (this.size / 2)) | 0, this.y + this.size + 26);
 			}
 			
 		}
