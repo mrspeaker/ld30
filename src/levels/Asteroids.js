@@ -293,7 +293,11 @@
 			c.beginPath();
 			c.arc(mmx + (mmw / 2), mmy + (mmh / 2), mmw / 2, 0, Math.PI * 2, false);
 			c.closePath();
-			c.fill()
+			c.fill();
+
+			// Fares background
+			c.fillRect(20 - 8, 60 - 16, 196, 182);
+			c.fillRect(20 - 8, 60 - 16 + 194, 196, 20);
 
 			this.planets.forEach(function (p) {
 				var dx = (p.x - player.x) * mmxr,
@@ -371,7 +375,6 @@
 			c.strokeRect(xoff - 8, yoff - 16, w, h);
 			c.strokeRect(xoff - 8, yoff - 16 + 194, w, 20);
 
-
 			var ranking = this.screen.getRanking();
 
 			c.fillStyle = "#fff";
@@ -383,7 +386,7 @@
 
 			this.screen.fares.forEach(function (fare, i) {
 				c.font = "8pt monospace";
-				c.fillStyle = fare.selected ? "hsl(10, 50%, 25%)" : "#333";
+				c.fillStyle = fare.selected ? "hsl(10, 10%, 35%)" : "#333";
 				c.fillRect(xoff, i * 40 + yoff + 5, 180, 35);
 
 				c.fillStyle = "#999";

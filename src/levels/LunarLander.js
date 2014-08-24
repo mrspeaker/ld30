@@ -333,11 +333,24 @@
 				yoff = 50;
 
 
+			var mmw = 200,
+				mmh = 160,
+				mmx = gfx.w - mmw - 20,
+				mmy = gfx.h - mmh - 40,
+				mmxr = 0.09,
+				mmyr = 0.09;
+
+			c.fillStyle = "rgba(63, 63, 63, 0.3)";
+			c.beginPath();
+			c.arc(mmx + (mmw / 2), mmy + (mmh / 2), 60, 0, Math.PI * 2, false);
+			c.closePath();
+			c.fill();
+
 			c.fillStyle = "#fff";
 			c.fillText("GüBER CRED : " + this.player.guber_cred, 20, 30);
 			
 			if (this.state.isIn("BORN", "INTRO")) {
-				c.fillText("READY", gfx.w / 2 - 40, gfx. h / 2 - 100)
+				// c.fillText("READY", gfx.w / 2 - 40, gfx. h / 2 - 100)
 			}
 
 			c.fillText("- DISPATCH -", xoff, yoff);
@@ -350,7 +363,8 @@
 				}
 			}
 
-			yoff += 80;
+			xoff  =mmx + mmw / 2 - 30;
+			yoff = mmy + mmh / 2 - 5;
 
 			if (this.stats && this.state.isIn("FALLING", "LANDED")) {
 				c.fillText("VEL", xoff, yoff);
@@ -360,12 +374,12 @@
 					rot = ((this.stats.rot || Ω.utils.toggle(100, 2)) ? "70%, 30%" : "90%, 50%");
 				c.fillStyle = "hsl(0, " + vel + ")";
 				c.beginPath();
-				c.arc(xoff + 40, yoff - 8, 7, 0, Math.PI * 2, false);
+				c.arc(xoff + 45, yoff - 4, 7, 0, Math.PI * 2, false);
 				c.fill();
 
 				c.fillStyle = "hsl(120, " + rot + ")";
 				c.beginPath();
-				c.arc(xoff + 40, yoff + 14 , 7, 0, Math.PI * 2, false);
+				c.arc(xoff + 45, yoff + 16 , 7, 0, Math.PI * 2, false);
 				c.fill();
 			}
 
