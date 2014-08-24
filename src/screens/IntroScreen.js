@@ -10,7 +10,8 @@
 
         tick: function () {
             if (this.frame > 20) {
-            	if (Ω.input.pressed("space") || 
+                if (Ω.input.pressed("space") || 
+            	    Ω.input.pressed("moused") || 
             		Ω.input.pressed("up") || 
             		Ω.input.pressed("down") || 
             		Ω.input.pressed("left") || 

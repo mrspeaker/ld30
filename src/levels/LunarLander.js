@@ -14,6 +14,10 @@
 		stars: null,
 		numstars: 200,
 
+		audio: {
+			collect: new Ω.Sound("res/audio/collect", 0.8)
+		},
+
 		init: function (planet, screen) {
 
 			this.state = new Ω.utils.State("BORN");
@@ -113,11 +117,13 @@
 								this.player.guber_cred += Math.random() * 10 | 0;
 								this.player.cash += (Math.random() * 3000 | 0) + 900;
 								this.screen.doneFare(fare);
+								this.audio.collect.play();
 							}
 						} else {
 							if (fare.src === this.planet) {
 								// Picked up.								
 								this.screen.pickedUpFare(fare);
+								this.audio.collect.play();
 							}
 						}
 

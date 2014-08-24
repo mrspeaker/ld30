@@ -48,6 +48,20 @@
                 if (Ω.input.pressed("four")) {
                     pressedIdx = 3;
                 }
+                if (Ω.input.pressed("moused")) {
+                    //console.log(Ω.input.mouse)
+                    var x = Ω.input.mouse.x,
+                        y = Ω.input.mouse.y,
+                        minx = 20,
+                        miny = 70,
+                        maxx = 200,
+                        maxy = 220;
+                    if (x > minx && x < maxx && y > miny && y < maxy) {
+                        var eachButtonHeight = (maxy - miny) / 4;
+                        pressedIdx = (y - miny) / eachButtonHeight | 0;
+                    }
+                }
+
                 if (pressedIdx > -1) {
                     if (this.fare && this.fare.pickedUp) {
                         this.levels.asteroids.setMessage("Fare in progress!", undefined, true);
