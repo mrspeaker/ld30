@@ -87,6 +87,8 @@
 
 			if (!this.loaded) return;
 
+			var craft = this.player_craft;
+
 			this.state.tick();
 			switch(this.state.get()) {
 			case "BORN":
@@ -98,17 +100,22 @@
 				}
 				break;
 			case "FALLING":
-				if (this.landed_y && this.landed_y !== this.player_craft.y) {
+				if (this.landed_y && this.landed_y !== craft.y) {
 					this.landed_y = null;
 				}
 				this.tick_falling();
 				break;
 			case "LANDED":
 				if (this.state.first()) {
-					this.player_craft.halt();
-					this.player_craft.rotation = 0;
+					var rotation = craft.rotation,
+						velocity = craft.vtotal;
+
+					var rated = this.rateLanding(rotation, velocity);
+
+					craft.halt();
+					craft.rotation = 0;
 					// TODO: "judge" landing
-					this.landed_y = this.player_craft.y;
+					this.landed_y = craft.y;
 
 					var fare = this.screen.fare;
 					if (fare) {
@@ -116,10 +123,10 @@
 							if (fare.dest === this.planet) {
 								// DONE THE FARE!
 								this.player.guber_cred += Math.random() * 10 | 0;
-								this.player.cash += (Math.random() * 3000 | 0) + 900;
+								//this.player.cash += (Math.random() * 3000 | 0) + 900;
 								this.screen.doneFare();
 								this.audio.collect.play();
-								this.screen.setMessage("Earned X GüBer cred");
+								this.screen.setMessage("Earned " + rated + " GüBer cred");
 							}
 						} else {
 							if (fare.src === this.planet) {
@@ -129,6 +136,8 @@
 							}
 						}
 
+					} else {
+						this.screen.setMessage("Nice. Now get back to work!");
 					}
 				}
 				if (this.state.count > 100) {
@@ -138,7 +147,7 @@
 				break;
 			case "CRASHED":
 				if (this.state.first()) {
-					this.player_craft.crashed = true;
+					craft.crashed = true;
 					this.player.guber_cred = Math.max(0, this.player.guber_cred - data.cash.uberRankReduceOnCrash);
 					this.player.cash = Math.max(0, this.player.cash - data.cash.cabPrice);
 					this.screen.doneFare();
@@ -203,7 +212,7 @@
 				landed = false;
 			}
 			if (!this.stats.vel) {
-				console.log("no vy!", player.vy.toFixed(2));
+				console.log("no vy!", player.vtotal.toFixed(2));
 				landed = false;
 			}
 			if (landed) {
@@ -212,6 +221,16 @@
 			} else {
 				this.state.set("CRASHED");
 			}
+		},
+
+		rateLanding: function(rot, vel) {
+			var rotRank = 1 - ((Math.abs(rot) * 0.6) / data.landing.max_rot),
+				velRank = 1 - ((vel * 0.45) / data.landing.max_velocity);
+
+			rotRank = Ω.math.clamp(rotRank, 0, 1);
+			velRank = Ω.math.clamp(velRank, 0, 1);
+
+			return (rotRank + velRank) / 2;
 		},
 
 		render: function (gfx) {
