@@ -7,10 +7,12 @@
         level: null,
 
         hour: 0,
-        frame: data.framesPerHour - 100,
 
+        maxFares: 4,
         fares: null,
         fare: null,
+
+        initFares: true,
 
         init: function () {
 
@@ -27,7 +29,7 @@
 
         tick: function () {
 
-            if (this.frame % 1000 == 0) {
+            if (this.frame % (this.initFares ? 100 : data.framesPerHour) == 0) {
                 this.addHour();
             }
 
@@ -86,10 +88,15 @@
         addHour: function () {
 
             this.hour++;
+            this.addFare();
+
+        },
+
+        addFare: function () {
 
             var planets = this.levels.asteroids.planets;
 
-            if (this.fares.length < 4) {
+            if (this.fares.length < this.maxFares) {
                 var src = planets[Ω.utils.rand(planets.length - 2)],
                     dst = planets[Ω.utils.rand(planets.length - 2)],
                     src_pad = Ω.utils.rand(src.surface.pads),
@@ -106,6 +113,9 @@
                 });
             }
 
+            if (this.iniFares && this.fares.length === this.maxFares) {
+                this.initFares = false;
+            }
         },
 
         goto: function (level, planet) {
