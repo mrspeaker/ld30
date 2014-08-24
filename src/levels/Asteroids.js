@@ -264,18 +264,15 @@
 			var mmw = 200,
 				mmh = 160,
 				mmx = gfx.w - mmw - 20,
-				mmy = gfx.h - mmh - 20,
+				mmy = gfx.h - mmh - 40,
 				mmxr = 0.09,
 				mmyr = 0.09;
 
 			c.fillStyle = "rgba(63, 63, 63, 0.3)";
 			c.beginPath();
-			c.arc(mmx + (mmw / 2), mmy + (mmh / 2) - 20, mmw / 2, 0, Math.PI * 2, false);
+			c.arc(mmx + (mmw / 2), mmy + (mmh / 2), mmw / 2, 0, Math.PI * 2, false);
 			c.closePath();
 			c.fill()
-
-			c.fillStyle = "#fff";
-			c.fillRect(mmw / 2 + mmx, mmh / 2 + mmy, 4, 4);
 
 			this.planets.forEach(function (p) {
 				var dx = (p.x - player.x) * mmxr,
@@ -302,8 +299,8 @@
 			if (fare) {
 				var planet = fare.pickedUp ? fare.dest : fare.src;
 				var angle = Ω.math.angleBetween(planet, this.player_craft),
-					xoff = gfx.w - 100 - 20,
-					yoff = gfx.h - 100 - 20;
+					xoff = mmw / 2 + mmx,
+					yoff = mmh / 2 + mmy;
 				c.save();
 				c.translate(xoff, yoff);
 				c.rotate(angle);
@@ -318,6 +315,10 @@
 				c.fill();
 				c.translate(-xoff, -yoff)
 				c.restore();
+			} else {
+				c.fillStyle = "#fff";
+				c.fillRect(mmw / 2 + mmx, mmh / 2 + mmy, 4, 4);
+
 			}
 
 		},
