@@ -127,9 +127,18 @@
 								fare.credEarned = rated * fare.difficulty * 1000 | 0;
 								this.player.guber_cred += fare.credEarned;
 
-								game.setDialog(new EarnedDialog(rated, fare, this.player));
-								this.screen.doneFare();
-								this.screen.setMessage("Earned " + fare.credEarned + " GüBer cred");
+								this.player.ranking = this.screen.getRanking();
+								if (this.player.ranking[0] === 1) {
+									game.win();
+									return;
+								} else {
+
+									game.setDialog(new EarnedDialog(rated, fare, this.player));
+									this.screen.doneFare();
+									this.screen.setMessage("Earned " + fare.credEarned + " GüBer cred");
+								}
+
+
 							}
 						} else {
 							if (fare.src === this.planet) {

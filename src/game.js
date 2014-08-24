@@ -32,6 +32,10 @@
 
         },
 
+        win: function () {
+            this.setScreen(new WinScreen());
+        },
+
         reset: function () {
 
             this.setScreen(new IntroScreen());

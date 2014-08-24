@@ -46,7 +46,7 @@
 			c.fillStyle = "hsl(70, 90%, 50%)";
 
 			c.fillText(this.fare.credEarned, xOff, yOff + 60);
-			c.fillText("10345th", xOff - 100, yOff + 140);
+			c.fillText(this.player.ranking[1], xOff - 100, yOff + 140);
 
 			c.font = "18pt monospace";
 			var rating = Math.max(1, this.rated * 5 | 0);

@@ -31,14 +31,15 @@
 				loops = 0;
 			while (!ok) {
 				this.planets = [];
-				for (var i = 0; i < 12; i++) {
+				var maxPlanets = 12;
+				for (var i = 0; i < maxPlanets; i++) {
 					var p = new Planet(
 						i,
 						data.names.planets[i],
 						Ω.utils.rand(-1500, 2500),
 						Ω.utils.rand(-1500, 2500),
 						Ω.utils.rand(25, 45),
-						i > 8);
+						i == maxPlanets - 1);
 					this.planets.push(p);
 				}
 
@@ -211,7 +212,7 @@
 			if (this.state.is("APPROACHING")) {
 				c.fillStyle = "#fff";
 
-				c.fillText("Landing on " + this.state.data.name, gfx.w / 2 - 100, 200);
+				c.fillText("Landing on " + (this.state.data.isDepot ? "The Depot" : this.state.data.name), gfx.w / 2 - 100, 200);
 
 			}
 		},
@@ -355,8 +356,10 @@
 
 			c.fillStyle = "#fff";
 
-			c.fillText("GüBer cred: [X] " + this.player.guber_cred, xoff, yoff - 30);
-			c.fillText("-AVAILABLE FARES-", xoff +10, yoff);
+			var ranking = this.screen.getRanking();
+
+			c.fillText("GüBer cred: " + this.player.guber_cred + " (" + ranking[1] + ")", xoff, yoff - 30);
+			c.fillText("-AVAILABLE FARES-", xoff + 8, yoff);
 
 			this.screen.fares.forEach(function (fare, i) {
 				c.font = "8pt monospace";
@@ -380,7 +383,7 @@
 			yoff += 210;
 			c.fillStyle = "#fff"
 			c.font = "12pt monospace";
-			c.fillText("- DISPATCH -", xoff, yoff);
+			c.fillText("-DISPATCH-", xoff + 40, yoff);
 			if (this.screen.message) {
 				if (this.screen.message_blink-- <= 0 || Ω.utils.toggle(300, 2)) {
 					c.fillText(this.screen.message, xoff, yoff + 30);

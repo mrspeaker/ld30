@@ -204,6 +204,20 @@
 
         },
 
+        getRanking: function () {
+
+            var pos = 1000001 - Math.min(1000000, (this.player.guber_cred * 6.5));
+
+            if (pos === 1) {
+                game.win();
+            }
+
+            return [pos, this.player.guber_cred == 0 ? 
+                "unranked" : 
+                pos + (pos === 3 ? "rd" : pos === 2 ? "nd" : pos === 1 ? "st" : "th")];
+
+        },
+
         goto: function (level, planet) {
             switch(level) {
             case "land":
