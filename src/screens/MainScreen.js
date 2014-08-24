@@ -250,7 +250,7 @@
         render: function (gfx) {
             var c = gfx.ctx;
 
-            this.clear(gfx, "hsl(195, 40%, 10%)");
+            this.clear(gfx, "hsl(195, 40%, 5%)");
             c.font = "16pt monospace";
 
             this.level.render(gfx);

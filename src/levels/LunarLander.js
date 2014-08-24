@@ -15,7 +15,8 @@
 		numstars: 200,
 
 		audio: {
-			collect: new Ω.Sound("res/audio/collect", 0.8)
+			collect: new Ω.Sound("res/audio/collect", 0.8),
+			crash: new Ω.Sound("res/audio/crash", 0.8)
 		},
 
 		init: function (planet, screen) {
@@ -163,6 +164,7 @@
 					this.player.guber_cred = Math.max(0, this.player.guber_cred - data.cash.uberRankReduceOnCrash);
 					this.player.cash = Math.max(0, this.player.cash - data.cash.cabPrice);
 					this.screen.doneFare();
+					this.audio.crash.play();
 				}
 				if (this.state.count > 100) {
 					this.screen.goto("fly", this.planet);
@@ -315,6 +317,9 @@
 			if (this.state.is("CRASHED")) {
 				c.fillStyle = "hsl(" + (Math.random() * 100 | 0) + ",70%, 50%)";
 				c.fillRect(player.x + Ω.utils.rand(-10, 20), player.y + Ω.utils.rand(-10, 20), 20, 20);
+
+				c.fillStyle = "hsl(" + (Math.random() * 100 | 0) + ",70%, 50%)";
+				c.fillRect(player.x + Ω.utils.rand(-20, 40), player.y + Ω.utils.rand(-20, 40), 10, 10);
 			}
 
 			c.restore();
