@@ -143,6 +143,7 @@
 
 			gfx.ctx.font = "12pt monospace";
 			this.renderHUD(gfx);
+			this.renderFares(gfx);
 
 			gfx.ctx.font = "16pt monospace";
 			if (this.state.is("INTRO")) {
@@ -268,6 +269,18 @@
 
 
 
+		},
+
+		renderFares: function (gfx) {
+			var c = gfx.ctx;
+			c.font = "10pt monospace";
+			this.screen.fares.forEach(function (fare, i) {
+				c.fillStyle = fare.selected ? "#977" : "#999";
+				c.fillRect(gfx.w - 200, i * 40 + 20, 180, 35);
+
+				c.fillStyle = "#333";
+				c.fillText((i + 1) +"> " + fare.src.id + ":" + fare.dest.id + " $" + fare.bid, gfx.w - 200 + 10, i * 40 + 35);
+			});
 		}
 	});
 

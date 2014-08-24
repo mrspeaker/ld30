@@ -4,6 +4,8 @@
 	var data = {
 		collision: "rgb(126, 75, 15)",
 		collisionRgb: [126, 75, 15],
+
+		framesPerHour: 1000,
 		
 		surfaces: [
 			"simple",

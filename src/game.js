@@ -22,7 +22,11 @@
                 "right": "right",
                 "up": "up",
                 "down": "down",
-                "moused": "mouse1"
+                "moused": "mouse1",
+                "one": 49,
+                "two": 50,
+                "three": 51,
+                "four": 52
             });
 
         },
