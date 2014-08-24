@@ -4,9 +4,9 @@
 
 	var Depot = Ω.Class.extend({
 		frame: 0,
-		init: function (id, screen) {
+		init: function (planet, screen) {
 			this.frame = 0;
-			this.id = id;
+			this.planet = planet;
 			this.screen = screen;
 			this.player = screen.player;
 
@@ -14,7 +14,7 @@
 		},
 		tick: function () {
 			if (this.frame++ > 150) {
-				this.screen.goto("fly");
+				this.screen.goto("fly", this.planet);
 			}
 		},
 

@@ -108,7 +108,7 @@
             case "fly":
                 data.physics = data.physics_space;
                 this.level = this.levels.asteroids;
-                this.level.depart();
+                this.level.depart(planet);
                 break;
             case "depot":
                 this.level = new Levels.Depot(planet, this)

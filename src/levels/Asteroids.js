@@ -127,14 +127,16 @@
 			}
 		},
 
-		depart: function () {
+		depart: function (planet) {
 			var player = this.player_craft;
 			player.halt();
-			player.rotation += 180;
+			player.rotation = 0;
 			player.enableControls();
-			var angle = (player.rotation - 90) * Math.PI / 180;
-            player.x += Math.cos(angle) * 80;
-            player.y += Math.sin(angle) * 80;
+			//var angle = (player.rotation - 90) * Math.PI / 180;
+            //player.x += Math.cos(angle) * 80;
+            //player.y += Math.sin(angle) * 80;
+            player.x = planet.x - player.w / 2;
+            player.y = planet.y - player.h - planet.size - 55;
 		},
 
 		render: function (gfx) {

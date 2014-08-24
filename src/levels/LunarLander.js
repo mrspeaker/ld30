@@ -135,7 +135,7 @@
 					this.player.cash = Math.max(0, data.cash.cabPrice);
 				}
 				if (this.state.count > 100) {
-					this.screen.goto("fly");
+					this.screen.goto("fly", this.planet);
 				}
 				break;
 			}
@@ -154,7 +154,7 @@
 			
 			// TODO: only enforce on edges of screen or much higher
 			if (player.y < -25) {
-			    this.screen.goto("fly");
+			    this.screen.goto("fly", this.planet);
 			    return;
 			}
 
