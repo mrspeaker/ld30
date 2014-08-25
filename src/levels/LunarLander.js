@@ -298,6 +298,10 @@
 						rightPad = fare.src === self.planet ? fare.src_pad : fare.dest_pad;
 					}
 				}
+				if (rightPlanet && i === rightPad ) {
+					self.rightPad = pad;
+				}
+
 				if (rightPlanet && i === rightPad && Ω.utils.toggle(200, 2)) {
 					c.fillStyle = "hsl(200, 70%, 30%)";					
 				} else {
@@ -384,20 +388,45 @@
 			yoff = mmy + mmh / 2 - 5;
 
 			if (this.stats && this.state.isIn("FALLING", "LANDED")) {
-				c.fillText("VEL", xoff, yoff);
-				c.fillText("ROT", xoff, yoff + 20);
+				//c.fillText("VEL", xoff, yoff - 20);
+				//c.fillText("ROT", xoff, yoff + 40);
 
 				var vel = ((this.stats.vel || Ω.utils.toggle(100, 2)) ? "70%, 30%" : "90%, 50%"),
 					rot = ((this.stats.rot || Ω.utils.toggle(100, 2)) ? "70%, 30%" : "90%, 50%");
-				c.fillStyle = "hsl(0, " + vel + ")";
+				/*c.fillStyle = "hsl(0, " + vel + ")";
 				c.beginPath();
-				c.arc(xoff + 45, yoff - 4, 7, 0, Math.PI * 2, false);
+				c.arc(xoff + 45, yoff - 4 - 20, 7, 0, Math.PI * 2, false);
 				c.fill();
 
 				c.fillStyle = "hsl(120, " + rot + ")";
 				c.beginPath();
-				c.arc(xoff + 45, yoff + 16 , 7, 0, Math.PI * 2, false);
+				c.arc(xoff + 45, yoff + 16 +20 , 7, 0, Math.PI * 2, false);
+				c.fill();*/
+
+				xoff += 28;
+				yoff += 10;
+
+				if (this.rightPad) {
+				var angle = Ω.math.angleBetween(this.rightPad, this.player_craft);//,
+					// xoff = mmw / 2 + mmx,
+					// yoff = mmh / 2 + mmy;
+				c.save();
+				c.translate(xoff, yoff);
+				c.rotate(angle);
+
+				c.fillStyle = "#fff";
+				c.beginPath();
+				c.moveTo(-10, -6);
+				c.lineTo(-10, 6);
+				c.lineTo(10, 0);
+				c.closePath();
+
 				c.fill();
+				c.translate(-xoff, -yoff)
+				c.restore();
+				}
+
+
 			}
 
 

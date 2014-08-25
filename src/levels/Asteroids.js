@@ -14,7 +14,7 @@
 		state: null,
 
 		audio: {
-			theme: new Ω.Sound("res/audio/theme", 0.6, 1)
+			theme: new Ω.Sound("res/audio/theme", 0.5, 1)
 		},
 
 		themeStarted: false,
