@@ -206,7 +206,7 @@
 
         getRanking: function () {
 
-            var pos = 1000001 - Math.min(1000000, Math.floor(this.player.guber_cred * 6.5));
+            var pos = 1000001 - Math.min(1000000, Math.floor(this.player.guber_cred * 40.5));
 
             if (pos === 1) {
                 game.win();

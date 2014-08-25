@@ -406,7 +406,7 @@
 				xoff += 28;
 				yoff += 10;
 
-				if (this.rightPad) {
+				if (this.rightPad && !this.rightPad.alreadyLanded) {
 				var angle = Ω.math.angleBetween(this.rightPad, this.player_craft);//,
 					// xoff = mmw / 2 + mmx,
 					// yoff = mmh / 2 + mmy;
