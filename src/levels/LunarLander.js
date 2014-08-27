@@ -37,7 +37,9 @@
 			this.loaded = false;
 
 			var self = this;
-			new Ω.Tiled("res/surfaces/" + planet.surface.name + ".json?" + Date.now(), function (level, err) {
+
+			/* new Ω.Tiled("res/surfaces/" + planet.surface.name + ".json?" + Date.now(), function (level, err) { */
+			new Ω.SVGLevel("res/surfaces/test.svg?" + Date.now(), "#level00", function (level, err) {
 				if (err) {
 					console.log("Error loading surface:", err);
 					return;
@@ -45,6 +47,7 @@
 
 				self.loaded = true;
 				self.parse(level);
+				self.addStars();
 
 			});
 
@@ -53,7 +56,35 @@
 		parse: function (level) {
 
 			var self = this;
+
+			this.surface = level.layer("Surface").data;
+			this.shadows = level.layer("Shadows").data;
+			this.leaves = level.layer("Triggers").data.map(function (trig, i) {
+				return trig;
+			});
+			this.bg = level.layer("Background").data;
+			this.pads = level.layer("Pads").data.map(function (pad, i) {
+				pad.id = i;
+				pad.hit = function (player) {
+					self.checkLanding(this, player);
+				}
+				return pad;
+			});
+			var spawns = level.layer("Spawns");
+			if (spawns) {
+				var spawn = spawns.data[0];
+				if (spawn) {
+					this.player_craft.x = spawn.x;
+					this.player_craft.y = spawn.y;
+				}
+			}
+
+			this.level = level;
 			
+			return;
+
+			/* tiled editor loader */
+
 			this.surface = level.layer("surface").type("ground");
 			this.pads = level.layer("pads").type("pad").map(function (pad, i) {
 				pad.id = i;
@@ -75,13 +106,15 @@
 				}
 			}
 
+		},
+
+		addStars: function () {
 			for (var i = 0; i < this.numstars; i++) {
 				this.stars.push([
-					Ω.utils.rand(0, level.w * level.tileW),
-					Ω.utils.rand(-300, level.h * level.tileH)
+					Ω.utils.rand(0, this.level.w),
+					Ω.utils.rand(-300, this.level.h)
 				]);
 			}
-
 		},
 
 		tick: function () {
@@ -170,12 +203,16 @@
 					this.screen.goto("fly", this.planet);
 				}
 				break;
+			case "LEAVING":
+				if (this.state.count > 50) {
+					this.screen.goto("fly", this.planet);
+				}
+				break;
 			}
 		},
 
 		tick_falling: function () {
 			var player = this.player_craft;
-				//vel = Math.sqrt(player.vx * player.vx + player.vy * player.vy);
 
 			this.scale = 0.7 + (Math.max(0, 2 - player.vtotal / 2) / 6);//Math.sin(Date.now() / 1000) * 0.003;
 
@@ -185,10 +222,10 @@
 			}
 			
 			// TODO: only enforce on edges of screen or much higher
-			if (player.y < -25) {
-			    this.screen.goto("fly", this.planet);
-			    return;
-			}
+			//if (player.y < -105) {
+			//	this.leave();
+			//    return;
+			//}
 
 			this.stats = {
 				rot: Math.abs(player.rotation) <= data.landing.max_rot,
@@ -205,6 +242,11 @@
 			}*/
 
 			Ω.Physics.checkCollision(this.player_craft, this.pads);
+			Ω.Physics.checkCollision(this.player_craft, this.leaves, "leave");
+		},
+
+		leave: function () {
+			this.state.set("LEAVING");
 		},
 
 		checkLanding: function (pad, player) {
@@ -222,11 +264,9 @@
 				landed = false;
 			}
 			if (!this.stats.rot) {
-				console.log("norot", player.rotation.toFixed(2));
 				landed = false;
 			}
 			if (!this.stats.vel) {
-				console.log("no vy!", player.vtotal.toFixed(2));
 				landed = false;
 			}
 			if (landed) {
@@ -275,9 +315,40 @@
 				c.fillRect(s[0], s[1], 3, 3);
 			});
 
+			c.fillStyle = "hsl(40, 40%, 10%)";
+			this.bg.forEach(function (ground) {
+				var polyline = ground.path;
+				ground.x = 0;
+				ground.y = 0;
+				c.beginPath();
+				c.moveTo(ground.x + polyline[0].x, ground.y + polyline[0].y);
+				polyline.slice(1).forEach(function (p) {
+					c.lineTo(ground.x + p.x, ground.y + p.y);
+				});
+				c.closePath();
+				c.fill();
+			});
+			
 			c.fillStyle = data.collision;
 			this.surface.forEach(function (ground) {
-				var polyline = ground.polyline;
+				var polyline = ground.path;
+				ground.x = 0;
+				ground.y = 0;
+				c.beginPath();
+				c.moveTo(ground.x + polyline[0].x, ground.y + polyline[0].y);
+				polyline.slice(1).forEach(function (p) {
+					c.lineTo(ground.x + p.x, ground.y + p.y);
+				});
+				c.closePath();
+				
+				c.fill();
+			});
+
+			c.fillStyle = "hsl(20, 50%, 30%)";
+			this.shadows.forEach(function (ground) {
+				var polyline = ground.path;
+				ground.x = 0;
+				ground.y = 0;
 				c.beginPath();
 				c.moveTo(ground.x + polyline[0].x, ground.y + polyline[0].y);
 				polyline.slice(1).forEach(function (p) {
@@ -291,6 +362,7 @@
 				var fare = self.screen.fare,
 					rightPlanet = false,
 					rightPad = -1;
+				
 				// Are win in teh right planet for dropping off/picking up?
 				if (fare) {
 					if ((fare.src === self.planet && !fare.pickedUp) || (fare.dest === self.planet && fare.pickedUp)) {
@@ -307,8 +379,8 @@
 				} else {
 					c.fillStyle = pad.alreadyLanded ? "hsl(200, 70%, 30%)" : "hsl(200, 70%, 60%)";
 				}
-				c.fillRect(pad.x, pad.y, pad.width, pad.height);
-				c.fillText(i + 1, pad.x + pad.width / 2, pad.y + 30)
+				c.fillRect(pad.x, pad.y, pad.w, pad.h);
+				c.fillText(i + 1, pad.x + pad.w / 2, pad.y + 30);
 			});
 
 			if (this.state.isIn("INTRO", "FALLING")) {
@@ -384,7 +456,7 @@
 				}
 			}
 
-			xoff  =mmx + mmw / 2 - 30;
+			xoff = mmx + mmw / 2 - 30;
 			yoff = mmy + mmh / 2 - 5;
 
 			if (this.stats && this.state.isIn("FALLING", "LANDED")) {

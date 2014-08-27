@@ -8,8 +8,65 @@ body {
     user-select: none;
 }
 
-canvas {
-	margin: auto;
-	position: absolute;
+section canvas {
+    margin: auto;
+    position: absolute;
     top: 0; left: 0; bottom: 0; right: 0;
+
+    width: 800px;
+    height: 500px;
+    background-color: #000;
+}
+
+#preload {
+    opacity: 0.4;
+    color: #fff;
+    font-family: monospace;
+    font-size: 40pt;
+    position: absolute;
+    top: 45%;
+    left: 45%;
+}
+
+#fullscreenahead {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    display: block;
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    background-color: rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+#fullscreenahead:before {
+    color: rgb(178, 84, 67);
+    content: "fs";
+    font-size:10pt;
+    margin-left: 11px;
+    line-height: 32px;
+
+}
+
+section canvas:full-screen,
+section canvas:-moz-full-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+section canvas:-webkit-full-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
 }

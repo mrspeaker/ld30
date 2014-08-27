@@ -5,7 +5,7 @@
     var ConWorldsCabGame = Ω.Game.extend({
 
         canvas: "#board",
-        fps: false,
+        fps: true,
 
         init: function (w, h) {
 
@@ -32,6 +32,15 @@
 
         },
 
+        stopPreload: function () {
+            // Clear the preloader thing
+            if (preloo) {
+                clearInterval(preloo);
+                document.querySelector("#board").style.background = "#000";
+            }
+
+        },
+
         win: function () {
             this.setScreen(new WinScreen());
         },
@@ -43,6 +52,8 @@
         },
 
         load: function () {
+
+            this.stopPreload();
 
             this.reset();
 

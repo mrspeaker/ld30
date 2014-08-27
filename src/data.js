@@ -51,7 +51,7 @@
 		},
 
 		debug: {
-			gimmePlanet: false
+			gimmePlanet: true
 		},
 
 		names: {
