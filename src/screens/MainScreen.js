@@ -16,7 +16,7 @@
         message_blink: 0,
         message_last: "",
 
-        selectMessage: "Select fare [1-4]",
+        selectMessage: "Select a fare [1-4]",
         initFares: true,
 
         init: function () {
@@ -121,6 +121,9 @@
         },
 
         setMessage: function (message, blinkTime, revertAfterBlink) {
+            if (message === this.selectMessage) {
+                blinkTime = 10000;
+            }
             this.message_last = revertAfterBlink ? this.message : "";
             this.message = message;
             this.message_blink = blinkTime || 200;

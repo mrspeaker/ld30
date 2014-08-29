@@ -99,7 +99,7 @@
 				this.state.set("READY");
 				break;
 			case "INTRO":
-				this.screen.setMessage("Select a fare [1-4]", 10000);
+				this.screen.setMessage(this.screen.selectMessage);
 				if (this.state.count > 50) {
 					this.doneIntro = true;
 					this.state.set("READY");
