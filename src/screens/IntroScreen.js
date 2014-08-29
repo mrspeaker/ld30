@@ -25,7 +25,7 @@
 
             var c = gfx.ctx;
 
-            this.clear(gfx, "hsl(195, 40%, 10%)");
+            this.clear(gfx, "hsl(195, 40%, 5%)");
             c.font = "48pt monospace";
 
             c.fillStyle = data.colors.theYellow;

@@ -19,11 +19,13 @@
 		},
 		
 		surfaces: [
-			{ name: "cavern", pads: 6, hard:[1, 4, 6, 9, 5, 10] },
-			{ name: "tree", pads: 5, hard:[2, 8, 3, 3, 9] },
-			{ name: "simple", pads: 1, hard:[1] },
-			{ name: "test", pads: 3, hard:[4, 6, 2] },
-			{ name: "test2", pads: 4, hard:[2, 4, 5, 2] }
+			{ name: "level00", pads: [2], hard: [1, 1]},
+			{ name: "level01", pads: [2], hard: [1, 1]}
+			// { name: "cavern", pads: 6, hard:[1, 4, 6, 9, 5, 10] },
+			// { name: "tree", pads: 5, hard:[2, 8, 3, 3, 9] },
+			// { name: "simple", pads: 1, hard:[1] },
+			// { name: "test", pads: 3, hard:[4, 6, 2] },
+			// { name: "test2", pads: 4, hard:[2, 4, 5, 2] }
 		],
 
 		physics: {},

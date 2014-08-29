@@ -38,8 +38,11 @@
 
 			var self = this;
 
-			/* new Ω.Tiled("res/surfaces/" + planet.surface.name + ".json?" + Date.now(), function (level, err) { */
-			new Ω.SVGLevel("res/surfaces/test.svg?" + Date.now(), "#level00", function (level, err) {
+			var res = screen.levelData ? screen.levelData.raw : "res/surfaces/test.svg?" + Date.now();
+
+			console.log(res, planet.surface.name)
+
+			new Ω.SVGLevel(res, "#" + planet.surface.name, function (level, err) {
 				if (err) {
 					console.log("Error loading surface:", err);
 					return;
@@ -50,8 +53,10 @@
 				self.addStars();
 
 			});
+			/* new Ω.Tiled("res/surfaces/" + planet.surface.name + ".json?" + Date.now(), function (level, err) { */
 
 		},
+
 
 		parse: function (level) {
 

@@ -180,20 +180,20 @@
             //c.fillStyle = data.colors.theYellow;
             c.fillStyle = "hsl(" + (Math.random() * 70 | 0) + ",70%, 50%)";
             // "hsl(70, 90%, 50%)";
-            if (this.thrust > 0 || this.vtotal > 2) {
+            if (this.thrust === 0 && this.vtotal > 2) {
                 c.fillRect(4, this.h, this.w - 8, 4);
             }
             if (this.thrust > 0) {
                 //c.fillRect(8, this.h + 4, this.w - 16, 2);
                 
-            c.fillRect((this.w / 2) + Ω.utils.rand(-10, 5), this.h + Ω.utils.rand(0, 8), 10, 10);
-            c.fillRect((this.w / 2) + Ω.utils.rand(-10, 5), this.h + Ω.utils.rand(8, 15), 8, 8);
-            c.fillRect((this.w / 2) + Ω.utils.rand(-10, 5), this.h + Ω.utils.rand(15, 25), 5, 5);
+                c.fillRect((this.w / 2) + Ω.utils.rand(-13, 2), this.h + Ω.utils.rand(-3, 8), 10, 10);
+                c.fillRect((this.w / 2) + Ω.utils.rand(-13, 2), this.h + Ω.utils.rand(8, 15), 8, 8);
+                c.fillRect((this.w / 2) + Ω.utils.rand(-13, 2), this.h + Ω.utils.rand(15, 25), 5, 5);
 
-            //c.fillStyle = "hsl(" + (Math.random() * 100 | 0) + ",70%, 50%)";
-            //c.fillRect(player.x + Ω.utils.rand(-20, 40), player.y + Ω.utils.rand(-20, 40), 5, 5);
+                //c.fillStyle = "hsl(" + (Math.random() * 100 | 0) + ",70%, 50%)";
+                //c.fillRect(player.x + Ω.utils.rand(-20, 40), player.y + Ω.utils.rand(-20, 40), 5, 5);
 
-            //    c.fillRect(11, this.h + 8, this.w - 22, 4);
+                //    c.fillRect(11, this.h + 8, this.w - 22, 4);
             }
             if (this.rthrust > 0) 
                 c.fillRect(-1, this.h - 7, 3, 11);

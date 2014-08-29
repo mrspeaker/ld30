@@ -116,7 +116,7 @@
 					this.audio.theme.audio.volume = this.audio.theme.audio._volume * (this.state.count / 51);
 				}
 				if (this.state.count === 300 && !this.themeStarted) {
-					this.audio.theme.play();
+					//this.audio.theme.play();
 					this.themeStarted = true;
 				}
 				this.tick_flying();
