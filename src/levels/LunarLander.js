@@ -21,23 +21,19 @@
 
 		init: function (planet, screen) {
 
+			var self = this;
+
 			this.state = new Ω.utils.State("BORN");
 
 			this.planet = planet;
+			this.planet.visits++;
 			this.screen = screen;
 			this.player = screen.player;
 			this.player_craft = new PlayerCraft(Ω.env.w * 0.5, Ω.env.h * 0.2, this);
-
+			this.stars = [];
 			this.fare = screen.fare;
 
-			this.planet.visits++;
-
-			this.stars = [];
-			
-			this.loaded = false;
-
-			var self = this;
-
+			// Don't need this now, 'cuase  not loading multiple in one.
 			var res = screen.levelData ? screen.levelData.raw : "res/surfaces/" + planet.surface.name + ".svg?" + Date.now();
 
 			new Ω.SVGLevel(res, "#" + planet.surface.name, function (level, err) {
@@ -207,9 +203,9 @@
 				}
 				break;
 			case "LEAVING":
-				if (this.state.count > 50) {
+				//if (this.state.count > 50) {
 					this.screen.goto("fly", this.planet);
-				}
+				//}
 				break;
 			}
 		},
@@ -224,18 +220,13 @@
 				return;
 			}
 			
-			// TODO: only enforce on edges of screen or much higher
-			//if (player.y < -105) {
-			//	this.leave();
-			//    return;
-			//}
-
 			this.stats = {
 				rot: Math.abs(player.rotation) <= data.landing.max_rot,
 				vel: player.vtotal <= data.landing.max_velocity
 			}
 
 			this.player_craft.tick(this.landed_y === null ? data.physics.gravity : 0);
+			
 			// Removed fuel from the game
 			/*if (this.player_craft.thrust > 0) {
 				this.player.fuel -= this.player_craft.thrust;
@@ -425,12 +416,12 @@
 				mmyr = 0.09;
 
 			c.fillStyle = "rgba(63, 63, 63, 0.3)";
-			if(this.state.isIn("FALLING", "LANDED")) {
+			//if(this.state.isIn("FALLING", "LANDED")) {
 				c.beginPath();
 				c.arc(mmx + (mmw / 2), mmy + (mmh / 2), 60, 0, Math.PI * 2, false);
 				c.closePath();
 				c.fill();
-			}
+			//}
 
 			// Dispatch background
 			c.fillRect(xoff - 8, yoff - 16, w, 20);
@@ -444,11 +435,6 @@
 
 			c.fillStyle = "#fff";
 			c.fillText("GüBer cred: " + this.player.guber_cred + " (" + ranking[1] + ")", xoff - 6, yoff - 33);
-			
-			if (this.state.isIn("BORN", "INTRO")) {
-				// c.fillText("READY", gfx.w / 2 - 40, gfx. h / 2 - 100)
-			}
-
 			
 			if (this.screen.message) {
 				if (this.screen.message_blink-- <= 0 || Ω.utils.toggle(300, 2)) {
@@ -482,23 +468,22 @@
 				yoff += 10;
 
 				if (this.rightPad && !this.rightPad.alreadyLanded) {
-				var angle = Ω.math.angleBetween(this.rightPad, this.player_craft);//,
-					// xoff = mmw / 2 + mmx,
-					// yoff = mmh / 2 + mmy;
-				c.save();
-				c.translate(xoff, yoff);
-				c.rotate(angle);
+					var angle = Ω.math.angleBetween(this.rightPad, this.player_craft);
 
-				c.fillStyle = "#fff";
-				c.beginPath();
-				c.moveTo(-10, -6);
-				c.lineTo(-10, 6);
-				c.lineTo(10, 0);
-				c.closePath();
+					c.save();
+					c.translate(xoff, yoff);
+					c.rotate(angle);
 
-				c.fill();
-				c.translate(-xoff, -yoff)
-				c.restore();
+					c.fillStyle = "#fff";
+					c.beginPath();
+					c.moveTo(-10, -6);
+					c.lineTo(-10, 6);
+					c.lineTo(10, 0);
+					c.closePath();
+
+					c.fill();
+					c.translate(-xoff, -yoff)
+					c.restore();
 				}
 
 
