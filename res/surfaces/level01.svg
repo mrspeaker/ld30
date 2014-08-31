@@ -15,18 +15,18 @@
             <rect id="leave-2" sketch:type="MSShapeGroup" transform="translate(611.500000, 1734.000000) scale(1, -1) translate(-611.500000, -1734.000000) " x="1" y="1728" width="1221" height="12"></rect>
             <rect id="leave" sketch:type="MSShapeGroup" x="1211" y="9" width="10" height="1736"></rect>
         </g>
-        <g id="Surface" sketch:type="MSLayerGroup" transform="translate(399.000000, 1010.000000)" stroke="#979797" fill="#C4BFBF">
+        <g id="Surface" sketch:type="MSLayerGroup" transform="translate(399.000000, 1010.000000)" stroke="#979797" fill="#5B391C">
             <path d="M277.855623,397.630289 L410.397699,228.065835 L405.729092,86.5934245 L501.570777,2.20279664 L637.631606,0.466882998 L691.586911,250.801209 L634.551828,444.281508 L277.855623,397.630289 L277.855623,397.630289 Z" id="Path-2" sketch:type="MSShapeGroup"></path>
             <path d="M45.5347162,222.886564 L204.141524,222.710544 L215.946112,347.260304 L89.7433,406.930703 L-0.312521223,292.898626 L45.5347162,222.886564 L45.5347162,222.886564 Z" id="Path-3" sketch:type="MSShapeGroup"></path>
         </g>
-        <g id="Pads" sketch:type="MSLayerGroup" transform="translate(409.000000, 945.000000)" stroke="#979797" fill="#D8D8D8">
+        <g id="Pads" sketch:type="MSLayerGroup" transform="translate(459.000000, 1005.000000)" stroke="#979797" fill="#4990E2">
             <rect id="Rectangle-1" sketch:type="MSShapeGroup" x="446" y="0" width="121" height="10"></rect>
-            <rect id="Rectangle-2" sketch:type="MSShapeGroup" x="0" y="259" width="116" height="10"></rect>
+            <rect id="Rectangle-2" sketch:type="MSShapeGroup" x="0" y="220" width="116" height="10"></rect>
         </g>
-        <g id="Spawns" sketch:type="MSLayerGroup" transform="translate(707.000000, 344.000000)" stroke="#979797" fill="#DBD5B9">
+        <g id="Spawns" sketch:type="MSLayerGroup" transform="translate(707.000000, 344.000000)" stroke="#979797" fill="#50E3C2">
             <rect id="player" sketch:type="MSShapeGroup" x="0" y="0" width="43" height="39"></rect>
         </g>
-        <g id="Shadows" sketch:type="MSLayerGroup" transform="translate(524.000000, 496.000000)" stroke="#979797" fill="#979797">
+        <g id="Shadows" sketch:type="MSLayerGroup" transform="translate(457.000000, 1043.000000)" stroke="#979797" fill="#362210">
             <path d="M133.140625,252.171875 L14.0078125,255.140625 L-0.3671875,279.507812 L38.234375,323 L58.4609375,288.398438 L133.140625,252.171875 Z" id="Path-5" sketch:type="MSShapeGroup"></path>
             <path d="M557.796875,0.3671875 L490.53125,8.8125 L426.8125,43.484375 L424.8125,106.820313 L390.21875,172.539062 L366.578125,207.132813 L436.21875,220.984375 L494.601562,184.390625 L527.195312,121.125 L573.203125,58.3671875 L557.796875,0.3671875 Z" id="Path-5" sketch:type="MSShapeGroup"></path>
         </g>

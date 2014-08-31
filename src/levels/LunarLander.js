@@ -53,16 +53,15 @@
 
 
 		parse: function (level) {
-
 			var self = this;
 
-			this.surface = level.layer("Surface").data;
-			this.shadows = level.layer("Shadows").data;
-			this.leaves = level.layer("Triggers").data.map(function (trig, i) {
+			this.surface = level.layer("Surface").data || [];
+			this.shadows = level.layer("Shadows").data || [];
+			this.leaves = (level.layer("Triggers").data || []).map(function (trig, i) {
 				return trig;
 			});
-			this.bg = level.layer("Background").data;
-			this.pads = level.layer("Pads").data.map(function (pad, i) {
+			this.bg = level.layer("Background").data || [];
+			this.pads = (level.layer("Pads").data || []).map(function (pad, i) {
 				pad.id = i;
 				pad.hit = function (player) {
 					self.checkLanding(this, player);
@@ -79,32 +78,6 @@
 			}
 
 			this.level = level;
-			
-			return;
-
-			/* tiled editor loader */
-
-			this.surface = level.layer("surface").type("ground");
-			this.pads = level.layer("pads").type("pad").map(function (pad, i) {
-				pad.id = i;
-				pad.height = 10;
-				pad.y -= pad.height;
-				pad.w = pad.width;
-				pad.h = pad.height;
-				pad.hit = function (player) {
-					self.checkLanding(this, player);
-				}
-				return pad;
-			});
-			var spawns = level.layer("spawns");
-			if (spawns) {
-				var spawn = spawns.name("player");
-				if (spawn) {
-					this.player_craft.x = spawn.x;
-					this.player_craft.y = spawn.y;
-				}
-			}
-
 		},
 
 		addStars: function () {
