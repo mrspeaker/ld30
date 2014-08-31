@@ -30,13 +30,13 @@
             this.level = this.levels.asteroids;
             data.physics = data.physics_space;
 
-            this.levelData = new Ω.SVGLevel("res/surfaces/test.svg?" + Date.now(), "", function (level, err) {
-                if (err) {
-                    console.log("Error loading surface:", err);
-                    return;
-                }
-                return level;
-            });
+            // this.levelData = new Ω.SVGLevel("res/surfaces/test.svg?" + Date.now(), "", function (level, err) {
+            //     if (err) {
+            //         console.log("Error loading surface:", err);
+            //         return;
+            //     }
+            //     return level;
+            // });
 
         },
 

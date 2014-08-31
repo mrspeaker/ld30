@@ -38,9 +38,7 @@
 
 			var self = this;
 
-			var res = screen.levelData ? screen.levelData.raw : "res/surfaces/test.svg?" + Date.now();
-
-			console.log(res, planet.surface.name)
+			var res = screen.levelData ? screen.levelData.raw : "res/surfaces/" + planet.surface.name + ".svg?" + Date.now();
 
 			new Ω.SVGLevel(res, "#" + planet.surface.name, function (level, err) {
 				if (err) {
