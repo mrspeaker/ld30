@@ -39,19 +39,20 @@ Go wacky on this one: rainbow thrusters, sparkly particles, wacky song?
 ### Asteroids Area
 
 * Fly around [DONE]
-	* breaking
+	* breaking [DONE]
 	* smooth turning [DONE]
-* Generate levels
-	* No overlaps
+* Generate levels [DONE]
+	* No overlaps [DONE]
 * Minimap [DONE]
-* Generate fares
-	* From easy to difficult
-* Fare display / selecting
-	* Abort fare
-	* Point arrow to target
+* Generate fares [DONE]
+	* From easy to difficult [DONE]
+* Fare display / selecting [DONE]
+	* Abort fare [DONE]
+	* Point arrow to target [DONE]
 * Detect approach to planet [DONE]
 	* Make sure not going too fast [DONE]
-	* Ensure nice take off pos
+	* Ensure nice take off pos [DONE]
+
 * Bad guys
 * Bad guy firing
 * You firing
@@ -64,14 +65,15 @@ Go wacky on this one: rainbow thrusters, sparkly particles, wacky song?
 * Landing physics [DONE]
 * Crashing [DONE]
 * Generating/drawing landscape [DONE]
-	* +- cash rewards for harder landing areas
-	* Add layers to canvas drawer
+	* +- cash rewards for harder landing areas [DONE]
+	* Add layers to canvas drawer [DONE]
 * Generating pads [DONE]
-* Level design
+* Level design [DONE-ish]
 * Detecting successful landing [DONE]
+* "Judge" landing - give uber points [DONE]
+
 * Fare leaving animation
 * Flying pickups?
-* "Judge" landing - give uber points
 
 ### Depot Area
 
@@ -80,23 +82,22 @@ Go wacky on this one: rainbow thrusters, sparkly particles, wacky song?
 
 ### Screens
 
-* Intro screen
-* Pause screen
-* Area screens
+* Intro screen [DONE]
+* Area screens 
 	* Asteroids [DONE]
 		* Popup depot screen: give instructions
 	* Lunar Lander [DONE]
 	* Depot [DONE]
-* Game over screen
+* Game over screen [DONE]
 
 ### Tunes
 
-* Flying tune
+* Flying tune [DONE]
 	* With "trouble" variant
-* Maybe landing tunes
-* Maybe 
+* Maybe landing tune
+
 
 ## Add back to Ω500:
 
-*
+* SVG level loader
 
