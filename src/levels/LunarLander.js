@@ -61,7 +61,7 @@
 				return trig;
 			});
 			this.bg = level.layer("Background").data || [];
-			this.pads = (level.layer("Pads").data || []).map(function (pad, i) {
+			this.pads = (level.layer("Pads").data || []).reverse().map(function (pad, i) {
 				pad.id = i;
 				pad.hit = function (player) {
 					self.checkLanding(this, player);

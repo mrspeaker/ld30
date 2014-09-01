@@ -176,10 +176,10 @@
             while(!ok) {
             var src = planets[Ω.utils.rand(planets.length - 2)],
                 dst = planets[Ω.utils.rand(planets.length - 2)],
-                src_pad = Ω.utils.rand(src.surface.pads),
-                dst_pad = Ω.utils.rand(dst.surface.pads),
-                diff_src = src.surface.hard[src_pad],
-                diff_dest = dst.surface.hard[dst_pad],
+                src_pad = Ω.utils.rand(src.surface.pads.length),
+                dst_pad = Ω.utils.rand(dst.surface.pads.length),
+                diff_src = src.surface.pads[src_pad],
+                diff_dest = dst.surface.pads[dst_pad],
                 tot_diff = ((diff_src + diff_dest) / 20);
 
                 if (src !== dst) {

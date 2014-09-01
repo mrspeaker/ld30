@@ -20,8 +20,8 @@
             <path d="M45.5347162,222.886564 L204.141524,222.710544 L215.946112,347.260304 L89.7433,406.930703 L-0.312521223,292.898626 L45.5347162,222.886564 L45.5347162,222.886564 Z" id="Path-3" sketch:type="MSShapeGroup"></path>
         </g>
         <g id="Pads" sketch:type="MSLayerGroup" transform="translate(459.000000, 1005.000000)" stroke="#979797" fill="#4990E2">
-            <rect id="Rectangle-1" sketch:type="MSShapeGroup" x="446" y="0" width="121" height="10"></rect>
-            <rect id="Rectangle-2" sketch:type="MSShapeGroup" x="0" y="220" width="116" height="10"></rect>
+            <rect id="two" sketch:type="MSShapeGroup" x="446" y="0" width="121" height="10"></rect>
+            <rect id="one" sketch:type="MSShapeGroup" x="0" y="220" width="116" height="10"></rect>
         </g>
         <g id="Spawns" sketch:type="MSLayerGroup" transform="translate(707.000000, 344.000000)" stroke="#979797" fill="#50E3C2">
             <rect id="player" sketch:type="MSShapeGroup" x="0" y="0" width="43" height="39"></rect>

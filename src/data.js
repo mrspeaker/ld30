@@ -19,9 +19,9 @@
 		},
 		
 		surfaces: [
-			{ name: "level00", pads: [2], hard: [1, 1]},
-			{ name: "level01", pads: [2], hard: [1, 1]},
-			{ name: "level02", pads: [3], hard: [8, 4, 1]}
+			{ name: "level00", pads: [1, 1]},
+			{ name: "level01", pads: [1, 1]},
+			{ name: "level02", pads: [8, 4, 1, 6]}
 			// { name: "cavern", pads: 6, hard:[1, 4, 6, 9, 5, 10] },
 			// { name: "tree", pads: 5, hard:[2, 8, 3, 3, 9] },
 			// { name: "simple", pads: 1, hard:[1] },
