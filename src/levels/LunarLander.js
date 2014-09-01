@@ -120,7 +120,6 @@
 
 					craft.halt();
 					craft.rotation = 0;
-					// TODO: "judge" landing
 					this.landed_y = craft.y;
 
 					var fare = this.screen.fare;
@@ -129,7 +128,8 @@
 							if (fare.dest === this.planet) {
 								// DONE THE FARE!
 								this.audio.collect.play();
-								//this.player.cash += (Math.random() * 3000 | 0) + 900;
+								console.log(rated, fare.rated, (fare.rated + rated) / 2);
+								rated = (fare.rated + rated) / 2;
 								fare.credEarned = rated * fare.difficulty * 1000 | 0;
 								this.player.guber_cred += fare.credEarned;
 
@@ -151,6 +151,8 @@
 								// Picked up.								
 								this.screen.pickedUpFare(fare);
 								this.audio.collect.play();
+								// DO SOMETHING WITH RATING!
+								fare.rated = rated;
 							}
 						}
 
