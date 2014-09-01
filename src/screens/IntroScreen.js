@@ -45,6 +45,8 @@
             c.fillStyle = "#555";
             c.fillText("- Mr Speaker", gfx.w - 180, gfx.h - 20);
 
+            // Draw the player
+
             var x = 320,
                 y = 50,
                 w = 32,
@@ -52,13 +54,8 @@
                 h = 24,
                 rotation_point = [w * 0.5, h * 0.5]; // center
 
-            
             c.save();
-
-            c.fillStyle = "#333";
-
-            c.scale(2, 2)
-
+            c.scale(2, 2);
             c.translate(x + rotation_point[0], y + rotation_point[1]);
             c.rotate(rotation * Math.PI / 180);
             c.translate(-rotation_point[0], -rotation_point[1]);
@@ -68,26 +65,15 @@
             c.arc(w / 2 + 0, 5, w / 2 - 3, 0, Math.PI, true);
             c.stroke();
 
+            c.fillStyle = "#333";
             c.fillRect(0, 0, w, h);
-
-            
             c.fillStyle = data.colors.theYellow;
-            // "hsl(70, 90%, 50%)";
-            //if (this.thrust > 0 || this.vtotal > 2) {
-                c.fillRect(4, h, w - 8, 4);
-            //}
-            //if (thrust > 0) {
-                c.fillRect(8, h + 4, w - 16, 2);
-            //    c.fillRect(11, this.h + 8, this.w - 22, 4);
-            //.}
-            //if (this.rthrust > 0) 
-                c.fillRect(-1, h - 7, 3, 11);
-            //if (this.rthrust < 0)
-                c.fillRect(w - 1, h - 7, 3, 11);
-            //
-
+            c.fillRect(4, h, w - 8, 4);
+            c.fillRect(8, h + 4, w - 16, 2);
+            c.fillRect(-1, h - 7, 3, 11);
+            c.fillRect(w - 1, h - 7, 3, 11);
+            
             c.restore();
-
         }
     });
 

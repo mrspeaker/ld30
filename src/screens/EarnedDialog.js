@@ -14,7 +14,6 @@
 
 			this._super(game.preset_dt);
 
-			//console.log("wat", this.time);
 			if (this.time > 0.5) {
 				if (Ω.input.pressed("space") || 
             	    Ω.input.pressed("moused") || 
@@ -22,7 +21,6 @@
             		Ω.input.pressed("down") || 
             		Ω.input.pressed("left") || 
             		Ω.input.pressed("right")) {
-            			//Ω.input.release(this.killKey);
 						this.done();
             	}
 			}
@@ -32,10 +30,10 @@
 
 			this._super(gfx);
 
-			var c = gfx.ctx;
-			//c.fillStyle = (this.time * 5) % 2 | 0 ? "rgba(0, 0, 0, 0.7)" : "#fff";
-			var yOff = 200,
+			var c = gfx.ctx,
+				yOff = 200,
 				xOff = 230;
+
 			c.fillStyle = "#fff";
 			c.fillText("Ride rating  : ", xOff, yOff);
 			c.fillText("Difficulty   : ", xOff, yOff + 30);

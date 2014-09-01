@@ -47,7 +47,6 @@
 				self.addStars();
 
 			});
-			/* new Ω.Tiled("res/surfaces/" + planet.surface.name + ".json?" + Date.now(), function (level, err) { */
 
 		},
 
@@ -128,40 +127,29 @@
 							if (fare.dest === this.planet) {
 								// DONE THE FARE!
 								this.audio.collect.play();
-								console.log(rated, fare.rated, (fare.rated + rated) / 2);
 								rated = (fare.rated + rated) / 2;
 								fare.credEarned = rated * fare.difficulty * 1000 | 0;
 								this.player.guber_cred += fare.credEarned;
-
 								this.player.ranking = this.screen.getRanking();
-								if (this.player.ranking[0] === 1) {
-									game.win();
-									return;
-								} else {
-
-									game.setDialog(new EarnedDialog(rated, fare, this.player));
-									this.screen.doneFare();
-									this.screen.setMessage("Earned " + fare.credEarned + " GüBer cred");
-								}
-
-
+								
+								game.setDialog(new EarnedDialog(rated, fare, this.player));
+								this.screen.doneFare();
+								this.screen.setMessage("Earned " + fare.credEarned + " GüBer cred");
 							}
 						} else {
 							if (fare.src === this.planet) {
 								// Picked up.								
 								this.screen.pickedUpFare(fare);
 								this.audio.collect.play();
-								// DO SOMETHING WITH RATING!
+								// Save pickup rating
 								fare.rated = rated;
 							}
 						}
-
 					} else {
 						this.screen.setMessage("Nice. Now get back to work!");
 					}
 				}
 				if (this.state.count > 100) {
-					//this.screen.goto("fly");
 					this.state.set("FALLING");
 				}
 				break;
@@ -178,9 +166,7 @@
 				}
 				break;
 			case "LEAVING":
-				//if (this.state.count > 50) {
-					this.screen.goto("fly", this.planet);
-				//}
+				this.screen.goto("fly", this.planet);
 				break;
 			}
 		},
@@ -188,7 +174,8 @@
 		tick_falling: function () {
 			var player = this.player_craft;
 
-			this.scale = 0.7 + (Math.max(0, 2 - player.vtotal / 2) / 6);//Math.sin(Date.now() / 1000) * 0.003;
+			// Set the camera scale
+			this.scale = 0.7 + (Math.max(0, 2 - player.vtotal / 2) / 6);
 
 			if (player.crashed) {
 				this.state.set("CRASHED");
@@ -332,7 +319,7 @@
 					rightPlanet = false,
 					rightPad = -1;
 				
-				// Are win in teh right planet for dropping off/picking up?
+				// Are we in teh right planet for dropping off/picking up?
 				if (fare) {
 					if ((fare.src === self.planet && !fare.pickedUp) || (fare.dest === self.planet && fare.pickedUp)) {
 						rightPlanet = true;
@@ -391,12 +378,10 @@
 				mmyr = 0.09;
 
 			c.fillStyle = "rgba(63, 63, 63, 0.3)";
-			//if(this.state.isIn("FALLING", "LANDED")) {
-				c.beginPath();
-				c.arc(mmx + (mmw / 2), mmy + (mmh / 2), 60, 0, Math.PI * 2, false);
-				c.closePath();
-				c.fill();
-			//}
+			c.beginPath();
+			c.arc(mmx + (mmw / 2), mmy + (mmh / 2), 60, 0, Math.PI * 2, false);
+			c.closePath();
+			c.fill();
 
 			// Dispatch background
 			c.fillRect(xoff - 8, yoff - 16, w, 20);
@@ -460,11 +445,7 @@
 					c.translate(-xoff, -yoff)
 					c.restore();
 				}
-
-
 			}
-
-
 		}
 	});
 

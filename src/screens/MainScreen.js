@@ -29,15 +29,6 @@
             }
             this.level = this.levels.asteroids;
             data.physics = data.physics_space;
-
-            // this.levelData = new Ω.SVGLevel("res/surfaces/test.svg?" + Date.now(), "", function (level, err) {
-            //     if (err) {
-            //         console.log("Error loading surface:", err);
-            //         return;
-            //     }
-            //     return level;
-            // });
-
         },
 
         tick: function () {
@@ -62,7 +53,6 @@
                     pressedIdx = 3;
                 }
                 if (Ω.input.pressed("moused")) {
-                    //console.log(Ω.input.mouse)
                     var x = Ω.input.mouse.x,
                         y = Ω.input.mouse.y,
                         minx = 20,
@@ -174,13 +164,13 @@
 
             var ok = false;
             while(!ok) {
-            var src = planets[Ω.utils.rand(planets.length - 2)],
-                dst = planets[Ω.utils.rand(planets.length - 2)],
-                src_pad = Ω.utils.rand(src.surface.pads.length),
-                dst_pad = Ω.utils.rand(dst.surface.pads.length),
-                diff_src = src.surface.pads[src_pad],
-                diff_dest = dst.surface.pads[dst_pad],
-                tot_diff = ((diff_src + diff_dest) / 20);
+                var src = planets[Ω.utils.rand(planets.length - 2)],
+                    dst = planets[Ω.utils.rand(planets.length - 2)],
+                    src_pad = Ω.utils.rand(src.surface.pads.length),
+                    dst_pad = Ω.utils.rand(dst.surface.pads.length),
+                    diff_src = src.surface.pads[src_pad],
+                    diff_dest = dst.surface.pads[dst_pad],
+                    tot_diff = ((diff_src + diff_dest) / 20);
 
                 if (src !== dst) {
                     ok = true;

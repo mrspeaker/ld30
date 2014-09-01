@@ -9,10 +9,16 @@
             <path d="M0.293653459,1274.60458 L265.20578,542.059239 L462.577611,791.187447 L666.887005,813.66852 L752.854055,1151.0031 L817.971709,955.811698 L854.861925,1073.22273 L980.178538,1122.92397 L1170.24574,993.991018 L1348.82375,709.467707 L1525.63984,707.216638 L1653.37909,934.159966 L1748.74305,1359.70092 L1748.74305,1650.11848 L1282.27453,1417.2226 L693.627823,1417.2226 L317.512802,1492.52993 L0.293653459,1274.60458 Z" id="Path-6" sketch:type="MSShapeGroup"></path>
             <path d="M196.46875,317.557474 L358.28125,219.112275 L510.3125,1.86794269 L660.84375,0.149165954 L769.59375,173.428999 L1171.5625,190.999996 L769.59375,381.687496 L453.65625,542.265629 L196.46875,317.557474 Z" id="Path-7" sketch:type="MSShapeGroup"></path>
         </g>
-        <g id="Triggers" sketch:type="MSLayerGroup" transform="translate(219.000000, 149.000000)" stroke="#979797" fill="#FFD7C8">
-            <rect id="leave" sketch:type="MSShapeGroup" transform="translate(610.500000, 6.000000) scale(1, -1) translate(-610.500000, -6.000000) " x="0" y="0" width="1221" height="12"></rect>
+        <g id="Triggers" sketch:type="MSLayerGroup" transform="translate(460.000000, 149.000000)" stroke="#979797" fill="#FFD7C8">
+            <rect id="leave" sketch:type="MSShapeGroup" transform="translate(348.000000, 9.500000) scale(1, -1) translate(-348.000000, -9.500000) " x="0" y="0" width="696" height="19"></rect>
         </g>
-        <g id="Surface" sketch:type="MSLayerGroup" transform="translate(0.000000, 259.000000)" stroke="#979797" fill="#5B391C">
+        <g id="Triggers-2" sketch:type="MSLayerGroup" transform="translate(454.000000, 168.000000)" stroke="#979797" fill="#FFD7C8">
+            <rect id="leave" sketch:type="MSShapeGroup" transform="translate(6.000000, 73.000000) scale(1, -1) translate(-6.000000, -73.000000) " x="0" y="0" width="12" height="146"></rect>
+        </g>
+        <g id="Triggers-3" sketch:type="MSLayerGroup" transform="translate(1150.000000, 168.000000)" stroke="#979797" fill="#FFD7C8">
+            <rect id="leave" sketch:type="MSShapeGroup" transform="translate(6.000000, 99.500000) scale(1, -1) translate(-6.000000, -99.500000) " x="0" y="0" width="12" height="199"></rect>
+        </g>
+        <g id="Surface" sketch:type="MSLayerGroup" transform="translate(0.000000, 259.000000)" stroke="#979797" fill="#8B715A">
             <path d="M1226.84375,998.5 L1284.85023,1136.87905 L1426.39939,1137.1506 L1484.28124,998.5 L1565.56249,1137.1506 L1538.84374,1289.14062 L1426.3994,1353.3508 L1200.625,1312.92188 L1120.01472,1197.79688 L1120.01472,998.5 L1226.84375,998.5 Z" id="Path-2" sketch:type="MSShapeGroup"></path>
             <path d="M-0.046875,0.125 L594.15625,81.734375 L649.71875,202.421875 L658.0625,367.390625 L715.015625,607.546875 L609.265625,657.71875 L470.53125,657.71875 L427.46875,602.328125 L367.015625,553.875 L297.5625,557.875 L276.71875,634.984375 L286.453125,726.84375 L381.96875,731 L449.53125,765.0625 L594,877.421875 L761.078125,877.421875 L761.078125,1208.35938 L-0.046875,1208.35938 L-0.046875,0.125 Z" id="Path-6" sketch:type="MSShapeGroup"></path>
             <path d="M1026.95312,490.21875 L1007.51562,613.34375 L1007.51562,731.578125 L1079.40625,767.703125 L1219.375,806.4375 L1253.39062,677.1875 L1234.10938,577.84375 L1214.98438,491 L1123.64062,474.328125 L1026.95312,490.21875 Z" id="Path-7" sketch:type="MSShapeGroup"></path>

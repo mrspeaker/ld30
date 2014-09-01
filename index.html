@@ -17,7 +17,8 @@
 		<span id="fullscreenahead" title="go fullscreen"></span>
 
 		<!-- Ω500 library -->
-		<!--<script src="lib/Ω/Ω.js"></script>
+		<!--
+		<script src="lib/Ω/Ω.js"></script>
 		<script src="lib/Ω/utils/base.js"></script>
 		<script src="lib/Ω/utils/rays.js"></script>
 		<script src="lib/Ω/utils/Timer.js"></script>
@@ -48,7 +49,8 @@
 		<script src="lib/Ω/anim/Anim.js"></script>
 		<script src="lib/Ω/maps/Map.js"></script>
 		<script src="lib/Ω/entities/Entity.js"></script>
-		<script src="lib/Ω/Game.js"></script>-->
+		<script src="lib/Ω/Game.js"></script>
+		-->
 		<script src="lib/Ω500.js"></script>
 		<script src="lib/Ω/assets/SVGLevel.js"></script>
 		
@@ -67,8 +69,6 @@
         <script src="src/levels/Depot.js"></script>
         <script src="src/levels/LunarLander.js"></script>
         <script src="src/screens/MainScreen.js"></script>
-        <script src="src/screens/PauseDialog.js"></script>
-        <script src="src/screens/DepotDialog.js"></script>
         <script>
             var game = new ConWorldsCabGame(800, 500);
 
@@ -76,15 +76,12 @@
             document
             	.querySelector("#fullscreenahead")
             	.addEventListener("click", function () {
-
             		Ω.utils.fullscreen.toggle("#board");
-
             	}, false);
         </script>
         <script>
 		window.preloo = setInterval(function () {
 			var colour = "hsl(" + (Math.random() * 360 | 0) + ", 50%, 40%)";
-			console.log(document.querySelector("#board").style.background)
 			document.querySelector("#board").style.background = colour;
 		}, 600);
 		</script>

@@ -116,7 +116,7 @@
 					this.audio.theme.audio.volume = this.audio.theme.audio._volume * (this.state.count / 51);
 				}
 				if (this.state.count === 300 && !this.themeStarted) {
-					//this.audio.theme.play();
+					this.audio.theme.play();
 					this.themeStarted = true;
 				}
 				this.tick_flying();
@@ -187,9 +187,6 @@
 			player.halt();
 			player.rotation = 0;
 			player.enableControls();
-			//var angle = (player.rotation - 90) * Math.PI / 180;
-            //player.x += Math.cos(angle) * 80;
-            //player.y += Math.sin(angle) * 80;
             player.x = planet.x - player.w / 2;
             player.y = planet.y - player.h - planet.size - 55;
 		},
@@ -204,16 +201,9 @@
 			this.renderFares(gfx);
 
 			gfx.ctx.font = "16pt monospace";
-			if (this.state.is("INTRO")) {
-				c.fillStyle = "#fff";
-
-				//c.fillText("...", gfx.w / 2 - 40, gfx.h / 2);
-			}
 			if (this.state.is("APPROACHING")) {
 				c.fillStyle = "#fff";
-
 				c.fillText("Landing on " + (this.state.data.isDepot ? "The Depot" : this.state.data.name), gfx.w / 2 - 100, 200);
-
 			}
 		},
 
@@ -242,9 +232,6 @@
 					return e.x + w > left && e.x - w < right && e.y + w > top && e.y - w < bottom;
 				}
 
-			//c.fillStyle = data.collision;
-			//c.fillRect(Ω.env.w / 2 - 100, Ω.env.h - 100, 150, 40);
-
 			c.fillStyle = "#999";
 			this.stars.forEach(function (s) {			
 				if (s[0] < left || s[0] > right) {
@@ -267,7 +254,7 @@
 				c.fillStyle = "hsl(" + (Math.random() * 100 | 0) + ",70%,50%)";
 				c.fillRect(player.x + Ω.utils.rand(-10, 20), player.y + Ω.utils.rand(-10, 20), 20, 20);
 			} else {
-				//player.checkGroundCol(gfx);
+				//player.checkGroundCol(gfx);s
 				player.render(gfx);
 			}
 
@@ -404,11 +391,10 @@
 			});
 
 			yoff += 194;
-			c.fillStyle = "#fff"
-			c.font = "12pt monospace";
-
 			if (this.screen.message) {
 				if (this.screen.message_blink-- <= 0 || Ω.utils.toggle(300, 2)) {
+					c.fillStyle = "#fff"
+					c.font = "12pt monospace";
 					c.fillText(this.screen.message, xoff - 6, yoff + 30);
 				}
 				if (this.screen.message_blink === 0 && this.screen.message_last) {
