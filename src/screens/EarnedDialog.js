@@ -49,7 +49,7 @@
 
 			c.font = "18pt monospace";
 			var outta5 = this.rated * 5,
-				half = outta5 % (outta5 | 0),
+				half = outta5 % (outta5 | 0) >= 0.5,
 				rating = Math.max(1, this.rated * 5 | 0);
 			for (var j = 0; j < rating; j++) {
 				c.fillText("★", j * 25 + xOff, yOff + 3);
