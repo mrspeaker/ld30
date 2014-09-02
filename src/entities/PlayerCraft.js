@@ -26,6 +26,8 @@
 
         controlsEnabled: true,
 
+        particles: null,
+
         audio: {
             thrust: new Ω.Sound("res/audio/thrust_noise", 0.7),
             rot_thrust_1: new Ω.Sound("res/audio/thrust_rot_l", 0.7),
@@ -36,6 +38,7 @@
             this._super(x, y);
             this.screen = screen;
             this.player = screen.player;
+            this.particles = new Ω.Particle({});
 
             this.points_init = [
                 [0, 0],
@@ -84,6 +87,7 @@
                 
                 if (this.player.fuel > 0 && Ω.input.isDown("up")) {
                     if (Ω.input.pressed("up")) {
+                        this.particles.play(this.x, this.y);
                         this.audio.thrust.play(true);
                     }
                     this.thrust = phys.thrust;
@@ -111,7 +115,7 @@
             var ay = Math.sin(angle) * this.thrust;
 
             this.vx += ax;
-            this.vy += ay + gravity;
+            this.vy += ay + phys.gravity;
 
             var friction = phys.friction;
             this.vx *= friction * breakFriction;
@@ -121,7 +125,9 @@
             this.x += this.vx;
             this.y += this.vy;
 
-            this.calculateCollisionPoints((this.rotation) * Math.PI / 180, this.rotation_point)
+            this.calculateCollisionPoints((this.rotation) * Math.PI / 180, this.rotation_point);
+
+            this.particles.tick(this.x, this.y);
 
             return true;
 
@@ -191,9 +197,11 @@
             if (this.rthrust < 0)
                 c.fillRect(this.w - 1, this.h - 7, 3, 11);
             //
-
             
             c.restore();
+            
+            this.particles.render(gfx);
+
 
             //Show bounding box - useful to see how the rotated hitpoints work.
             /*

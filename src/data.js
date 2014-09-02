@@ -17,17 +17,19 @@
 			cabPrice: 5000,
 			uberRankReduceOnCrash: 350
 		},
+
+		starSystem: {
+			minx: -1500,
+			miny: -1500,
+			maxx: 2500,
+			maxy: 2500
+		},
 		
 		surfaces: [
 			{ name: "level00", pads: [3, 1]},
 			{ name: "level01", pads: [7, 5, 4]},
 			{ name: "level02", pads: [8, 4, 1, 6]},
 			{ name: "level03", pads: [10]}
-			// { name: "cavern", pads: 6, hard:[1, 4, 6, 9, 5, 10] },
-			// { name: "tree", pads: 5, hard:[2, 8, 3, 3, 9] },
-			// { name: "simple", pads: 1, hard:[1] },
-			// { name: "test", pads: 3, hard:[4, 6, 2] },
-			// { name: "test2", pads: 4, hard:[2, 4, 5, 2] }
 		],
 
 		physics: {},
@@ -55,7 +57,7 @@
 		},
 
 		debug: {
-			gimmePlanet: true
+			gimmePlanet: false
 		},
 
 		names: {

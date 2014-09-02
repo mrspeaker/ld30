@@ -31,7 +31,6 @@
             c.fillStyle = data.colors.theYellow;
 
             c.fillText("G B r  a i ", gfx.w / 2 - 260, gfx.h * 0.3 + Math.sin(Date.now() / 400) * 5);
-
             c.fillText(" ü E  T x s", gfx.w / 2 - 260, gfx.h * 0.3);
 
 			c.font = "16pt monospace";

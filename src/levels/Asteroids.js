@@ -29,6 +29,7 @@
 
 			var ok = false,
 				loops = 0;
+			// Try and space out all the planets
 			while (!ok) {
 				this.planets = [];
 				var maxPlanets = 12;
@@ -36,8 +37,8 @@
 					var p = new Planet(
 						i,
 						data.names.planets[i],
-						Ω.utils.rand(-1500, 2500),
-						Ω.utils.rand(-1500, 2500),
+						Ω.utils.rand(data.starSystem.minx, data.starSystem.maxx),
+						Ω.utils.rand(data.starSystem.miny, data.starSystem.maxy),
 						Ω.utils.rand(25, 45),
 						i == maxPlanets - 1);
 					this.planets.push(p);
@@ -56,9 +57,6 @@
 							break;
 						}
 						var dist = Ω.math.dist(a, b);
-						if (!dist) {
-							err += "nop... " + dist + "|";
-						}
 						if (dist < minDist) {
 							minDist = dist;
 						}
@@ -71,7 +69,6 @@
 					ok = true;
 				}
 			}
-			//console.log(loops);
 
 			if (data.debug.gimmePlanet) {
 				this.planets[1].x = this.player_craft.x;
@@ -81,8 +78,8 @@
 			this.stars = [];
 			for (i = 0; i < this.numstars; i++) {
 				this.stars.push([
-					Ω.utils.rand(-1500, 2500),
-					Ω.utils.rand(-1500, 2500)
+					Ω.utils.rand(data.starSystem.minx, data.starSystem.maxx),
+					Ω.utils.rand(data.starSystem.miny, data.starSystem.maxy)
 				]);
 			}
 		},
@@ -116,7 +113,7 @@
 					this.audio.theme.audio.volume = this.audio.theme.audio._volume * (this.state.count / 51);
 				}
 				if (this.state.count === 300 && !this.themeStarted) {
-					this.audio.theme.play();
+					//this.audio.theme.play();
 					this.themeStarted = true;
 				}
 				this.tick_flying();
@@ -162,8 +159,6 @@
 						this.state.set("APPROACHING", p);
 						return;
 					}	
-						
-					//return;
 				}
 			}
 
@@ -210,13 +205,13 @@
 		renderWorld: function (gfx) {
 
 			var c = gfx.ctx;
-			c.save();
 
 			var scale = this.scale,
 			    player = this.player_craft,
 			    midW = ((gfx.w / 2) / scale),
 			    midH = ((gfx.h / 2) / scale);
 
+			c.save();
 			c.scale(scale, scale);
 			c.translate(
 			    -player.x + midW,
