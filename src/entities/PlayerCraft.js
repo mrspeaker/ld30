@@ -27,6 +27,9 @@
         controlsEnabled: true,
 
         particles: null,
+        bullets: null,
+
+        shield: false,
 
         audio: {
             thrust: new Ω.Sound("res/audio/thrust_noise", 0.7),
@@ -39,6 +42,7 @@
             this.screen = screen;
             this.player = screen.player;
             this.particles = new Ω.Particle({});
+            this.bullets = [];
 
             this.points_init = [
                 [0, 0],
@@ -114,6 +118,14 @@
             var ax = Math.cos(angle) * this.thrust;
             var ay = Math.sin(angle) * this.thrust;
 
+            if (Ω.input.pressed("space")) {
+                // this.bullets.push(new Bullet(this.x, this.y, angle));
+                this.shield = true;
+            }
+            if (Ω.input.released("space")) {
+                this.shield = false;
+            }
+
             this.vx += ax;
             this.vy += ay + phys.gravity;
 
@@ -128,6 +140,9 @@
             this.calculateCollisionPoints((this.rotation) * Math.PI / 180, this.rotation_point);
 
             this.particles.tick(this.x, this.y);
+            this.bullets = this.bullets.filter(function (b) {
+                return b.tick();
+            });
 
             return true;
 
@@ -164,9 +179,26 @@
             this.pixels = pixels;
         },
 
+        hit: function (e) {
+
+            if (e instanceof BadGuy) {
+                e.remove = true;
+                if (!this.shield) {
+                    this.halt();
+                    this.rotation = Ω.utils.rand(360);
+                }
+            }
+
+        },
+
         render: function (gfx) {
 
             var c = gfx.ctx;
+
+            this.bullets.forEach(function (b) {
+                return b.render(gfx);
+            });
+
             c.save();
             c.fillStyle = "#333";
 
@@ -178,6 +210,12 @@
             c.beginPath();
             c.arc(this.w / 2 + 0, 5, this.w / 2 - 3, 0, Math.PI, true);
             c.stroke();
+
+            if (this.shield) {
+                c.beginPath();
+                c.arc(this.w / 2 + 0, 10, this.w * 1.2, 0, Math.PI * 2, true);
+                c.stroke();                
+            }
 
             c.fillRect(0, 0, this.w, this.h);
 
@@ -196,7 +234,6 @@
                 c.fillRect(-1, this.h - 7, 3, 11);
             if (this.rthrust < 0)
                 c.fillRect(this.w - 1, this.h - 7, 3, 11);
-            //
             
             c.restore();
             

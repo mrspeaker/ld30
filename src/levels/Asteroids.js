@@ -18,6 +18,7 @@
 		},
 
 		themeStarted: false,
+		baddies: null,
 
 		init: function (screen) {
 
@@ -26,6 +27,7 @@
 			this.screen = screen;
 			this.player = screen.player;
 			this.player_craft = new PlayerCraft(Ω.env.w * 0.5, Ω.env.h * 0.2, this);
+			this.baddies = [];
 
 			var ok = false,
 				loops = 0;
@@ -175,6 +177,17 @@
 					//
 				}
 			}*/
+
+			if (Ω.utils.oneIn(400)) {
+				this.baddies.push(new BadGuy(
+					player.x + Math.random() < 0.5 ? -400 : 400, 
+					player.y + Math.random() < 0.5 ? -400 : 400,
+					player));
+			}
+
+			this.baddies = this.baddies.filter(function (b) {
+				return b.tick();
+			});
 		},
 
 		depart: function (planet) {
@@ -244,6 +257,12 @@
 				}
 			});
 
+			this.baddies.forEach(function (p) {
+				if (inBounds(p)) {
+					p.render(gfx);
+				}
+			});
+
 
 			if (this.state.is("CRASHED")) {
 				c.fillStyle = "hsl(" + (Math.random() * 100 | 0) + ",70%,50%)";
@@ -264,6 +283,7 @@
 				xoff = gfx.w - 200,
 				yoff = 20;
 
+			// mm == minimap!
 			var mmw = 200,
 				mmh = 160,
 				mmx = gfx.w - mmw - 20,

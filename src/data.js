@@ -34,16 +34,16 @@
 
 		physics: {},
 		physics_space: {
-			thrust: 0.1,
+			thrust: 0.22,
 			friction: 0.985,
 			braking: 0.96,
-			rot_thrust: 0.18,
+			rot_thrust: 0.3,
 			rot_friction: 0.9,
 			gravity: 0.0
 		},
 
 		physics_planet: {
-			thrust: 0.1,
+			thrust: 0.11,
 			friction: 0.99,
 			braking: 0.96,
 			rot_thrust: 0.1,
