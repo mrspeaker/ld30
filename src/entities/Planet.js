@@ -4,6 +4,7 @@
 
 	var Planet = Ω.Class.extend({
 		size: 30,
+		fares: null,
 		init: function (id, name, x, y, size, isDepot) {
 			this.x = x;
 			this.y = y;
@@ -13,14 +14,37 @@
 			this.visits = 0;
 			this.isDepot = isDepot || false;
 			this.surface = data.surfaces[id % data.surfaces.length];
+			this.fares = [];
 
 			var col = Ω.utils.rand(360);
 			this.col = "hsl(" + col + ", 40%, 50%)";
 			this.darker = "hsl(" + col + ", 40%, 35%)"
 		},
-		tick: function () {
+		tick: function (screen, player) {
 
+			if (Ω.utils.oneIn(100)) {
+				this.addFare();
+			}
+
+			this.fares = this.fares.filter(function (f) { 
+				if (Ω.math.dist(f, player) < f.r * 2) {
+	                screen.pickupFare(f);
+	                return false;
+	            }
+				return f.tick(); 
+			});
+
+			return true;
 		},
+
+		addFare: function () {
+			if (this.fares.length > 0) {
+				return;
+			}
+			console.log("Adeeeded")
+			this.fares.push(new Fare(this.x, this.y));
+		},
+
 		render: function (gfx) {
 			var c = gfx.ctx;
 
@@ -41,6 +65,10 @@
 			} else {
 				c.fillText(this.name, (this.x - (this.name.length * 8.5) + (this.size / 2)) | 0, this.y + this.size + 26);
 			}
+
+			this.fares.forEach(function (f) {
+				f.render(gfx);
+			});
 			
 		}
 	});

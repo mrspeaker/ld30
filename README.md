@@ -2,6 +2,38 @@
 
 Here we goes again!
 
+## ### Post LD... re-think
+
+Left all the old docs below, here's the new plan:
+
+**JUICE ALL THE THINGS!**
+
+Super fast action crazy area instead of boring "pickup" phase:
+	
+	- Much much faster travelling
+	- Don't choose fares - fly around looking for waving guys
+	- GUys will have skulls above head.
+	- Fly over one to pick up and take fare
+	- Other guys/asteroids? will try and chase you down (why?)
+	- Use shields to explode them
+	- If hit by asteroid, knock out passangers into space.
+		- if they die (explode), penalty.
+
+More challenging landing phase:
+	
+	- Flying things to knock you off course
+	- Bonus Pickups?
+
+effects/polish:
+
+	- screen shake on asteroid hit
+	- Rainbow strand "burnout lines"
+	- burnout sound
+	- more character to taxi
+	- better planets
+
+#OLD DOCS FOR LD30
+
 ## Connected World Cabs
 
 - You're a cab driver, talking people between planets

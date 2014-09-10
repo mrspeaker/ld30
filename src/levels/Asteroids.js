@@ -86,6 +86,10 @@
 			}
 		},
 
+		pickupFare: function (fare) {
+			console.log("ya!");
+		},
+
 		tick: function () {
 
 			this.state.tick();
@@ -150,7 +154,8 @@
 		},
 
 		tick_flying: function () {
-			var player = this.player_craft;
+			var player = this.player_craft,
+				screen = this;
 			for (var i = 0; i < this.planets.length; i++) {
 				var p = this.planets[i];
 				var dist = Ω.math.dist(player, p);
@@ -187,6 +192,9 @@
 
 			this.baddies = this.baddies.filter(function (b) {
 				return b.tick();
+			});
+			this.planets = this.planets.filter(function (p) {
+				return p.tick(screen, player);
 			});
 		},
 
