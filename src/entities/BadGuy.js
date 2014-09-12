@@ -7,6 +7,8 @@
         h: 32,
         size: 32,
 
+        sheet: new Ω.SpriteSheet("res/images/peepsheet.png", 32, 32),
+
         init: function (x, y, player) {
             this._super(x, y);
             this.player = player;
@@ -33,6 +35,10 @@
                 this.player.hit(this);
             }
             return !(this.remove);
+        },
+
+        render: function (gfx) {
+            this.sheet.render(gfx, Ω.utils.toggle(200, 2), 1, this.x, this.y);
         }
     });
 
