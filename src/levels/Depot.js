@@ -9,8 +9,6 @@
 			this.planet = planet;
 			this.screen = screen;
 			this.player = screen.player;
-
-			screen.player.fuel = screen.player.fuel_max;
 		},
 		tick: function () {
 			if (this.frame++ > 150) {

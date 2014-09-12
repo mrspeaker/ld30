@@ -27,7 +27,7 @@
 			// }
 
 			this.fares = this.fares.filter(function (f) { 
-				if (Ω.math.dist(f, player) < f.r * 2) {
+				if (!player.shield && Ω.math.dist(f, player) < f.r * 2) {
 	                screen.pickupFare(f, player);
 	                return false;
 	            }

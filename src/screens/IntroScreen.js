@@ -39,7 +39,7 @@
 
             c.fillStyle = "#888";
             c.fillText("Controls  : arrows / WSAD", gfx.w / 2 - 200, gfx.h * 0.5);
-            c.fillText("Take fare : 1 - 4 [or mouse]", gfx.w / 2 - 200, gfx.h * 0.55);
+            c.fillText("Sheild    : space", gfx.w / 2 - 200, gfx.h * 0.55);
 
             c.fillStyle = "#555";
             c.fillText("- Mr Speaker", gfx.w - 180, gfx.h - 20);

@@ -177,13 +177,6 @@
 			}
 
 			this.player_craft.tick(0);
-			// Removed fuel from teh game
-			/*if (this.player_craft.thrust > 0) {
-				this.player.fuel -= this.player_craft.thrust;
-				if (this.player.fuel < 0) {
-					//
-				}
-			}*/
 
 			if (Ω.utils.oneIn(400)) {
 				this.baddies.push(new BadGuy(
@@ -216,7 +209,7 @@
 
 			gfx.ctx.font = "12pt monospace";
 			this.renderHUD(gfx);
-			this.renderFares(gfx);
+			this.renderDispatch(gfx);
 
 			gfx.ctx.font = "16pt monospace";
 			if (this.state.is("APPROACHING")) {
@@ -307,9 +300,8 @@
 			c.closePath();
 			c.fill();
 
-			// Fares background
-			//c.fillRect(20 - 8, 60 - 16, 196, 182);
-			c.fillRect(20 - 8, 60 - 16 + 194, 196, 20);
+			// Dispatch background (same alpha - sooo, tiny optimisation)
+			c.fillRect(20 - 8, 60 - 16, 196, 20);
 
 			this.planets.forEach(function (p) {
 				var dx = (p.x - player.x) * mmxr,
@@ -380,7 +372,7 @@
 
 		},
 
-		renderFares: function (gfx) {
+		renderDispatch: function (gfx) {
 			var c = gfx.ctx,
 				xoff = 20,
 				yoff = 60,
@@ -388,8 +380,7 @@
 				h = 182;
 
 			c.strokeStyle = "#666";
-			//c.strokeRect(xoff - 8, yoff - 16, w, h);
-			c.strokeRect(xoff - 8, yoff - 16 + 194, w, 20);
+			c.strokeRect(xoff - 8, yoff - 16, w, 20);
 
 			var ranking = this.screen.getRanking();
 
@@ -398,7 +389,7 @@
 
 			c.fillStyle = "#999";			
 			//c.fillText("-AVAILABLE FARES-", xoff + 8, yoff);
-			c.fillText("-DISPATCH-", xoff + 40, yoff + 193);
+			c.fillText("-DISPATCH-", xoff + 40, yoff);
 
 			/*
 			this.screen.availableFares.forEach(function (fare, i) {
@@ -421,7 +412,7 @@
 			});
 			*/
 
-			yoff += 194;
+			//yoff += 194;
 			if (this.screen.message) {
 				if (this.screen.message_blink-- <= 0 || Ω.utils.toggle(300, 2)) {
 					c.fillStyle = "#fff"

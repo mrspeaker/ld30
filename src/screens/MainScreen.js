@@ -16,7 +16,7 @@
         message_blink: 0,
         message_last: "",
 
-        selectMessage: "Select a fare [1-4]",
+        selectMessage: "Go find a fare",
         initFares: true,
 
         init: function () {

@@ -7,12 +7,7 @@
 		guber_class: 0,
 		guber_cred: 0,
 		fares: 0,
-		fuel: null,
-		fuel_max: 499,
-		damage: 0,
-		init: function () {
-			this.fuel = this.fuel_max
-		}
+		damage: 0
 	});
 
 	window.Player = Player;

@@ -89,7 +89,7 @@
                     }
                 }
                 
-                if (this.player.fuel > 0 && Ω.input.isDown("up")) {
+                if (Ω.input.isDown("up")) {
                     if (Ω.input.pressed("up")) {
                         this.particles.play(this.x, this.y);
                         this.audio.thrust.play(true);

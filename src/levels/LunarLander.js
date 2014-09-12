@@ -33,7 +33,6 @@
 			this.stars = [];
 			this.fare = screen.currentFare;
 
-			// Don't need this now, 'cuase  not loading multiple in one.
 			var res = screen.levelData ? screen.levelData.raw : "res/surfaces/" + planet.surface.name + ".svg?" + Date.now();
 
 			new Ω.SVGLevel(res, "#" + planet.surface.name, function (level, err) {
@@ -189,14 +188,6 @@
 
 			this.player_craft.tick(this.landed_y === null ? data.physics.gravity : 0);
 			
-			// Removed fuel from the game
-			/*if (this.player_craft.thrust > 0) {
-				this.player.fuel -= this.player_craft.thrust;
-				if (this.player.fuel < 0) {
-					//
-				}
-			}*/
-
 			Ω.Physics.checkCollision(this.player_craft, this.pads);
 			Ω.Physics.checkCollision(this.player_craft, this.leaves, "leave");
 		},
