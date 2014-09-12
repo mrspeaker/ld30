@@ -22,13 +22,13 @@
 		},
 		tick: function (screen, player) {
 
-			if (Ω.utils.oneIn(100)) {
-				this.addFare();
-			}
+			// if (Ω.utils.oneIn(100)) {
+			// 	this.addFare();
+			// }
 
 			this.fares = this.fares.filter(function (f) { 
 				if (Ω.math.dist(f, player) < f.r * 2) {
-	                screen.pickupFare(f);
+	                screen.pickupFare(f, player);
 	                return false;
 	            }
 				return f.tick(); 
@@ -37,12 +37,14 @@
 			return true;
 		},
 
-		addFare: function () {
-			if (this.fares.length > 0) {
-				return;
-			}
+		addFare: function (fare) {
 			console.log("Adeeeded")
-			this.fares.push(new Fare(this.x, this.y));
+			this.fares.push(fare);
+		},
+		removeFare: function (fare) {
+			this.fares = this.fares.filter(function (f) {
+				return f !== fare;
+			});
 		},
 
 		render: function (gfx) {

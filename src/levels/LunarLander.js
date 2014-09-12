@@ -31,7 +31,7 @@
 			this.player = screen.player;
 			this.player_craft = new PlayerCraft(Ω.env.w * 0.5, Ω.env.h * 0.2, this);
 			this.stars = [];
-			this.fare = screen.fare;
+			this.fare = screen.currentFare;
 
 			// Don't need this now, 'cuase  not loading multiple in one.
 			var res = screen.levelData ? screen.levelData.raw : "res/surfaces/" + planet.surface.name + ".svg?" + Date.now();
@@ -121,7 +121,7 @@
 					craft.rotation = 0;
 					this.landed_y = craft.y;
 
-					var fare = this.screen.fare;
+					var fare = this.screen.currentFare;
 					if (fare) {
 						if (fare.pickedUp) {
 							if (fare.dest === this.planet) {
@@ -314,9 +314,10 @@
 				c.fill();
 			});
 
+			var fare = self.fare;
+
 			this.pads.forEach(function (pad, i) {
-				var fare = self.screen.fare,
-					rightPlanet = false,
+				var rightPlanet = false,
 					rightPad = -1;
 				
 				// Are we in teh right planet for dropping off/picking up?

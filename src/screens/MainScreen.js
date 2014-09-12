@@ -9,8 +9,8 @@
         hour: 0,
 
         maxFares: 4,
-        fares: null,
-        fare: null,
+        availableFares: null,
+        currentFare: null,
 
         message: "",
         message_blink: 0,
@@ -21,7 +21,7 @@
 
         init: function () {
 
-            this.fares = [];
+            this.availableFares = [];
             this.player = new Player();
 
             this.levels = {
@@ -39,58 +39,34 @@
 
             // Move this to Asteroids.
             if (this.level === this.levels.asteroids) {
-                var pressedIdx = -1;
-                if (Ω.input.pressed("one")) {
-                    pressedIdx = 0;
-                }
-                if (Ω.input.pressed("two")) {
-                    pressedIdx = 1;
-                }
-                if (Ω.input.pressed("three")) {
-                    pressedIdx = 2;
-                }
-                if (Ω.input.pressed("four")) {
-                    pressedIdx = 3;
-                }
-                if (Ω.input.pressed("moused")) {
-                    var x = Ω.input.mouse.x,
-                        y = Ω.input.mouse.y,
-                        minx = 20,
-                        miny = 70,
-                        maxx = 200,
-                        maxy = 220;
-                    if (x > minx && x < maxx && y > miny && y < maxy) {
-                        var eachButtonHeight = (maxy - miny) / 4;
-                        pressedIdx = (y - miny) / eachButtonHeight | 0;
-                    }
-                }
-
-                if (pressedIdx > -1) {
-                    if (this.fare && this.fare.pickedUp) {
+                
+                /*if (pressedIdx > -1) {
+                    if (this.currentFare && this.currentFare.pickedUp) {
                         this.setMessage("Fare in progress!", undefined, true);
-                    } else if (this.fares[pressedIdx]) {
-                        var fare = this.fares[pressedIdx];
-                        if (fare === this.fare) {
+                    } else if (this.availableFares[pressedIdx]) {
+                        var fare = this.availableFares[pressedIdx];
+                        if (fare === this.currentFare) {
                             fare.selected = false
-                            this.fare = null;
+                            this.currentFare = null;
                             this.setMessage(this.selectMessage);
                         } else {
                             fare.selected = true;
-                            if (this.fare) {
-                                this.fare.selected = false;
+                            if (this.currentFare) {
+                                this.currentFare.selected = false;
                             }
-                            this.fare = fare;
-                            this.setMessage("Pickup from: " + this.fare.src.name);
+                            this.currentFare = fare;
+                            this.setMessage("Pickup from: " + this.currentFare.src.name);
                         }
                     }
                 }
+                */
             }
 
             this.level.tick();
         },
 
         getStep: function () {
-            var fare = this.fare;
+            var fare = this.currentFare;
             if (!fare) {
                 return this.selectMessage;
             }
@@ -103,7 +79,7 @@
 
         onRightPlanet: function (planet) {
 
-            var fare = this.fare;
+            var fare = this.currentFare;
             if (!fare) return false;
 
             return (fare.src === planet && !fare.pickedUp) || (fare.dest === planet && fare.pickedUp)
@@ -121,12 +97,12 @@
         },
 
         doneFare: function () {
-            var fare = this.fare;
+            var fare = this.currentFare;
             if (fare) {
                 fare.selected = false;
             }
-            this.fare = null;
-            this.fares = this.fares.filter(function (f) {
+            this.currentFare = null;
+            this.availableFares = this.availableFares.filter(function (f) {
                 return f !== fare;
             });
         },
@@ -148,7 +124,7 @@
 
         addFare: function () {
 
-            if (this.fares.length >= this.maxFares) {
+            if (this.availableFares.length >= this.maxFares) {
                 return;
             }
 
@@ -177,8 +153,7 @@
                 }
             }
 
-
-            this.fares.push({
+            var fare = {
                 src: src,
                 src_pad: src_pad,
                 dest: dst,
@@ -187,19 +162,22 @@
                 tips: Ω.utils.rand(3000),
                 pickedUp: false,
                 difficulty: tot_diff
-            });
+            };
+            fare.e = new Fare(fare, this);
 
-            if (this.initFares && this.fares.length === this.maxFares) {
+            this.availableFares.push(fare);
+
+            if (this.initFares && this.availableFares.length === this.maxFares) {
                 this.initFares = false;
             }
         },
 
         removeFare: function () {
-            var fare = this.fares[Ω.utils.rand(this.fares.length)];
-            if (fare === this.fare) {
+            var fare = this.availableFares[Ω.utils.rand(this.availableFares.length)];
+            if (fare === this.currentFare) {
                 return;
             }
-            this.fares = this.fares.filter(function (f) {
+            this.availableFares = this.availableFares.filter(function (f) {
                 return f !== fare;
             });
 
@@ -228,7 +206,7 @@
                     this.setMessage("No business here.");
                     break;
                 } else {
-                    var fare = this.fare,
+                    var fare = this.currentFare,
                         pickedUp = fare.pickedUp,
                         pad = pickedUp ? fare.dest_pad : fare.src_pad;
 
