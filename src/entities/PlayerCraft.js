@@ -31,6 +31,8 @@
 
         shield: false,
 
+        passenger: null,
+
         audio: {
             thrust: new Ω.Sound("res/audio/thrust_noise", 0.7),
             rot_thrust_1: new Ω.Sound("res/audio/thrust_rot_l", 0.7),
@@ -43,6 +45,7 @@
             this.player = screen.player;
             this.particles = new Ω.Particle({});
             this.bullets = [];
+            this.passengers = [];
 
             this.points_init = [
                 [0, 0],
@@ -119,7 +122,6 @@
             var ay = Math.sin(angle) * this.thrust;
 
             if (Ω.input.pressed("space")) {
-                // this.bullets.push(new Bullet(this.x, this.y, angle));
                 this.shield = true;
             }
             if (Ω.input.released("space")) {
@@ -142,6 +144,9 @@
             this.particles.tick(this.x, this.y);
             this.bullets = this.bullets.filter(function (b) {
                 return b.tick();
+            });
+            this.passengers = this.passengers.filter(function (p) {
+                return p.tick();
             });
 
             return true;
@@ -199,6 +204,17 @@
             this.bullets.forEach(function (b) {
                 return b.render(gfx);
             });
+
+            this.passengers.forEach(function (p) {
+                return p.render(gfx);
+            });
+            //console.log(this.screen.screen);
+            if (this.screen.screen.currentFare) {
+                var fare = this.screen.screen.currentFare;
+                fare.e.x = this.x - 80;
+                fare.e.y = this.y;
+                this.screen.screen.currentFare.e.render(gfx);
+            }
 
             c.save();
             c.fillStyle = "#333";

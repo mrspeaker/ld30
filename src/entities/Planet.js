@@ -21,11 +21,6 @@
 			this.darker = "hsl(" + col + ", 40%, 35%)"
 		},
 		tick: function (screen, player) {
-
-			// if (Ω.utils.oneIn(100)) {
-			// 	this.addFare();
-			// }
-
 			this.fares = this.fares.filter(function (f) { 
 				if (!player.shield && Ω.math.dist(f, player) < f.r * 2) {
 	                screen.pickupFare(f, player);
@@ -38,7 +33,6 @@
 		},
 
 		addFare: function (fare) {
-			console.log("Adeeeded")
 			this.fares.push(fare);
 		},
 		removeFare: function (fare) {
