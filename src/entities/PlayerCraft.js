@@ -191,7 +191,7 @@
                 if (!this.shield) {
                     //this.halt();
                     //this.rotation = Ω.utils.rand(360);
-                    this.rthrust = (Math.random() < 0.5 ? -1 : 1) * 1;
+                    this.vr = (Math.random() < 0.5 ? -1 : 1) * 50;
                 }
             }
 
