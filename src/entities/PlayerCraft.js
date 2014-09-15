@@ -205,9 +205,17 @@
                 return b.render(gfx);
             });
 
+            if (this.passengers.length) {
+                c.beginPath();
+                c.moveTo(this.x + this.w / 2, this.y + this.h  / 2);
+            }
             this.passengers.forEach(function (p) {
+                c.lineTo(p.e.x + p.e.w / 2, p.e.y + p.e.h / 2);
                 return p.e.render(gfx);
             });
+            if (this.passengers.length) {
+                c.stroke();
+            }
             //console.log(this.screen.screen);
             /*
             if (this.screen.screen.currentFare) {

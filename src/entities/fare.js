@@ -13,15 +13,11 @@
 		init: function (fare, screen, player) {
 			this._super(fare.src.x - fare.src.size / 2 - 4, fare.src.y - fare.src.size - this.h);
 			this.fare = fare;
-			console.log(fare)
 			this.screen = screen;
 			this.player = player;
 			fare.src.addFare(this);
 
-			//this.x = this.player.x;
-			//this.y = this.player.y;
-
-			this.spring = new Spring(75, 0.02, 0.98, 0);
+			this.spring = new Spring(75, 0.03, 0.98, 0);
 		},
 
 		tick: function () {
