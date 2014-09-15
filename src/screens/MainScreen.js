@@ -108,8 +108,10 @@
         },
 
         pickedUpFare: function (fare) {
-           fare.pickedUp = true;
-           this.setMessage("Drop off at: " + fare.dest.name);
+            fare.pickedUp = true;
+            // TODO... this is dumb way to get to craft
+            this.levels.asteroids.player_craft.passengers.push(fare);
+            this.setMessage("Drop off at: " + fare.dest.name);
         },
 
         addHour: function () {
@@ -163,7 +165,7 @@
                 pickedUp: false,
                 difficulty: tot_diff
             };
-            fare.e = new Fare(fare, this);
+            fare.e = new Fare(fare, this, this.levels.asteroids.player_craft);
 
             this.availableFares.push(fare);
 

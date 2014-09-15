@@ -23,8 +23,12 @@
 		tick: function (screen, player) {
 			this.fares = this.fares.filter(function (f) { 
 				if (!player.shield && Ω.math.dist(f, player) < f.r * 2) {
-	                screen.pickupFare(f, player);
-	                return false;
+					console.log("hit...", f.fare.pickedUp, f)
+					if (!f.fare.pickedUp) {
+						console.log("pickedup")
+	                	screen.pickupFare(f, player);
+	                	return false;
+	                }
 	            }
 				return f.tick(); 
 			});
@@ -65,7 +69,7 @@
 			this.fares.forEach(function (f) {
 				f.render(gfx);
 			});
-			
+
 		}
 	});
 

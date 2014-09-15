@@ -31,7 +31,7 @@
 
         shield: false,
 
-        passenger: null,
+        passengers: null,
 
         audio: {
             thrust: new Ω.Sound("res/audio/thrust_noise", 0.7),
@@ -146,7 +146,7 @@
                 return b.tick();
             });
             this.passengers = this.passengers.filter(function (p) {
-                return p.tick();
+                return p.e.tick();
             });
 
             return true;
@@ -206,15 +206,16 @@
             });
 
             this.passengers.forEach(function (p) {
-                return p.render(gfx);
+                return p.e.render(gfx);
             });
             //console.log(this.screen.screen);
+            /*
             if (this.screen.screen.currentFare) {
                 var fare = this.screen.screen.currentFare;
                 fare.e.x = this.x - 80;
                 fare.e.y = this.y;
                 this.screen.screen.currentFare.e.render(gfx);
-            }
+            }*/
 
             c.save();
             c.fillStyle = "#333";

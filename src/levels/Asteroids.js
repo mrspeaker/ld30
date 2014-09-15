@@ -51,6 +51,7 @@
 					minDist = 9999;
 				all.push(this.player_craft);
 
+				// Checking each one twice...
 				for (var j = 0; j < all.length; j++) {
 					for (i = 0; i < all.length; i++) {
 						var a = all[j],
