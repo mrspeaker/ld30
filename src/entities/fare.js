@@ -49,7 +49,11 @@
 
 			//c.fillStyle = "#7a7";
 			//c.fillRect(this.x, this.y, this.w, this. h);
-			this.sheet.render(gfx, Ω.utils.toggle(200, 2), 0, this.x, this.y);
+			if (!this.fare.pickedUp) {
+				this.sheet.render(gfx, Ω.utils.toggle(200, 2), 0, this.x, this.y);
+			} else {
+				this.sheet.render(gfx, 2, 0, this.x, this.y);
+			}
 		}
 	});
 
