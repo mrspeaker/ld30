@@ -27,7 +27,6 @@
         controlsEnabled: true,
 
         particles: null,
-        bullets: null,
 
         shield: false,
 
@@ -44,7 +43,6 @@
             this.screen = screen;
             this.player = screen.player;
             this.particles = new Ω.Particle({});
-            this.bullets = [];
             this.passengers = [];
 
             this.points_init = [
@@ -142,9 +140,7 @@
             this.calculateCollisionPoints((this.rotation) * Math.PI / 180, this.rotation_point);
 
             this.particles.tick(this.x, this.y);
-            this.bullets = this.bullets.filter(function (b) {
-                return b.tick();
-            });
+            
             this.passengers = this.passengers.filter(function (p) {
                 return p.e.tick();
             });
@@ -189,8 +185,6 @@
             if (e instanceof BadGuy) {
                 e.remove = true;
                 if (!this.shield) {
-                    //this.halt();
-                    //this.rotation = Ω.utils.rand(360);
                     this.vr = (Math.random() < 0.5 ? -1 : 1) * 50;
                 }
             }
@@ -200,10 +194,6 @@
         render: function (gfx) {
 
             var c = gfx.ctx;
-
-            this.bullets.forEach(function (b) {
-                return b.render(gfx);
-            });
 
             if (this.passengers.length) {
                 c.beginPath();

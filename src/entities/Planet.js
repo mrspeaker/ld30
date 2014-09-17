@@ -24,7 +24,6 @@
 			this.fares = this.fares.filter(function (f) { 
 				if (!player.shield && Ω.math.dist(f, player) < f.r * 2) {
 					// TODO: why are we getting multiple hits?!
-					console.log("hit...", f.fare.pickedUp, f);
 					if (!f.fare.pickedUp) {
 						console.log("pickedup");
 	                	screen.pickupFare(f, player);

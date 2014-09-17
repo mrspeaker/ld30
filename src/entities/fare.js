@@ -30,6 +30,9 @@
 					this.x += vel[0];
 					this.y += vel[1];
 				}
+
+				this.x += Math.cos(Ω.utils.now() / 200) * 1;
+				this.y += Math.cos(Ω.utils.now() / 200) * 1;
 			}
 
 			return true;
@@ -52,7 +55,11 @@
 			if (!this.fare.pickedUp) {
 				this.sheet.render(gfx, Ω.utils.toggle(200, 2), 0, this.x, this.y);
 			} else {
-				this.sheet.render(gfx, 2, 0, this.x, this.y);
+				c.save();
+				c.translate(this.x + this.w / 2, this.y + this.h / 2);
+				c.rotate(Ω.utils.now() / 500);
+				this.sheet.render(gfx, 2, 0, 0, 0);
+				c.restore();
 			}
 		}
 	});
