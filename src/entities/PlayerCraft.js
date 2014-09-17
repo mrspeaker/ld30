@@ -216,14 +216,6 @@
             if (this.passengers.length) {
                 c.stroke();
             }
-            //console.log(this.screen.screen);
-            /*
-            if (this.screen.screen.currentFare) {
-                var fare = this.screen.screen.currentFare;
-                fare.e.x = this.x - 80;
-                fare.e.y = this.y;
-                this.screen.screen.currentFare.e.render(gfx);
-            }*/
 
             c.save();
             c.fillStyle = "#333";

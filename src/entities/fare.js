@@ -37,7 +37,6 @@
 
 		pickup: function () {
 			var fare = this.fare;
-			//fare.src.removeFare(this);
 			// TODO: this is EVERYWHERE!
 			fare.selected = true;
 			fare.pickedUp = true;

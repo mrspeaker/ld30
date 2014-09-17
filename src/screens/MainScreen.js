@@ -116,16 +116,21 @@
 
         addHour: function () {
 
+            (this.initFares || Math.random() < 0.6) && this.addFare();
+            /*
+
             if (this.hour++ % 2 == 0) {
                 (this.initFares || Math.random() < 0.6) && this.addFare();
             } else {
                 (!this.initFares && Math.random() < 0.4) && this.removeFare();
             }
+            */
 
         },
 
         addFare: function () {
 
+            console.log(this.availableFares.length , this.maxFares);
             if (this.availableFares.length >= this.maxFares) {
                 return;
             }
