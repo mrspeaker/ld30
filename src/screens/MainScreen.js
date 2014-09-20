@@ -130,7 +130,6 @@
 
         addFare: function () {
 
-            console.log(this.availableFares.length , this.maxFares);
             if (this.availableFares.length >= this.maxFares) {
                 return;
             }

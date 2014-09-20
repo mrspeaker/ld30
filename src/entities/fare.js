@@ -6,6 +6,8 @@
 		h: 32,
 		r: 32,
 
+		rotation: 0,
+
 		spring: null,
 
 		sheet: new Ω.SpriteSheet("res/images/peepsheet.png", 32, 32),
@@ -30,9 +32,12 @@
 					this.x += vel[0];
 					this.y += vel[1];
 				}
-
-				this.x += Math.cos(Ω.utils.now() / 200) * 1;
-				this.y += Math.cos(Ω.utils.now() / 200) * 1;
+				//console.log(this.player.vtotal)
+				if (this.player.vtotal > 0.3) {
+					this.rotation = Ω.utils.now() / 500;
+					this.x += Math.cos(Ω.utils.now() / 200) * 1;
+					this.y += Math.cos(Ω.utils.now() / 200) * 1;
+				}
 			}
 
 			return true;
@@ -43,7 +48,6 @@
 			// TODO: this is EVERYWHERE!
 			fare.selected = true;
 			fare.pickedUp = true;
-			console.log("pickup on fare... ")
 			this.screen.pickedUpFare(fare);
 		},
 
@@ -57,7 +61,8 @@
 			} else {
 				c.save();
 				c.translate(this.x + this.w / 2, this.y + this.h / 2);
-				c.rotate(Ω.utils.now() / 500);
+				c.rotate(this.rotation);
+
 				this.sheet.render(gfx, 2, 0, 0, 0);
 				c.restore();
 			}

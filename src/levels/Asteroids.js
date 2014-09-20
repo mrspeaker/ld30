@@ -88,7 +88,6 @@
 		},
 
 		pickupFare: function (fare, player) {
-			console.log("got here!", fare);
 			this.screen.currentFare = fare.fare;
 			fare.pickup();
 		},
