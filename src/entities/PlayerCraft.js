@@ -38,6 +38,8 @@
             rot_thrust_2: new Ω.Sound("res/audio/thrust_rot_r", 0.7)
         },
 
+        ship: new Ω.Image("res/images/taxi.png"),
+
         init: function (x, y, screen) {
             this._super(x, y);
             this.screen = screen;
@@ -215,9 +217,9 @@
             c.translate(-this.rotation_point[0], -this.rotation_point[1]);
 
             c.strokeStyle = "#999";
-            c.beginPath();
-            c.arc(this.w / 2 + 0, 5, this.w / 2 - 3, 0, Math.PI, true);
-            c.stroke();
+            //c.beginPath();
+            //c.arc(this.w / 2 + 0, 5, this.w / 2 - 3, 0, Math.PI, true);
+            //c.stroke();
 
             if (this.shield) {
                 c.beginPath();
@@ -225,9 +227,11 @@
                 c.stroke();                
             }
 
-            c.fillRect(0, 0, this.w, this.h);
+            //c.fillRect(0, 0, this.w, this.h);
 
-            
+            this.ship.render(gfx, -6, -20);
+
+
             c.fillStyle = "hsl(" + (Math.random() * 70 | 0) + ",70%, 50%)";
             if (this.thrust === 0 && this.vtotal > 2) {
                 c.fillRect(4, this.h, this.w - 8, 4);

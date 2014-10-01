@@ -23,8 +23,8 @@
 		tick: function (screen, player) {
 			this.fares = this.fares.filter(function (f) { 
 				if (!player.shield && Ω.math.dist(f, player) < f.r * 2) {
-					// TODO: why are we getting multiple hits?!
-					if (!f.fare.pickedUp) {
+					if (player.passengers.length == 0) {
+//					if (!f.fare.pickedUp) {
 						console.log("pickedup");
 	                	screen.pickupFare(f, player);
 	                	return false;
