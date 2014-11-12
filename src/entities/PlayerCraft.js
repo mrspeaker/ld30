@@ -233,8 +233,9 @@
 
 
             c.fillStyle = "hsl(" + (Math.random() * 70 | 0) + ",70%, 50%)";
+            // Lil' thrust light
             if (this.thrust === 0 && this.vtotal > 2) {
-                c.fillRect(4, this.h, this.w - 8, 4);
+                //c.fillRect(4, this.h, this.w - 8, 4);
             }
             if (this.thrust > 0) {
                 // Sparkly particles
