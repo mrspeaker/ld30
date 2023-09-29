@@ -8,6 +8,8 @@ Left all the old docs below, here's the new plan:
 
 **JUICE ALL THE THINGS!**
 
+>>2023 note-to self! Check out that vector display arcade game (forgot the name)... it was this game, but also with shooting! That's what's missing. Shoot and be shot at makes it much more fun.
+
 Super fast action crazy area instead of boring "pickup" phase:
 	
 	- Much much faster travelling
